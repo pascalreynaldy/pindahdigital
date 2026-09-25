@@ -28,7 +28,6 @@
             --radius-md: 12px;
             --radius-lg: 16px;
             --radius-full: 9999px;
-            --ease: cubic-bezier(0.4, 0, 0.2, 1);
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
@@ -39,12 +38,6 @@
             font-family: 'Inter', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
-
-        html { scroll-behavior: smooth; }
-        a, button, input, select { transition: all 0.2s var(--ease); }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-thumb { background: rgba(15,32,68,0.15); border-radius: 999px; }
-        ::-webkit-scrollbar-track { background: transparent; }
 
         body {
             background-color: var(--bg-body);
@@ -85,10 +78,11 @@
             display: flex;
             align-items: center;
             font-weight: 700;
-            font-size: 20px;
+            font-size: 15px;
             font-style: italic;
             letter-spacing: -0.5px;
             color: #FFF;
+            white-space: nowrap;
         }
 
         .logo img {
@@ -127,7 +121,7 @@
             z-index: 2000;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.32s var(--ease);
+            transition: opacity 0.3s ease;
         }
 
         .sidebar-overlay.show {
@@ -221,7 +215,12 @@
             box-shadow: 0 4px 12px rgba(15, 32, 68, 0.15);
             margin-bottom: -30px;
             padding-bottom: 40px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+        .dashboard-header .metrics-grid { width: 100%; }
 
         .dashboard-title {
             font-size: 18px;
@@ -989,8 +988,7 @@
                     <i class="fa-solid fa-bars"></i>
                 </button>
                 <div class="logo">
-                    <!-- Text mandiri dihapus -->
-                    <span>Spot Kawasan</span>
+                    <span>PinDah Digital</span>
                 </div>
             </div>
             <div class="nav-actions">
@@ -1162,6 +1160,11 @@
                 <div class="modal-body" id="formBody">
                     <form id="assignmentForm">
                         <div class="form-group">
+                            <label>Nama Petugas yang Melakukan Visit <span class="required-star">*</span></label>
+                            <input type="text" id="formPetugas" class="form-control" placeholder="Masukkan nama petugas..." required>
+                        </div>
+
+                        <div class="form-group">
                             <label>Nama Nasabah</label>
                             <input type="text" id="formNama" class="form-control" readonly>
                         </div>
@@ -1283,27 +1286,82 @@
             return d.toISOString().split('T')[0];
         };
 
-        // Data Dummy Nasabah (cabang Pondok Indah)
+        // Data Dummy Nasabah
         const dummyNasabah = [
-            { id: 1, name: "Budi Santoso", acc: "1234567890", address: "Jl. Metro Pondok Indah No. 12", lat: -6.2649, lng: 106.7830, status: "pending", category: "Retail", phone: "081234567890", lastVisit: "10 Sep 2026", photo: "44870a80-29c4-406a-8573-f2977b1beb91.jpg", taskDate: getRelativeDate(0) },
-            { id: 2, name: "PT. Maju Mundur", acc: "9876543210", address: "Pondok Indah Mall 2, Lt. 3", lat: -6.2661, lng: 106.7838, status: "done", category: "F&B", phone: "08987654321", lastVisit: "11 Sep 2026", photo: "89c67305-a094-4d2c-826e-e780c247bfef.jpg", taskDate: getRelativeDate(0) },
-            { id: 3, name: "Siti Rahmawati", acc: "4561237890", address: "Jl. Sultan Iskandar Muda No. 5", lat: -6.2432, lng: 106.7862, status: "expired", category: "Retail", phone: "081122334455", lastVisit: "05 Sep 2026", photo: "44870a80-29c4-406a-8573-f2977b1beb91.jpg", taskDate: getRelativeDate(-2) },
-            { id: 4, name: "Toko Abadi Jaya", acc: "3216540987", address: "Jl. Ciputat Raya, Kebayoran Lama", lat: -6.2438, lng: 106.7791, status: "reject", category: "Retail", phone: "085566778899", lastVisit: "02 Sep 2026", photo: "89c67305-a094-4d2c-826e-e780c247bfef.jpg", taskDate: getRelativeDate(-1) },
-            { id: 5, name: "Agus Setiawan", acc: "7418529630", address: "Jl. Tanah Kusir Raya", lat: -6.2559, lng: 106.7809, status: "pending", category: "F&B", phone: "082233445566", lastVisit: "08 Sep 2026", photo: "44870a80-29c4-406a-8573-f2977b1beb91.jpg", taskDate: getRelativeDate(1) },
-            { id: 6, name: "CV. Makmur Sentosa", acc: "8529637410", address: "Jl. RS Fatmawati Raya", lat: -6.2913, lng: 106.7972, status: "done", category: "Jasa", phone: "087788990011", lastVisit: "12 Sep 2026", photo: "89c67305-a094-4d2c-826e-e780c247bfef.jpg", taskDate: getRelativeDate(-3) },
-            { id: 7, name: "Dewi Lestari", acc: "9638527410", address: "Jl. Bintaro Utama Sektor 3", lat: -6.2660, lng: 106.7550, status: "expired", category: "Retail", phone: "081345678901", lastVisit: "01 Sep 2026", photo: "44870a80-29c4-406a-8573-f2977b1beb91.jpg", taskDate: getRelativeDate(-5) },
-            { id: 8, name: "Warung Pak Kumis", acc: "1597534862", address: "Jl. Iskandarsyah, Pondok Indah", lat: -6.2456, lng: 106.7972, status: "pending", category: "F&B", phone: "081987654321", lastVisit: "07 Sep 2026", photo: "89c67305-a094-4d2c-826e-e780c247bfef.jpg", taskDate: getRelativeDate(2) },
-            { id: 9, name: "Restoran Bintang", acc: "3571594862", address: "Jl. Wijaya, Pondok Indah", lat: -6.2461, lng: 106.7982, status: "reject", category: "F&B", phone: "082112233445", lastVisit: "04 Sep 2026", photo: "44870a80-29c4-406a-8573-f2977b1beb91.jpg", taskDate: getRelativeDate(-1) },
-            { id: 10, name: "Klinik Sehat", acc: "1230984567", address: "Jl. Cipete Raya", lat: -6.2711, lng: 106.7967, status: "pending", category: "Jasa", phone: "085223344556", lastVisit: "09 Sep 2026", photo: "89c67305-a094-4d2c-826e-e780c247bfef.jpg", taskDate: getRelativeDate(3) },
-            { id: 11, name: "Joko Anwar", acc: "4567891230", address: "Jl. Pondok Indah Boulevard", lat: -6.2618, lng: 106.7844, status: "done", category: "Retail", phone: "081778899001", lastVisit: "12 Sep 2026", photo: "44870a80-29c4-406a-8573-f2977b1beb91.jpg", taskDate: getRelativeDate(0) },
-            { id: 12, name: "Sinar Mas Textil", acc: "7891234560", address: "Jl. TB Simatupang, Pondok Indah", lat: -6.2884, lng: 106.7898, status: "pending", category: "Retail", phone: "089667788990", lastVisit: "06 Sep 2026", photo: "89c67305-a094-4d2c-826e-e780c247bfef.jpg", taskDate: getRelativeDate(-1) },
-            { id: 13, name: "Yuni Kartika", acc: "1472583690", address: "Jl. Radio Dalam Raya", lat: -6.2547, lng: 106.7961, status: "pending", category: "Jasa", phone: "081298765432", lastVisit: "13 Sep 2026", photo: "44870a80-29c4-406a-8573-f2977b1beb91.jpg", taskDate: getRelativeDate(0) },
-            { id: 14, name: "Bengkel Motor Jaya", acc: "2583691470", address: "Jl. Gandaria, Pondok Indah", lat: -6.2453, lng: 106.7842, status: "done", category: "Jasa", phone: "081355566677", lastVisit: "14 Sep 2026", photo: "89c67305-a094-4d2c-826e-e780c247bfef.jpg", taskDate: getRelativeDate(-2) },
-            { id: 15, name: "Ibu Ratna Katering", acc: "3692581470", address: "Jl. Metro Pondok Indah No. 28", lat: -6.2635, lng: 106.7825, status: "pending", category: "F&B", phone: "081399988877", lastVisit: "15 Sep 2026", photo: "44870a80-29c4-406a-8573-f2977b1beb91.jpg", taskDate: getRelativeDate(1) },
-            { id: 16, name: "Toko Bangunan Sejahtera", acc: "9517534862", address: "Jl. Ciputat Raya No. 44", lat: -6.2445, lng: 106.7778, status: "expired", category: "Retail", phone: "081266677788", lastVisit: "03 Sep 2026", photo: "89c67305-a094-4d2c-826e-e780c247bfef.jpg", taskDate: getRelativeDate(-4) },
-            { id: 17, name: "Apotek Kasih Sehat", acc: "6395174285", address: "Jl. Sultan Iskandar Muda No. 21", lat: -6.2418, lng: 106.7855, status: "pending", category: "Jasa", phone: "081577788899", lastVisit: "16 Sep 2026", photo: "44870a80-29c4-406a-8573-f2977b1beb91.jpg", taskDate: getRelativeDate(2) },
-            { id: 18, name: "Yayasan Peduli Kasih", acc: "8514736295", address: "Jl. Bintaro Utama Sektor 5", lat: -6.2672, lng: 106.7521, status: "done", category: "Jasa", phone: "081688899900", lastVisit: "12 Sep 2026", photo: "89c67305-a094-4d2c-826e-e780c247bfef.jpg", taskDate: getRelativeDate(-1) }
+            { id: 1, name: "Budi Santoso", acc: "1234567890", address: "Jl. Sudirman No. 12, Jakarta", lat: -6.22493, lng: 106.81452, status: "pending", category: "Retail", phone: "081234567890", lastVisit: "10 Sep 2026", photo: "44870a80-29c4-406a-8573-f2977b1beb91.jpg", taskDate: getRelativeDate(0) },
+            { id: 2, name: "PT. Maju Mundur", acc: "9876543210", address: "Plaza Indonesia, Lt. 3", lat: -6.19329, lng: 106.82299, status: "done", category: "F&B", phone: "08987654321", lastVisit: "11 Sep 2026", photo: "89c67305-a094-4d2c-826e-e780c247bfef.jpg", taskDate: getRelativeDate(0) },
+            { id: 3, name: "Siti Rahmawati", acc: "4561237890", address: "Jl. Gatot Subroto No. 5", lat: -6.23075, lng: 106.82025, status: "expired", category: "Retail", phone: "081122334455", lastVisit: "05 Sep 2026", photo: "44870a80-29c4-406a-8573-f2977b1beb91.jpg", taskDate: getRelativeDate(-2) },
+            { id: 4, name: "Toko Abadi Jaya", acc: "3216540987", address: "Pasar Mayestik Blok A", lat: -6.23932, lng: 106.78672, status: "reject", category: "Retail", phone: "085566778899", lastVisit: "02 Sep 2026", photo: "89c67305-a094-4d2c-826e-e780c247bfef.jpg", taskDate: getRelativeDate(-1) },
+            { id: 5, name: "Agus Setiawan", acc: "7418529630", address: "Kuningan City", lat: -6.22606, lng: 106.83226, status: "pending", category: "F&B", phone: "082233445566", lastVisit: "08 Sep 2026", photo: "44870a80-29c4-406a-8573-f2977b1beb91.jpg", taskDate: getRelativeDate(1) },
+            { id: 6, name: "CV. Makmur Sentosa", acc: "8529637410", address: "Menara BCA", lat: -6.19561, lng: 106.82260, status: "done", category: "Jasa", phone: "087788990011", lastVisit: "12 Sep 2026", photo: "89c67305-a094-4d2c-826e-e780c247bfef.jpg", taskDate: getRelativeDate(-3) },
+            { id: 7, name: "Dewi Lestari", acc: "9638527410", address: "Jl. Thamrin", lat: -6.19114, lng: 106.82283, status: "expired", category: "Retail", phone: "081345678901", lastVisit: "01 Sep 2026", photo: "44870a80-29c4-406a-8573-f2977b1beb91.jpg", taskDate: getRelativeDate(-5) },
+            { id: 8, name: "Warung Pak Kumis", acc: "1597534862", address: "Jl. Sabang", lat: -6.18520, lng: 106.82522, status: "pending", category: "F&B", phone: "081987654321", lastVisit: "07 Sep 2026", photo: "89c67305-a094-4d2c-826e-e780c247bfef.jpg", taskDate: getRelativeDate(2) },
+            { id: 9, name: "Restoran Bintang", acc: "3571594862", address: "Senayan City", lat: -6.22728, lng: 106.79726, status: "reject", category: "F&B", phone: "082112233445", lastVisit: "04 Sep 2026", photo: "44870a80-29c4-406a-8573-f2977b1beb91.jpg", taskDate: getRelativeDate(-1) },
+            { id: 10, name: "Klinik Sehat", acc: "1230984567", address: "Jl. RS Fatmawati", lat: -6.29132, lng: 106.79717, status: "pending", category: "Jasa", phone: "085223344556", lastVisit: "09 Sep 2026", photo: "89c67305-a094-4d2c-826e-e780c247bfef.jpg", taskDate: getRelativeDate(3) },
+            { id: 11, name: "Joko Anwar", acc: "4567891230", address: "Blok M Plaza", lat: -6.24403, lng: 106.79879, status: "done", category: "Retail", phone: "081778899001", lastVisit: "12 Sep 2026", photo: "44870a80-29c4-406a-8573-f2977b1beb91.jpg", taskDate: getRelativeDate(0) },
+            { id: 12, name: "Sinar Mas Textil", acc: "7891234560", address: "Tanah Abang", lat: -6.18731, lng: 106.81665, status: "pending", category: "Retail", phone: "089667788990", lastVisit: "06 Sep 2026", photo: "89c67305-a094-4d2c-826e-e780c247bfef.jpg", taskDate: getRelativeDate(-1) }
         ];
+
+        // ---- Generate more dummy nasabah data so pagination (9/halaman) has plenty to browse ----
+        (function generateMoreDummyNasabah() {
+            const firstNames = ["Andi", "Rina", "Bambang", "Sri", "Hendra", "Maya", "Dedi", "Fitri", "Rudi", "Lina",
+                "Eko", "Yuli", "Agus", "Wati", "Tono", "Nia", "Fajar", "Dian", "Yusuf", "Ratna",
+                "Hadi", "Indah", "Wahyu", "Sinta", "Iwan", "Putri", "Arif", "Novi", "Rian", "Tuti"];
+            const lastNames = ["Wijaya", "Pratama", "Santoso", "Kusuma", "Hidayat", "Saputra", "Permata", "Nugroho", "Halim", "Setiawan",
+                "Gunawan", "Suryadi", "Firmansyah", "Lestari", "Kurniawan", "Salim", "Handayani", "Rahayu", "Iskandar", "Wibowo"];
+            const bizPrefix = ["Toko", "CV.", "PT.", "Warung", "Klinik", "Bengkel", "Apotek", "Koperasi", "UD.", "Kios"];
+            const bizName = ["Sejahtera", "Makmur Jaya", "Berkah", "Abadi", "Mandiri Sentosa", "Karya Utama", "Sumber Rezeki", "Cahaya", "Harapan Baru", "Sentosa"];
+            const streets = [
+                { name: "Jl. Kemang Raya", lat: -6.26064, lng: 106.81355 },
+                { name: "Jl. Fatmawati Raya", lat: -6.28897, lng: 106.79646 },
+                { name: "Jl. Panglima Polim", lat: -6.24417, lng: 106.79839 },
+                { name: "Jl. Cipete Raya", lat: -6.26512, lng: 106.79981 },
+                { name: "Jl. Radio Dalam", lat: -6.26311, lng: 106.79218 },
+                { name: "Jl. Bintaro Utama", lat: -6.27563, lng: 106.75997 },
+                { name: "Jl. Pondok Indah", lat: -6.26619, lng: 106.78241 },
+                { name: "Jl. Ciputat Raya", lat: -6.28802, lng: 106.77914 },
+                { name: "Jl. Lebak Bulus Raya", lat: -6.29075, lng: 106.78511 },
+                { name: "Jl. TB Simatupang", lat: -6.29488, lng: 106.80452 },
+                { name: "Jl. Antasari", lat: -6.26584, lng: 106.79623 },
+                { name: "Jl. Wolter Monginsidi", lat: -6.24696, lng: 106.80339 },
+                { name: "Jl. Senopati", lat: -6.23744, lng: 106.80967 },
+                { name: "Jl. Melawai Raya", lat: -6.24437, lng: 106.80097 },
+                { name: "Jl. Gandaria", lat: -6.24397, lng: 106.7871 }
+            ];
+            const categories = ["Retail", "F&B", "Jasa"];
+            const statusPool = ["pending", "pending", "pending", "done", "expired", "reject"];
+            const photoPool = ["44870a80-29c4-406a-8573-f2977b1beb91.jpg", "89c67305-a094-4d2c-826e-e780c247bfef.jpg"];
+
+            let nextId = dummyNasabah.length + 1;
+            for (let i = 0; i < 48; i++) {
+                const isPersonal = Math.random() > 0.45;
+                const name = isPersonal
+                    ? `${firstNames[Math.floor(Math.random() * firstNames.length)]} ${lastNames[Math.floor(Math.random() * lastNames.length)]}`
+                    : `${bizPrefix[Math.floor(Math.random() * bizPrefix.length)]} ${bizName[Math.floor(Math.random() * bizName.length)]}`;
+                const street = streets[Math.floor(Math.random() * streets.length)];
+                const latOffset = (Math.random() - 0.5) * 0.01;
+                const lngOffset = (Math.random() - 0.5) * 0.01;
+                const dayOffset = Math.floor(Math.random() * 10) - 5;
+                const lastVisitDaysAgo = Math.floor(Math.random() * 20) + 1;
+                const lastVisitDate = new Date();
+                lastVisitDate.setDate(lastVisitDate.getDate() - lastVisitDaysAgo);
+
+                dummyNasabah.push({
+                    id: nextId++,
+                    name: name,
+                    acc: String(Math.floor(1000000000 + Math.random() * 8999999999)),
+                    address: `${street.name} No. ${Math.floor(Math.random() * 90) + 1}, Jakarta Selatan`,
+                    lat: street.lat + latOffset,
+                    lng: street.lng + lngOffset,
+                    status: statusPool[Math.floor(Math.random() * statusPool.length)],
+                    category: categories[Math.floor(Math.random() * categories.length)],
+                    phone: `08${Math.floor(1000000000 + Math.random() * 8999999999)}`.slice(0, 12),
+                    lastVisit: lastVisitDate.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }),
+                    photo: photoPool[Math.floor(Math.random() * photoPool.length)],
+                    taskDate: getRelativeDate(dayOffset)
+                });
+            }
+        })();
 
         // Evaluate Expired Status on Load
         const todayStr = getRelativeDate(0);
@@ -1319,7 +1377,7 @@
 
         // Pagination and Filter State
         let currentPage = 1;
-        const itemsPerPage = 5;
+        const itemsPerPage = 9;
         let currentFilterStatus = "Semua"; // Semua, Pending, Done
         let searchQuery = "";
         let filteredData = [];

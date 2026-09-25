@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mandiri Spot Kawasan</title>
+    <title>PinDah Digital - KC Pondok Indah Jakarta</title>
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -23,7 +23,6 @@
             --radius-md: 12px;
             --radius-lg: 16px;
             --radius-full: 9999px;
-            --ease: cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
@@ -33,12 +32,6 @@
             font-family: 'Inter', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
-
-        html { scroll-behavior: smooth; }
-        a, button, input, select { transition: all 0.2s var(--ease); }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-thumb { background: rgba(15,32,68,0.15); border-radius: 999px; }
-        ::-webkit-scrollbar-track { background: transparent; }
 
         body {
             background-color: var(--bg-body);
@@ -217,13 +210,12 @@
             background: var(--white);
             border: 1px solid #F1F5F9;
             border-radius: 16px;
-            padding: 15px;
+            padding: 14px;
             text-decoration: none;
-            box-shadow: 0 1px 3px rgba(15,32,68,0.05);
-            transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: transform 0.15s ease;
         }
-        .feature-card:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(15,32,68,0.08); border-color: #E9ECF3; }
-        .feature-card:active { transform: translateY(0) scale(0.98); }
+        .feature-card:active { transform: scale(0.98); }
 
         .feature-icon {
             width: 44px; height: 44px; border-radius: 12px;
@@ -338,21 +330,68 @@
         @media (min-width: 1440px) {
             .hero-top, .hero-content, .cta-card, .main-body { max-width: 1360px; }
         }
+
+        /* Splash / welcome animation */
+        #splashScreen {
+            position: fixed; inset: 0; z-index: 9999;
+            background: linear-gradient(160deg, var(--navy) 0%, var(--navy-light) 55%, #2E4784 100%);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 24px;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        #splashScreen.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+        #splashScreen::before {
+            content: ''; position: absolute; width: 260px; height: 260px;
+            background: rgba(246, 194, 67, 0.12); border-radius: 50%; top: -90px; right: -80px;
+        }
+        #splashScreen::after {
+            content: ''; position: absolute; width: 200px; height: 200px;
+            background: rgba(255,255,255,0.05); border-radius: 50%; bottom: -70px; left: -60px;
+        }
+        .splash-welcome {
+            font-size: 26px; font-weight: 800; color: #FFF; opacity: 0; transform: translateY(14px);
+            animation: splashFadeUp 0.7s ease 0.15s forwards;
+        }
+        .splash-branch {
+            font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,0.75); margin-top: 8px;
+            opacity: 0; transform: translateY(14px);
+            animation: splashFadeUp 0.7s ease 0.5s forwards;
+        }
+        .splash-divider {
+            width: 40px; height: 3px; background: var(--yellow); border-radius: 4px; margin: 18px 0;
+            opacity: 0; animation: splashFadeUp 0.6s ease 0.8s forwards;
+        }
+        .splash-brand {
+            font-size: 22px; font-weight: 800; font-style: italic; letter-spacing: -0.5px; color: #FFF;
+            opacity: 0; transform: translateY(14px);
+            animation: splashFadeUp 0.7s ease 1.05s forwards;
+        }
+        .splash-brand span { color: var(--yellow); }
+        @keyframes splashFadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
+
+    <div id="splashScreen">
+        <div class="splash-welcome">Selamat Datang</div>
+        <div class="splash-branch">Kantor Cabang Pondok Indah Jakarta</div>
+        <div class="splash-divider"></div>
+        <div class="splash-brand">PinDah <span>Digital</span></div>
+    </div>
 
     <div class="app-container">
 
         <!-- Hero -->
         <div class="hero">
             <div class="hero-top">
-                <div class="logo"><span>mandiri</span></div>
-                <div class="badge-live"><i class="fa-solid fa-circle"></i> Spot Kawasan</div>
+                <div class="logo"><span>PinDah Digital</span></div>
+                <div class="badge-live"><i class="fa-solid fa-circle"></i> KC Pondok Indah</div>
             </div>
 
             <div class="hero-content">
-                <div class="hero-eyebrow">Aplikasi Petugas Lapangan</div>
+                <div class="hero-eyebrow">Kantor Cabang Pondok Indah Jakarta</div>
                 <h1 class="hero-title">Petakan &amp; kelola <span>merchant kawasan</span> Anda dengan mudah</h1>
                 <p class="hero-desc">Temukan potensi merchant baru, pantau progres kunjungan harian, dan kelola data spot kawasan dalam satu aplikasi.</p>
 
@@ -459,10 +498,27 @@
                 <a href="mandiri_spot.html" class="btn-start"><i class="fa-solid fa-rocket"></i> Buka Aplikasi</a>
             </div>
 
-            <footer>&copy; 2026 Mandiri Spot Kawasan</footer>
+            <footer>&copy; 2026 PinDah Digital &middot; KC Pondok Indah Jakarta</footer>
         </div>
     </div>
 
-    <script src="sidebar.js"></script>
+    <script>
+        // Show the welcome splash once per browser session
+        (function () {
+            const splash = document.getElementById('splashScreen');
+            if (!splash) return;
+            if (sessionStorage.getItem('pd_splash_shown')) {
+                splash.style.display = 'none';
+                return;
+            }
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                splash.classList.add('hide');
+                document.body.style.overflow = '';
+                sessionStorage.setItem('pd_splash_shown', 'true');
+                setTimeout(() => { splash.style.display = 'none'; }, 650);
+            }, 2200);
+        })();
+    </script>
 </body>
 </html>
