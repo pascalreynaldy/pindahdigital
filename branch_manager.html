@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kepala Cabang - Mandiri Spot Kawasan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-body: #F4F6F9;
+            --navy: #0F2044;
+            --navy-light: #223769;
+            --yellow: #F6C243;
+            --white: #FFFFFF;
+            --gray-text: #6B7280;
+            --gray-light: #E5E7EB;
+            --green: #27AE60;
+            --green-light: #F0FDF4;
+            --red: #E74C3C;
+            --red-light: #FEF2F2;
+            --blue: #3B82F6;
+            --blue-light: #EFF6FF;
+            --purple: #8B5CF6;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-full: 9999px;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; }
+        a, button, input, select { transition: all 0.2s var(--ease); }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: rgba(15,32,68,0.15); border-radius: 999px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+
+        body { background-color: var(--bg-body); color: #333; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
+
+        .app-container {
+            width: 100%; max-width: 480px; background-color: var(--bg-body); height: 100vh;
+            overflow-y: auto; overflow-x: hidden; position: relative; box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            -webkit-overflow-scrolling: touch; overscroll-behavior-y: none;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--navy); padding: 12px 16px; display: flex; justify-content: space-between;
+            align-items: center; color: var(--white); position: sticky; top: 0; z-index: 1500;
+        }
+        .logo { display: flex; align-items: center; font-weight: 700; font-size: 20px; font-style: italic; letter-spacing: -0.5px; color: #FFF; }
+        .nav-actions { display: flex; align-items: center; gap: 8px; }
+        .user-pill {
+            padding: 6px 12px; border-radius: var(--radius-full); font-size: 12px; font-weight: 600;
+            display: flex; align-items: center; gap: 6px; background: rgba(246,194,67,0.15);
+            border: 1px solid rgba(246,194,67,0.4); color: var(--yellow); cursor: pointer;
+        }
+
+        /* Sidebar */
+        .sidebar-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.32s var(--ease); }
+        .sidebar-overlay.show { opacity: 1; visibility: visible; }
+        .sidebar { position: absolute; top: 0; left: -280px; width: 280px; height: 100%; background-color: var(--white); z-index: 2001; box-shadow: 2px 0 10px rgba(0,0,0,0.1); transition: left 0.32s var(--ease); display: flex; flex-direction: column; }
+        .sidebar.show { left: 0; }
+        .sidebar-header { padding: 20px; background-color: var(--navy); color: var(--white); display: flex; justify-content: space-between; align-items: center; }
+        .close-sidebar { background: none; border: none; color: var(--white); font-size: 20px; cursor: pointer; padding: 4px; }
+        .sidebar-content { padding: 20px 0; display: flex; flex-direction: column; }
+        .sidebar-link { padding: 16px 20px; color: var(--navy); text-decoration: none; font-weight: 500; font-size: 15px; display: flex; align-items: center; gap: 12px; transition: background-color 0.2s; }
+        .sidebar-link:hover { background-color: #F4F6F9; }
+        .sidebar-link.active { background-color: #F0F4FF; color: var(--navy-light); border-left: 4px solid var(--yellow); }
+        .sidebar-link i { width: 20px; text-align: center; color: var(--gray-text); }
+        .sidebar-link.active i { color: var(--navy-light); }
+
+        /* Header */
+        .page-header {
+            padding: 20px 16px 16px;
+            background: linear-gradient(135deg, var(--navy), var(--navy-light));
+            color: white; border-bottom-left-radius: 28px; border-bottom-right-radius: 28px;
+            box-shadow: 0 8px 24px rgba(15, 32, 68, 0.16); margin-bottom: -30px; padding-bottom: 40px;
+        }
+        .role-badge {
+            display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700;
+            background: rgba(246,194,67,0.18); color: var(--yellow); padding: 5px 10px; border-radius: var(--radius-full);
+            margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.4px;
+        }
+        .page-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+        .page-subtitle { font-size: 13px; color: rgba(255, 255, 255, 0.8); margin-bottom: 16px; }
+
+        .metrics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .metric-card { background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 12px; text-align: center; }
+        .metric-value { font-size: 19px; font-weight: 700; margin-bottom: 2px; color: var(--yellow); }
+        .metric-label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.9; }
+
+        /* Main content */
+        .main-content { padding: 0 16px 24px; margin-top: 16px; }
+
+        .panel { background: var(--white); border-radius: 16px; padding: 18px; box-shadow: 0 1px 3px rgba(15,32,68,0.05); border: 1px solid #F1F5F9; margin-bottom: 14px; transition: box-shadow 0.25s var(--ease), border-color 0.25s var(--ease); }
+        .panel:hover { box-shadow: 0 8px 20px rgba(15,32,68,0.08); border-color: #E9ECF3; }
+        .panel-title { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; }
+        .panel-title i { color: var(--navy-light); margin-right: 6px; }
+        .panel-sub { font-size: 11px; color: var(--gray-text); font-weight: 500; }
+
+        .cg { background: var(--green-light); color: var(--green); }
+        .cy { background: #FFF8E8; color: #B8860B; }
+        .cb { background: var(--blue-light); color: var(--blue); }
+        .cr { background: var(--red-light); color: var(--red); }
+
+        /* Staff table */
+        .staff-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .staff-table th, .staff-table td { padding: 10px 8px; text-align: left; border-bottom: 1px solid #F1F5F9; }
+        .staff-table th { color: var(--gray-text); font-weight: 600; text-transform: uppercase; font-size: 9.5px; letter-spacing: 0.4px; }
+        .staff-table td { color: var(--navy); font-weight: 600; }
+        .staff-table td.muted { color: var(--gray-text); font-weight: 500; }
+        .staff-name { display: flex; align-items: center; gap: 8px; }
+        .staff-avatar {
+            width: 26px; height: 26px; border-radius: 50%; background: var(--navy-light); color: var(--yellow);
+            display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0;
+        }
+        .approval-track { width: 60px; height: 6px; background: #F1F5F9; border-radius: var(--radius-full); overflow: hidden; display: inline-block; vertical-align: middle; margin-right: 6px; }
+        .approval-fill { height: 100%; background: var(--green); }
+
+        .table-scroll { overflow-x: auto; }
+
+        /* Data table toolbar */
+        .dt-toolbar { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+        .dt-search { display: flex; align-items: center; gap: 8px; background: #F8FAFC; border: 1px solid var(--gray-light); border-radius: var(--radius-full); padding: 0 14px; height: 40px; }
+        .dt-search i { color: var(--gray-text); font-size: 13px; }
+        .dt-search input { border: none; background: transparent; outline: none; width: 100%; font-size: 12.5px; color: var(--navy); }
+        .dt-selects { display: flex; gap: 8px; flex-wrap: wrap; }
+        .dt-select {
+            flex: 1; min-width: 120px; padding: 9px 10px; border-radius: 8px; border: 1px solid var(--gray-light);
+            font-size: 12px; font-weight: 600; color: var(--navy); background: var(--white); outline: none;
+        }
+        .dt-export {
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            background: var(--navy-light); color: white; border: none; border-radius: 8px;
+            padding: 9px 12px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap;
+        }
+
+        .data-table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 640px; }
+        .data-table th, .data-table td { padding: 10px 10px; text-align: left; border-bottom: 1px solid #F1F5F9; white-space: nowrap; }
+        .data-table th { color: var(--gray-text); font-weight: 700; text-transform: uppercase; font-size: 9.5px; letter-spacing: 0.4px; cursor: pointer; user-select: none; }
+        .data-table th i { font-size: 9px; margin-left: 3px; color: #CBD5E1; }
+        .data-table td { color: #334155; font-weight: 500; }
+        .data-table td.strong { color: var(--navy); font-weight: 700; }
+        .status-tag { font-size: 9.5px; font-weight: 700; padding: 3px 8px; border-radius: 6px; display: inline-block; }
+        .tag-mandiri { background: var(--green-light); color: var(--green); }
+        .tag-potensial { background: #FFF8E8; color: #B8860B; }
+        .tag-approved { background: var(--green-light); color: var(--green); }
+        .tag-pending { background: var(--blue-light); color: var(--blue); }
+        .tag-rejected { background: var(--red-light); color: var(--red); }
+
+        .pagination-container { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; }
+        .pagination-btn { background: var(--white); border: 1px solid var(--gray-light); color: var(--navy); font-size: 12px; font-weight: 600; padding: 8px 14px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .pagination-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .page-indicator { font-size: 12px; color: var(--gray-text); font-weight: 600; }
+
+        .empty-state { text-align: center; padding: 20px 10px; color: var(--gray-text); font-size: 12.5px; }
+        .empty-state i { font-size: 28px; color: var(--gray-light); margin-bottom: 10px; display: block; }
+
+        /* ================================
+           DESKTOP RESPONSIVE ENHANCEMENTS
+           ================================ */
+        @media (min-width: 1024px) {
+            html, body { height: auto; overflow: visible; }
+            body { justify-content: flex-start; }
+
+            .sidebar { position: fixed; left: 0 !important; top: 0; height: 100vh; box-shadow: none; border-right: 1px solid var(--gray-light); }
+            .sidebar-overlay { display: none !important; }
+            #sidebarToggle { display: none; }
+
+            .app-container { margin-left: 260px; max-width: none; width: calc(100% - 260px); min-height: 100vh; height: auto; overflow: visible; box-shadow: none; }
+
+            .navbar { padding: 14px 32px; }
+            .page-header { padding: 28px 32px 48px; }
+            .metrics-grid { grid-template-columns: repeat(4, 1fr); max-width: 760px; }
+
+            .main-content { max-width: 1280px; margin: 16px auto 0; padding: 0 32px 32px; }
+
+            .dt-toolbar { flex-direction: row; align-items: center; }
+            .dt-search { max-width: 280px; }
+            .dt-selects { flex: 1; }
+            .dt-select { min-width: 140px; flex: none; }
+        }
+
+        @media (min-width: 1440px) {
+            .main-content { max-width: 1400px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <header class="navbar">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <button id="sidebarToggle" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer; padding: 4px;">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="logo"><span>mandiri</span></div>
+            </div>
+            <div class="nav-actions">
+                <button class="user-pill"><i class="fa-solid fa-user-tie"></i> Kepala Cabang</button>
+            </div>
+        </header>
+
+        <div class="page-header">
+            <div class="role-badge"><i class="fa-solid fa-shield-halved"></i> Akses Kepala Cabang</div>
+            <h1 class="page-title">Cabang Pondok Indah</h1>
+            <p class="page-subtitle">Pantau performa petugas &amp; data spot cabang Anda secara detail.</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value" id="mTotal">0</div>
+                    <div class="metric-label">Total Spot</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="mMandiri" style="color:#4ADE80;">0</div>
+                    <div class="metric-label">Mandiri</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="mApprovalRate" style="color:#FACC15;">0%</div>
+                    <div class="metric-label">Approval Rate</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="mPending" style="color:#93C5FD;">0</div>
+                    <div class="metric-label">Pending Review</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+
+            <!-- Staff Performance -->
+            <div class="panel">
+                <div class="panel-title"><span><i class="fa-solid fa-people-group"></i>Performa Petugas Cabang</span></div>
+                <div class="table-scroll">
+                    <table class="staff-table">
+                        <thead>
+                            <tr>
+                                <th>Petugas</th>
+                                <th>Total</th>
+                                <th>Approval</th>
+                            </tr>
+                        </thead>
+                        <tbody id="staffTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Full Data Table -->
+            <div class="panel" style="margin-bottom: 0;">
+                <div class="panel-title"><span><i class="fa-solid fa-table-list"></i>Seluruh Data Spot</span></div>
+
+                <div class="dt-toolbar">
+                    <div class="dt-search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="dtSearch" placeholder="Cari nama merchant...">
+                    </div>
+                    <div class="dt-selects">
+                        <select class="dt-select" id="dtCategory"><option value="Semua">Semua Kategori</option></select>
+                        <select class="dt-select" id="dtStatus">
+                            <option value="Semua">Semua Status</option>
+                            <option value="mandiri">Mandiri</option>
+                            <option value="potensial">Potensial</option>
+                        </select>
+                        <select class="dt-select" id="dtSubmission">
+                            <option value="Semua">Semua Submission</option>
+                            <option value="approved">Approved</option>
+                            <option value="pending">Pending</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                        <button class="dt-export" id="dtExport"><i class="fa-solid fa-file-arrow-down"></i> Export CSV</button>
+                    </div>
+                </div>
+
+                <div class="table-scroll">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th data-key="name">Nama Merchant <i class="fa-solid fa-sort"></i></th>
+                                <th data-key="category">Kategori <i class="fa-solid fa-sort"></i></th>
+                                <th data-key="status">Status <i class="fa-solid fa-sort"></i></th>
+                                <th data-key="submissionStatus">Submission <i class="fa-solid fa-sort"></i></th>
+                                <th data-key="submittedBy">Petugas <i class="fa-solid fa-sort"></i></th>
+                                <th data-key="updatedAt">Diperbarui <i class="fa-solid fa-sort"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataTableBody"></tbody>
+                    </table>
+                </div>
+                <div id="dtEmpty" style="display:none;"><div class="empty-state"><i class="fa-solid fa-inbox"></i>Tidak ada data yang cocok dengan filter.</div></div>
+
+                <div class="pagination-container">
+                    <button class="pagination-btn" id="prevPageBtn"><i class="fa-solid fa-chevron-left"></i> Prev</button>
+                    <div class="page-indicator" id="pageIndicator">Hal 1 dari 1</div>
+                    <button class="pagination-btn" id="nextPageBtn">Next <i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="sidebar.js"></script>
+    <script>
+        // ---- Seed dummy data (mirrors mandiri_spot.html so this page works standalone) ----
+        function seedDummyData() {
+            if (localStorage.getItem('mandiri_spots_seeded_v3')) return;
+            const categories = ["F&B", "Retail", "Jasa / Layanan", "Pupuk", "Benih", "Pestisida"];
+            const branches = ["Cabang Pondok Indah", "Cabang Fatmawati", "Cabang Bintaro"];
+            const statuses = ["potensial", "mandiri"];
+            const orgTypes = ["profit", "nonprofit"];
+            const users = ["current_user", "other_user_1", "other_user_2"];
+            const submissions = ["pending", "approved", "rejected"];
+            const merchantNames = [
+                "Warung Bu Siti", "RM Padang Sederhana", "Kedai Kopi Senja", "Bakso Pak No",
+                "Soto Betawi H. Maruf", "Ayam Geprek Bang Jack", "Martabak Mr. Kribo", "Mie Ayam Podin",
+                "Sate Pak Kumis", "Nasi Uduk Bu Yanti", "Toko Berkah Jaya", "Minimarket Sumber Rejeki",
+                "Toko Bangunan Indah", "Apotek Sehat Sentosa", "Toko Sembako Makmur", "Butik Anggun",
+                "Toko Elektronik Cahaya", "Optik Melihat Jelas", "Toko Kue Manis", "Toko Aksesoris Podin",
+                "Laundry Bersih Cepat", "Bengkel Motor Jaya", "Salon Cantik Selalu", "Klinik Gigi Sehat",
+                "Barbershop Rapi", "Fotokopi Cepat", "Service AC Dingin", "Jasa Cuci Mobil Kinclong",
+                "Percetakan Sinar", "Studio Foto Kenangan", "Toko Tani Subur", "Agro Makmur Sentosa",
+                "Tani Jaya Pupuk", "Gudang Pupuk Sentosa", "Benih Unggul Nusantara", "Toko Benih Tani Makmur",
+                "Benih Sejahtera", "Agro Kimia Sentosa", "Toko Pestisida Aman", "Pertanian Sehat Abadi"
+            ];
+            const nonprofitNames = [
+                "Yayasan Peduli Kasih", "Masjid Al-Ikhlas Pondok Indah", "Gereja Kasih Karunia",
+                "Panti Asuhan Harapan Bangsa", "Yayasan Pendidikan Cerdas", "Musala Nurul Iman",
+                "Yayasan Sosial Bakti Ibu", "TPA Al-Hidayah"
+            ];
+            const streets = [
+                "Jl. Metro Pondok Indah", "Jl. Sultan Iskandar Muda", "Jl. Ciputat Raya", "Jl. RS Fatmawati",
+                "Jl. Kebayoran Lama", "Jl. Tanah Kusir", "Jl. Bintaro Utama", "Jl. Iskandarsyah",
+                "Jl. Wijaya", "Jl. Cipete Raya", "Jl. Pondok Indah Boulevard", "Jl. TB Simatupang",
+                "Jl. Radio Dalam", "Jl. Gandaria"
+            ];
+            let dummySpots = [];
+            const centerLat = -6.2649, centerLng = 106.7830;
+            for (let i = 1; i <= 60; i++) {
+                const latOffset = (Math.random() - 0.5) * 0.03;
+                const lngOffset = (Math.random() - 0.5) * 0.03;
+                const isMine = Math.random() > 0.6;
+                const status = statuses[Math.floor(Math.random() * statuses.length)];
+                const orgType = orgTypes[Math.floor(Math.random() * orgTypes.length)];
+                const randomPastMs = Date.now() - Math.floor(Math.random() * 30 * 24 * 60 * 60 * 1000);
+                const updatedBy = isMine ? "current_user" : users[Math.floor(Math.random() * users.length)];
+                const pool = orgType === 'nonprofit' ? nonprofitNames : merchantNames;
+                const cycle = Math.ceil(i / pool.length);
+                const baseName = pool[(i - 1) % pool.length];
+                dummySpots.push({
+                    id: Date.now() + i,
+                    name: cycle > 1 ? `${baseName} ${cycle}` : baseName,
+                    category: orgType === 'nonprofit' ? 'Tempat Ibadah / Yayasan' : categories[Math.floor(Math.random() * categories.length)],
+                    orgType: orgType,
+                    branch: branches[Math.floor(Math.random() * branches.length)],
+                    submittedBy: isMine ? "current_user" : users[Math.floor(Math.random() * users.length)],
+                    submissionStatus: isMine ? submissions[Math.floor(Math.random() * submissions.length)] : "approved",
+                    status: status,
+                    updatedAt: new Date(randomPastMs).toISOString(),
+                    updatedBy: updatedBy,
+                    address: `${streets[Math.floor(Math.random() * streets.length)]} No. ${Math.floor(Math.random() * 90) + 1}, Pondok Indah, Jakarta Selatan`,
+                    type: "marker",
+                    geojson_data: { lat: centerLat + latOffset, lng: centerLng + lngOffset }
+                });
+            }
+            localStorage.setItem('mandiri_spots', JSON.stringify(dummySpots));
+            localStorage.setItem('mandiri_spots_seeded_v3', 'true');
+        }
+
+        // ---- State ----
+        const CURRENT_BRANCH = 'Cabang Pondok Indah';
+        let allSpots = [];
+        let sortKey = 'updatedAt';
+        let sortDir = 'desc';
+        let currentPage = 1;
+        const PAGE_SIZE = 8;
+
+        function timeAgo(iso) {
+            const diff = Date.now() - new Date(iso).getTime();
+            const mins = Math.floor(diff / 60000);
+            if (mins < 60) return `${mins} mnt lalu`;
+            const hrs = Math.floor(mins / 60);
+            if (hrs < 24) return `${hrs} jam lalu`;
+            const days = Math.floor(hrs / 24);
+            return `${days} hari lalu`;
+        }
+
+        function initials(name) {
+            return name.replace('_', ' ').split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+        }
+
+        function branchScopedSpots() {
+            return allSpots.filter(s => s.branch === CURRENT_BRANCH);
+        }
+
+        function renderTopMetrics() {
+            const scoped = branchScopedSpots();
+            const total = scoped.length;
+            const mandiri = scoped.filter(s => s.status === 'mandiri').length;
+            const approved = scoped.filter(s => s.submissionStatus === 'approved').length;
+            const pending = scoped.filter(s => s.submissionStatus === 'pending').length;
+            const rate = total > 0 ? Math.round((approved / total) * 100) : 0;
+
+            document.getElementById('mTotal').innerText = total;
+            document.getElementById('mMandiri').innerText = mandiri;
+            document.getElementById('mApprovalRate').innerText = rate + '%';
+            document.getElementById('mPending').innerText = pending;
+        }
+
+        function renderStaffTable() {
+            const scoped = branchScopedSpots();
+            const staffMap = {};
+            scoped.forEach(s => {
+                const staff = s.submittedBy || 'unknown';
+                if (!staffMap[staff]) staffMap[staff] = { total: 0, approved: 0, pending: 0, rejected: 0 };
+                staffMap[staff].total++;
+                if (s.submissionStatus === 'approved') staffMap[staff].approved++;
+                if (s.submissionStatus === 'pending') staffMap[staff].pending++;
+                if (s.submissionStatus === 'rejected') staffMap[staff].rejected++;
+            });
+            const entries = Object.entries(staffMap).sort((a, b) => b[1].total - a[1].total);
+            const tbody = document.getElementById('staffTableBody');
+            if (entries.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3"><div class="empty-state"><i class="fa-solid fa-inbox"></i>Belum ada data petugas.</div></td></tr>`;
+                return;
+            }
+            tbody.innerHTML = entries.map(([staff, d]) => {
+                const rate = d.total > 0 ? Math.round((d.approved / d.total) * 100) : 0;
+                const displayName = staff.replace(/_/g, ' ');
+                return `
+                    <tr>
+                        <td>
+                            <div class="staff-name">
+                                <div class="staff-avatar">${initials(staff)}</div>
+                                <span style="text-transform:capitalize;">${displayName}</span>
+                            </div>
+                        </td>
+                        <td>${d.total}</td>
+                        <td>
+                            <span class="approval-track"><span class="approval-fill" style="width:${rate}%;"></span></span>
+                            ${rate}%
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function populateCategoryOptions() {
+            const categories = [...new Set(allSpots.map(s => s.category))].sort();
+            const select = document.getElementById('dtCategory');
+            select.innerHTML = `<option value="Semua">Semua Kategori</option>` +
+                categories.map(c => `<option value="${c}">${c}</option>`).join('');
+        }
+
+        function getFilteredSortedSpots() {
+            const search = document.getElementById('dtSearch').value.trim().toLowerCase();
+            const category = document.getElementById('dtCategory').value;
+            const status = document.getElementById('dtStatus').value;
+            const submission = document.getElementById('dtSubmission').value;
+
+            let rows = branchScopedSpots().filter(s => {
+                if (search && !s.name.toLowerCase().includes(search)) return false;
+                if (category !== 'Semua' && s.category !== category) return false;
+                if (status !== 'Semua' && s.status !== status) return false;
+                if (submission !== 'Semua' && s.submissionStatus !== submission) return false;
+                return true;
+            });
+
+            rows.sort((a, b) => {
+                let va = a[sortKey], vb = b[sortKey];
+                if (sortKey === 'updatedAt') { va = new Date(va).getTime(); vb = new Date(vb).getTime(); }
+                else { va = (va || '').toString().toLowerCase(); vb = (vb || '').toString().toLowerCase(); }
+                if (va < vb) return sortDir === 'asc' ? -1 : 1;
+                if (va > vb) return sortDir === 'asc' ? 1 : -1;
+                return 0;
+            });
+
+            return rows;
+        }
+
+        function renderDataTable() {
+            const rows = getFilteredSortedSpots();
+            const tbody = document.getElementById('dataTableBody');
+            const emptyEl = document.getElementById('dtEmpty');
+
+            const totalPages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
+            if (currentPage > totalPages) currentPage = totalPages;
+            const start = (currentPage - 1) * PAGE_SIZE;
+            const pageRows = rows.slice(start, start + PAGE_SIZE);
+
+            if (pageRows.length === 0) {
+                tbody.innerHTML = '';
+                emptyEl.style.display = 'block';
+            } else {
+                emptyEl.style.display = 'none';
+                tbody.innerHTML = pageRows.map(s => `
+                    <tr>
+                        <td class="strong">${s.name}</td>
+                        <td>${s.category}</td>
+                        <td><span class="status-tag ${s.status === 'mandiri' ? 'tag-mandiri' : 'tag-potensial'}">${s.status}</span></td>
+                        <td><span class="status-tag tag-${s.submissionStatus}">${s.submissionStatus}</span></td>
+                        <td style="text-transform:capitalize;">${(s.submittedBy || '').replace(/_/g, ' ')}</td>
+                        <td>${timeAgo(s.updatedAt)}</td>
+                    </tr>
+                `).join('');
+            }
+
+            document.getElementById('pageIndicator').innerText = `Hal ${currentPage} dari ${totalPages}`;
+            document.getElementById('prevPageBtn').disabled = currentPage <= 1;
+            document.getElementById('nextPageBtn').disabled = currentPage >= totalPages;
+        }
+
+        function exportCSV() {
+            const rows = getFilteredSortedSpots();
+            const header = ['Nama Merchant', 'Kategori', 'Status', 'Submission', 'Petugas', 'Diperbarui'];
+            const csvRows = [header.join(',')];
+            rows.forEach(s => {
+                csvRows.push([
+                    `"${s.name}"`, `"${s.category}"`, s.status, s.submissionStatus,
+                    s.submittedBy, s.updatedAt
+                ].join(','));
+            });
+            const blob = new Blob([csvRows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `spot-kawasan-${CURRENT_BRANCH.replace(/\s+/g, '_')}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function renderAll() {
+            renderTopMetrics();
+            renderStaffTable();
+            renderDataTable();
+        }
+
+        function init() {
+            allSpots = JSON.parse(localStorage.getItem('mandiri_spots')) || [];
+            populateCategoryOptions();
+            renderAll();
+
+            document.getElementById('dtSearch').addEventListener('input', () => { currentPage = 1; renderDataTable(); });
+            document.getElementById('dtCategory').addEventListener('change', () => { currentPage = 1; renderDataTable(); });
+            document.getElementById('dtStatus').addEventListener('change', () => { currentPage = 1; renderDataTable(); });
+            document.getElementById('dtSubmission').addEventListener('change', () => { currentPage = 1; renderDataTable(); });
+            document.getElementById('dtExport').addEventListener('click', exportCSV);
+
+            document.getElementById('prevPageBtn').addEventListener('click', () => { if (currentPage > 1) { currentPage--; renderDataTable(); } });
+            document.getElementById('nextPageBtn').addEventListener('click', () => { currentPage++; renderDataTable(); });
+
+            document.querySelectorAll('.data-table th[data-key]').forEach(th => {
+                th.addEventListener('click', () => {
+                    const key = th.getAttribute('data-key');
+                    if (sortKey === key) { sortDir = sortDir === 'asc' ? 'desc' : 'asc'; }
+                    else { sortKey = key; sortDir = 'asc'; }
+                    currentPage = 1;
+                    renderDataTable();
+                });
+            });
+        }
+
+        seedDummyData();
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

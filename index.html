@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandiri Spot Kawasan</title>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-body: #F4F6F9;
+            --navy: #0F2044;
+            --navy-light: #223769;
+            --yellow: #F6C243;
+            --white: #FFFFFF;
+            --gray-text: #6B7280;
+            --gray-light: #E5E7EB;
+            --green: #27AE60;
+            --green-light: #F0FDF4;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-full: 9999px;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html { scroll-behavior: smooth; }
+        a, button, input, select { transition: all 0.2s var(--ease); }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: rgba(15,32,68,0.15); border-radius: 999px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+
+        body {
+            background-color: var(--bg-body);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--bg-body);
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            background: linear-gradient(160deg, var(--navy) 0%, var(--navy-light) 55%, #2E4784 100%);
+            color: var(--white);
+            padding: 28px 24px 64px;
+            overflow: hidden;
+            border-bottom-left-radius: 32px;
+            border-bottom-right-radius: 32px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 220px; height: 220px;
+            background: rgba(246, 194, 67, 0.15);
+            border-radius: 50%;
+            top: -80px; right: -70px;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 160px; height: 160px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+            bottom: -60px; left: -50px;
+        }
+
+        .hero-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 700;
+            font-size: 20px;
+            font-style: italic;
+            letter-spacing: -0.5px;
+            color: #FFF;
+        }
+
+        .badge-live {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--navy);
+            background: var(--yellow);
+            padding: 5px 10px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .badge-live i { font-size: 6px; }
+
+        .hero-content { position: relative; z-index: 2; }
+
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--yellow);
+            margin-bottom: 10px;
+        }
+
+        .hero-title {
+            font-size: 27px;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 12px;
+        }
+        .hero-title span { color: var(--yellow); }
+
+        .hero-desc {
+            font-size: 13.5px;
+            color: rgba(255,255,255,0.78);
+            line-height: 1.6;
+            margin-bottom: 24px;
+            max-width: 320px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 10px;
+        }
+
+        .hero-stat {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 12px;
+            padding: 10px 14px;
+            flex: 1;
+        }
+        .hero-stat .num { font-size: 17px; font-weight: 800; color: var(--yellow); }
+        .hero-stat .lbl { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.4px; color: rgba(255,255,255,0.75); margin-top: 2px; }
+
+        /* CTA Card floating */
+        .cta-card {
+            position: relative;
+            margin: -40px 20px 0;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(15,32,68,0.18);
+            padding: 18px;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .cta-card .icon-wrap {
+            width: 48px; height: 48px; border-radius: 14px;
+            background: linear-gradient(135deg, var(--yellow), #FBDA85);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; color: var(--navy); flex-shrink: 0;
+        }
+        .cta-card .txt { flex: 1; }
+        .cta-card .txt h3 { font-size: 14px; color: var(--navy); font-weight: 700; margin-bottom: 2px; }
+        .cta-card .txt p { font-size: 11.5px; color: var(--gray-text); }
+        .cta-card a.go {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: var(--navy); color: var(--white);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; text-decoration: none; font-size: 13px;
+        }
+
+        /* Main body */
+        .main-body { padding: 32px 20px 24px; flex: 1; }
+
+        .section-heading {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--gray-text);
+            margin-bottom: 14px;
+        }
+
+        .feature-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .feature-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: var(--white);
+            border: 1px solid #F1F5F9;
+            border-radius: 16px;
+            padding: 15px;
+            text-decoration: none;
+            box-shadow: 0 1px 3px rgba(15,32,68,0.05);
+            transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
+        }
+        .feature-card:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(15,32,68,0.08); border-color: #E9ECF3; }
+        .feature-card:active { transform: translateY(0) scale(0.98); }
+
+        .feature-icon {
+            width: 44px; height: 44px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 17px; flex-shrink: 0;
+        }
+        .fi-navy { background: #EEF2FF; color: var(--navy-light); }
+        .fi-yellow { background: #FFF8E8; color: #B8860B; }
+        .fi-green { background: var(--green-light); color: var(--green); }
+
+        .feature-text { flex: 1; }
+        .feature-text h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+        .feature-text p { font-size: 11.5px; color: var(--gray-text); line-height: 1.4; }
+
+        .feature-card .chev { color: #CBD5E1; font-size: 13px; }
+
+        /* How it works */
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+        .step-row { display: flex; gap: 12px; align-items: flex-start; }
+        .step-num {
+            width: 26px; height: 26px; border-radius: 50%;
+            background: var(--navy); color: var(--yellow);
+            font-size: 12px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .step-text h5 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+        .step-text p { font-size: 11.5px; color: var(--gray-text); line-height: 1.4; }
+
+        /* Bottom CTA */
+        .bottom-cta {
+            background: linear-gradient(135deg, var(--navy), var(--navy-light));
+            border-radius: 20px;
+            padding: 22px;
+            text-align: center;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+        .bottom-cta h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+        .bottom-cta p { font-size: 12px; color: rgba(255,255,255,0.75); margin-bottom: 18px; line-height: 1.5; }
+
+        .btn-start {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--yellow);
+            color: var(--navy);
+            font-weight: 700;
+            font-size: 14px;
+            padding: 13px 28px;
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            width: 100%;
+            box-shadow: 0 6px 16px rgba(246, 194, 67, 0.35);
+        }
+
+        footer {
+            text-align: center;
+            font-size: 10.5px;
+            color: #9CA3AF;
+            padding: 18px 0 8px;
+        }
+
+        /* ================================
+           DESKTOP RESPONSIVE ENHANCEMENTS
+           (mobile layout above is untouched)
+           ================================ */
+        @media (min-width: 1024px) {
+            body { align-items: flex-start; }
+            .app-container { max-width: none; width: 100%; box-shadow: none; }
+
+            .hero {
+                padding: 32px 0 72px;
+                border-radius: 0;
+            }
+            .hero-top, .hero-content { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+            .hero-top { margin-bottom: 44px; }
+            .hero-content {
+                display: grid;
+                grid-template-columns: 1.1fr 0.9fr;
+                gap: 40px;
+                align-items: center;
+            }
+            .hero-eyebrow, .hero-title, .hero-desc { grid-column: 1; }
+            .hero-title { font-size: 36px; }
+            .hero-desc { max-width: 460px; }
+            .hero-stats { grid-column: 2; grid-row: 1 / span 3; flex-direction: column; align-self: stretch; justify-content: center; }
+            .hero-stat { padding: 18px 20px; }
+            .hero-stat .num { font-size: 24px; }
+
+            .cta-card { max-width: 1200px; margin: -40px auto 0; padding: 20px 28px; }
+
+            .main-body { max-width: 1200px; margin: 0 auto; padding: 48px 40px; }
+
+            .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+
+            .steps { flex-direction: row; gap: 20px; }
+            .step-row { flex: 1; flex-direction: column; text-align: center; align-items: center; }
+
+            .bottom-cta { display: flex; align-items: center; justify-content: space-between; text-align: left; padding: 28px 36px; gap: 24px; }
+            .bottom-cta-text { flex: 1; }
+            .bottom-cta-text p { margin-bottom: 0; }
+            .btn-start { width: auto; padding: 14px 32px; flex-shrink: 0; }
+        }
+
+        @media (min-width: 1440px) {
+            .hero-top, .hero-content, .cta-card, .main-body { max-width: 1360px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-top">
+                <div class="logo"><span>mandiri</span></div>
+                <div class="badge-live"><i class="fa-solid fa-circle"></i> Spot Kawasan</div>
+            </div>
+
+            <div class="hero-content">
+                <div class="hero-eyebrow">Aplikasi Petugas Lapangan</div>
+                <h1 class="hero-title">Petakan &amp; kelola <span>merchant kawasan</span> Anda dengan mudah</h1>
+                <p class="hero-desc">Temukan potensi merchant baru, pantau progres kunjungan harian, dan kelola data spot kawasan dalam satu aplikasi.</p>
+
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="num">35+</div>
+                        <div class="lbl">Spot Terdata</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="num">3</div>
+                        <div class="lbl">Cabang Aktif</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="num">6</div>
+                        <div class="lbl">Kategori Usaha</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating CTA Card -->
+        <a href="mandiri_spot.html" class="cta-card" style="text-decoration:none;">
+            <div class="icon-wrap"><i class="fa-solid fa-map-location-dot"></i></div>
+            <div class="txt">
+                <h3>Mulai Jelajah Peta</h3>
+                <p>Lihat sebaran spot &amp; merchant terdekat</p>
+            </div>
+            <span class="go"><i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <!-- Main Body -->
+        <div class="main-body">
+
+            <div class="section-heading">Fitur Utama</div>
+            <div class="feature-grid">
+                <a href="mandiri_spot.html" class="feature-card">
+                    <div class="feature-icon fi-navy"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <div class="feature-text">
+                        <h4>Peta &amp; Spot</h4>
+                        <p>Jelajahi lokasi merchant mandiri &amp; potensial di peta interaktif.</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right chev"></i>
+                </a>
+
+                <a href="daily_assignment.html" class="feature-card">
+                    <div class="feature-icon fi-yellow"><i class="fa-solid fa-clipboard-list"></i></div>
+                    <div class="feature-text">
+                        <h4>Daily Assignment</h4>
+                        <p>Kelola dan pantau tugas kunjungan nasabah harian Anda.</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right chev"></i>
+                </a>
+
+                <a href="not_found.html" class="feature-card">
+                    <div class="feature-icon fi-green"><i class="fa-solid fa-chart-line"></i></div>
+                    <div class="feature-text">
+                        <h4>Dashboard</h4>
+                        <p>Pantau ringkasan performa &amp; statistik spot kawasan Anda.</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right chev"></i>
+                </a>
+
+                <a href="branch_manager.html" class="feature-card">
+                    <div class="feature-icon fi-navy" style="background:#FDF2F8; color:#BE185D;"><i class="fa-solid fa-user-tie"></i></div>
+                    <div class="feature-text">
+                        <h4>Kepala Cabang</h4>
+                        <p>Tampilan khusus branch manager untuk memantau seluruh cabang.</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right chev"></i>
+                </a>
+            </div>
+
+            <div class="section-heading">Cara Kerja</div>
+            <div class="steps">
+                <div class="step-row">
+                    <div class="step-num">1</div>
+                    <div class="step-text">
+                        <h5>Jelajahi Kawasan</h5>
+                        <p>Buka peta untuk melihat merchant di sekitar area tugas Anda.</p>
+                    </div>
+                </div>
+                <div class="step-row">
+                    <div class="step-num">2</div>
+                    <div class="step-text">
+                        <h5>Catat &amp; Kunjungi</h5>
+                        <p>Tandai spot sebagai potensial atau mandiri, lalu jadwalkan kunjungan.</p>
+                    </div>
+                </div>
+                <div class="step-row">
+                    <div class="step-num">3</div>
+                    <div class="step-text">
+                        <h5>Pantau Progres</h5>
+                        <p>Lihat ringkasan performa harian Anda lewat Dashboard.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom CTA -->
+            <div class="bottom-cta">
+                <div class="bottom-cta-text">
+                    <h3>Siap mulai hari ini?</h3>
+                    <p>Buka aplikasi dan lihat spot kawasan terbaru di sekitar Anda.</p>
+                </div>
+                <a href="mandiri_spot.html" class="btn-start"><i class="fa-solid fa-rocket"></i> Buka Aplikasi</a>
+            </div>
+
+            <footer>&copy; 2026 Mandiri Spot Kawasan</footer>
+        </div>
+    </div>
+
+</body>
+</html>
