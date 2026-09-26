@@ -977,7 +977,228 @@
             .main-content { max-width: 1360px; }
             .task-list { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
         }
-    </style>
+    
+        /* ---- Sidebar visual refresh ---- */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--white, #fff);
+        }
+        .sidebar-header {
+            background: linear-gradient(135deg, var(--navy, #0F2044) 0%, var(--navy-light, #223769) 100%) !important;
+            padding: 24px 20px !important;
+            position: relative;
+            overflow: hidden;
+        }
+        .sidebar-header::after {
+            content: '';
+            position: absolute;
+            width: 140px; height: 140px;
+            background: rgba(246, 194, 67, 0.12);
+            border-radius: 50%;
+            top: -60px; right: -50px;
+            pointer-events: none;
+        }
+        .sidebar-header-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        .sidebar-header-brand .brand-icon {
+            width: 34px; height: 34px;
+            border-radius: 10px;
+            background: rgba(246, 194, 67, 0.18);
+            color: var(--yellow, #F6C243);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+        .sidebar-header-brand h2 {
+            font-size: 16px !important;
+            font-weight: 700 !important;
+            margin: 0 !important;
+            line-height: 1.25;
+        }
+        .sidebar-header-brand p {
+            font-size: 10.5px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 1px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .close-sidebar {
+            position: relative;
+            z-index: 1;
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.08);
+            transition: background 0.2s ease, transform 0.2s ease;
+            border: none; cursor: pointer;
+        }
+        .close-sidebar:hover { background: rgba(255,255,255,0.18); transform: rotate(90deg); }
+
+        .sidebar-content {
+            padding: 14px 12px !important;
+            flex: 1;
+            overflow-y: auto;
+        }
+        .sidebar-section-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #9CA3AF;
+            padding: 8px 12px 6px;
+        }
+        .sidebar-link {
+            padding: 11px 12px !important;
+            border-radius: 12px !important;
+            margin-bottom: 3px;
+            font-size: 13.5px !important;
+            font-weight: 600 !important;
+            border-left: none !important;
+            position: relative;
+        }
+        .sidebar-link .link-icon-wrap {
+            width: 32px; height: 32px;
+            border-radius: 9px;
+            display: flex; align-items: center; justify-content: center;
+            background: #F1F5F9;
+            color: #64748B;
+            font-size: 13px;
+            flex-shrink: 0;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        .sidebar-link i { width: auto !important; }
+        .sidebar-link:hover { background-color: #F8FAFC !important; }
+        .sidebar-link:hover .link-icon-wrap { background: #E9EEF9; color: var(--navy-light, #223769); }
+        .sidebar-link.active {
+            background: linear-gradient(135deg, #EEF2FF, #F0F4FF) !important;
+            color: var(--navy-light, #223769) !important;
+        }
+        .sidebar-link.active .link-icon-wrap {
+            background: var(--navy, #0F2044);
+            color: var(--yellow, #F6C243);
+        }
+        .sidebar-link.active::before {
+            content: '';
+            position: absolute;
+            left: -12px; top: 50%; transform: translateY(-50%);
+            width: 4px; height: 60%;
+            border-radius: 0 4px 4px 0;
+            background: var(--yellow, #F6C243);
+        }
+
+        .sidebar-footer {
+            padding: 14px;
+            border-top: 1px solid #F1F5F9;
+            flex-shrink: 0;
+        }
+        .sidebar-profile-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #F8FAFC;
+            border: 1px solid #EEF1F5;
+            border-radius: 14px;
+            padding: 10px 12px;
+        }
+        .sidebar-profile-avatar {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--navy, #0F2044), var(--navy-light, #223769));
+            color: var(--yellow, #F6C243);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: 700;
+            flex-shrink: 0;
+        }
+        .sidebar-profile-info { flex: 1; min-width: 0; }
+        .sidebar-profile-info .p-name {
+            font-size: 12.5px; font-weight: 700; color: var(--navy, #0F2044);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .sidebar-profile-info .p-role {
+            font-size: 10.5px; color: #6B7280;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .sidebar-profile-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: #27AE60;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 1px #DCFCE7;
+            flex-shrink: 0;
+        }
+
+        /* ---- Navbar back button ---- */
+        .navbar-back-btn {
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px;
+            text-decoration: none;
+            flex-shrink: 0;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        .navbar-back-btn:hover { background: rgba(255,255,255,0.18); transform: translateX(-2px); }
+
+        /* ---- Page transition loader ---- */
+        #pageTransitionLoader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: var(--bg-body, #F4F6F9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease;
+        }
+        #pageTransitionLoader.active { opacity: 1; visibility: visible; }
+        #pageTransitionLoader .pt-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+        #pageTransitionLoader .pt-spinner {
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            border: 3px solid #E5E7EB;
+            border-top-color: var(--navy, #0F2044);
+            animation: pt-spin 0.7s linear infinite;
+        }
+        #pageTransitionLoader .pt-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6B7280;
+            letter-spacing: 0.2px;
+        }
+        @keyframes pt-spin { to { transform: rotate(360deg); } }
+
+        #pageTransitionBar {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--yellow, #F6C243), var(--navy-light, #223769));
+            z-index: 100000;
+            transition: width 0.35s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+        #pageTransitionBar.active { opacity: 1; }
+
+        body.pt-fade-in { animation: pt-fadein 0.28s ease both; }
+        @keyframes pt-fadein {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+</style>
 </head>
 <body>
 
@@ -1317,7 +1538,161 @@
 
     <!-- Scripts -->
     <!-- Integrasi dengan Sidebar JS bawaan aplikasi -->
-    <script src="sidebar.js"></script>
+        <script>
+        // =========================================================
+        // Shared app shell logic (inlined — no external sidebar.js)
+        // =========================================================
+        (function () {
+            // ---- Safe localStorage shim ----
+            // Some browsers (or file:// contexts) throw when accessing
+            // localStorage. This guarantees the app still works (in-memory)
+            // instead of silently breaking every render function below it.
+            try {
+                var __t = '__storage_test__';
+                window.localStorage.setItem(__t, '1');
+                window.localStorage.removeItem(__t);
+            } catch (e) {
+                var __mem = {};
+                var __shim = {
+                    getItem: function (k) { return Object.prototype.hasOwnProperty.call(__mem, k) ? __mem[k] : null; },
+                    setItem: function (k, v) { __mem[k] = String(v); },
+                    removeItem: function (k) { delete __mem[k]; },
+                    clear: function () { __mem = {}; },
+                    key: function (i) { return Object.keys(__mem)[i] || null; }
+                };
+                try {
+                    Object.defineProperty(window, 'localStorage', { value: __shim, configurable: true });
+                } catch (e2) {
+                    window.localStorage = __shim;
+                }
+            }
+
+            // ---- Dummy Petugas (logged-in officer) — shared "session" for the demo ----
+            var CURRENT_OFFICER = { name: 'Ahmad Fauzi', role: 'Petugas Lapangan', branch: 'Cabang Pondok Indah', initials: 'AF' };
+            var OFFICER_NAME_MAP = { current_user: 'Ahmad Fauzi', other_user_1: 'Siti Nurhaliza', other_user_2: 'Budi Santoso' };
+            window.OFFICER_NAME_MAP = OFFICER_NAME_MAP;
+            window.CURRENT_OFFICER = CURRENT_OFFICER;
+            window.getOfficerName = function (id) {
+                if (!id) return 'Tidak diketahui';
+                return OFFICER_NAME_MAP[id] || id.replace(/_/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+            };
+            window.getOfficerInitials = function (id) {
+                var name = window.getOfficerName(id);
+                return name.split(' ').map(function (w) { return w[0]; }).filter(Boolean).join('').toUpperCase().slice(0, 2);
+            };
+
+            // ---- Page transition loader/overlay ----
+            var bar = document.createElement('div');
+            bar.id = 'pageTransitionBar';
+            document.body.appendChild(bar);
+
+            var loader = document.createElement('div');
+            loader.id = 'pageTransitionLoader';
+            loader.innerHTML = '<div class="pt-inner"><div class="pt-spinner"></div><div class="pt-label">Memuat halaman...</div></div>';
+            document.body.appendChild(loader);
+
+            function showPageTransition() {
+                bar.classList.add('active');
+                requestAnimationFrame(function () { bar.style.width = '70%'; });
+                setTimeout(function () { loader.classList.add('active'); }, 120);
+            }
+
+            function isInternalNavLink(link) {
+                if (!link || !link.getAttribute) return false;
+                var href = link.getAttribute('href');
+                if (!href) return false;
+                if (href.indexOf('#') === 0 || href.indexOf('javascript:') === 0 || href.indexOf('mailto:') === 0 || href.indexOf('tel:') === 0) return false;
+                if (link.target === '_blank') return false;
+                if (link.hasAttribute('download')) return false;
+                return /\.html($|\?|#)/i.test(href) || href.slice(-1) === '/';
+            }
+
+            document.addEventListener('click', function (e) {
+                var link = e.target.closest ? e.target.closest('a') : null;
+                if (!isInternalNavLink(link)) return;
+                showPageTransition();
+            }, true);
+
+            window.addEventListener('DOMContentLoaded', function () {
+                document.body.classList.add('pt-fade-in');
+            });
+
+            window.addEventListener('pageshow', function () {
+                bar.classList.remove('active');
+                bar.style.width = '0%';
+                loader.classList.remove('active');
+            });
+
+            // ---- Sidebar logic (markup is static HTML already in the page) ----
+            document.addEventListener('DOMContentLoaded', function () {
+                var currentPage = window.location.pathname.split('/').pop() || 'mandiri_spot.html';
+                document.querySelectorAll('.sidebar-link').forEach(function (link) {
+                    if (link.getAttribute('href') === currentPage) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+
+                var sidebarToggle = document.getElementById('sidebarToggle');
+                var closeSidebar = document.getElementById('closeSidebar');
+                var sidebar = document.getElementById('sidebar');
+                var sidebarOverlay = document.getElementById('sidebarOverlay');
+                var appContainer = document.querySelector('.app-container');
+
+                if (!sidebar || !sidebarOverlay) return; // page has no sidebar (e.g. index.html)
+
+                var DESKTOP_BREAKPOINT = 1024;
+                function isDesktop() { return window.innerWidth >= DESKTOP_BREAKPOINT; }
+
+                function openSidebar() {
+                    if (!isDesktop() && appContainer) {
+                        sidebar.style.top = appContainer.scrollTop + 'px';
+                        sidebarOverlay.style.top = appContainer.scrollTop + 'px';
+                        appContainer.style.overflow = 'hidden';
+                    }
+                    sidebar.classList.add('show');
+                    sidebarOverlay.classList.add('show');
+                }
+
+                function hideSidebar() {
+                    if (isDesktop()) return;
+                    if (appContainer) appContainer.style.overflow = '';
+                    sidebar.classList.remove('show');
+                    sidebarOverlay.classList.remove('show');
+                }
+
+                function syncLayoutForViewport() {
+                    if (isDesktop()) {
+                        sidebar.classList.add('show');
+                        sidebarOverlay.classList.remove('show');
+                        if (appContainer) appContainer.style.overflow = '';
+                        sidebar.style.top = '';
+                        sidebarOverlay.style.top = '';
+                    } else {
+                        sidebar.classList.remove('show');
+                        sidebarOverlay.classList.remove('show');
+                        if (appContainer) appContainer.style.overflow = '';
+                    }
+                }
+
+                var resizeTimer;
+                window.addEventListener('resize', function () {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(syncLayoutForViewport, 120);
+                });
+
+                if (sidebarToggle) sidebarToggle.addEventListener('click', function (e) { e.preventDefault(); openSidebar(); });
+                if (closeSidebar) closeSidebar.addEventListener('click', function (e) { e.preventDefault(); hideSidebar(); });
+                if (sidebarOverlay) sidebarOverlay.addEventListener('click', hideSidebar);
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') hideSidebar();
+                });
+
+                syncLayoutForViewport();
+            });
+        })();
+    </script>
     
     <script>
         // Helper to get relative dates
@@ -1860,7 +2235,9 @@
         });
 
         // Initialize on load
-        document.addEventListener('DOMContentLoaded', initDashboard);
+        document.addEventListener('DOMContentLoaded', () => {
+            try { initDashboard(); } catch (e) { console.error('initDashboard failed:', e); }
+        });
 
     </script>
 </body>
