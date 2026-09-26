@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mandiri Spot Kawasan</title>
+    <title>Peta & Spot - PinDah Digital</title>
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -34,6 +34,7 @@
             --radius-md: 12px;
             --radius-lg: 16px;
             --radius-full: 9999px;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
@@ -44,6 +45,12 @@
             font-family: 'Inter', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
+
+        html { scroll-behavior: smooth; }
+        a, button, input, select { transition: all 0.2s var(--ease); }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: rgba(15,32,68,0.15); border-radius: 999px; }
+        ::-webkit-scrollbar-track { background: transparent; }
 
         body {
             background-color: var(--bg-body);
@@ -85,11 +92,10 @@
             display: flex;
             align-items: center;
             font-weight: 700;
-            font-size: 15px;
+            font-size: 20px;
             font-style: italic;
             letter-spacing: -0.5px;
             color: #FFF;
-            white-space: nowrap;
         }
 
         .logo img {
@@ -671,7 +677,7 @@
         }
         .custom-popup .leaflet-popup-content {
             margin: 16px;
-            width: 200px !important;
+            width: 230px !important;
             display: flex;
             flex-direction: column;
         }
@@ -712,24 +718,6 @@
             font-size: 12px;
             opacity: 0.7;
         }
-        .popup-otp-btn {
-            width: 100%;
-            margin-top: 10px;
-            padding: 9px 10px;
-            background: var(--navy-light);
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-size: 11.5px;
-            font-weight: 700;
-            font-family: 'Inter', sans-serif;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-        .popup-otp-btn:active { opacity: 0.85; }
 
         .custom-popup .leaflet-popup-close-button {
             color: var(--gray-text) !important;
@@ -1519,7 +1507,7 @@
             z-index: 2000;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.32s var(--ease);
         }
 
         .sidebar-overlay.show {
@@ -1536,7 +1524,7 @@
             background-color: var(--white);
             z-index: 2001;
             box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-            transition: left 0.3s ease;
+            transition: left 0.32s var(--ease);
             display: flex;
             flex-direction: column;
         }
@@ -1677,17 +1665,54 @@
 
     <div class="app-container">
         <!-- Sidebar Container -->
-        <div id="sidebar-container"></div>
+        <!-- Sidebar -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-header-brand">
+                    <div class="brand-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <div>
+                        <h2>PinDah Digital</h2>
+                        <p>KC Pondok Indah Jakarta</p>
+                    </div>
+                </div>
+                <button class="close-sidebar" id="closeSidebar" type="button" aria-label="Tutup menu"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="sidebar-content">
+                <div class="sidebar-section-label">Menu Utama</div>
+                <a href="mandiri_spot.html" class="sidebar-link active">
+                    <span class="link-icon-wrap"><i class="fa-solid fa-map-location-dot"></i></span> Peta &amp; Spot
+                </a>
+                <a href="daily_assignment.html" class="sidebar-link">
+                    <span class="link-icon-wrap"><i class="fa-solid fa-clipboard-list"></i></span> Daily Assignment
+                </a>
+                <a href="not_found.html" class="sidebar-link">
+                    <span class="link-icon-wrap"><i class="fa-solid fa-chart-line"></i></span> Dashboard
+                </a>
+                <a href="branch_manager.html" class="sidebar-link">
+                    <span class="link-icon-wrap"><i class="fa-solid fa-user-tie"></i></span> Kepala Cabang
+                </a>
+            </div>
+            <div class="sidebar-footer">
+                <div class="sidebar-profile-card">
+                    <div class="sidebar-profile-avatar">AF</div>
+                    <div class="sidebar-profile-info">
+                        <div class="p-name">Ahmad Fauzi</div>
+                        <div class="p-role">Petugas Lapangan &middot; Cabang Pondok Indah</div>
+                    </div>
+                    <div class="sidebar-profile-dot" title="Online"></div>
+                </div>
+            </div>
+        </div>
 
         <!-- Navbar -->
         <header class="navbar">
             <div style="display: flex; align-items: center; gap: 12px;">
+                <a href="index.html" class="navbar-back-btn" title="Kembali ke Beranda" aria-label="Kembali ke Beranda"><i class="fa-solid fa-arrow-left"></i></a>
                 <button id="sidebarToggle" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer; padding: 4px;">
                     <i class="fa-solid fa-bars"></i>
                 </button>
-                <div class="logo">
-                    <span>PinDah Digital</span>
-                </div>
+                <div class="logo" style="font-size:15px; font-style:normal; letter-spacing:0;">PinDah Digital</div>
             </div>
             <div class="nav-actions">
                 <button class="add-btn" id="addMerchantBtnHeader" style="padding: 8px 12px; font-size: 12px;">
@@ -1789,9 +1814,9 @@
                     <h4>Pilih Cabang</h4>
                     <div class="filter-chips" id="filterChipsCabang">
                         <div class="filter-chip active" onclick="toggleFilterChip(this, 'cabang', 'Semua')">Semua Cabang</div>
-                        <div class="filter-chip" onclick="toggleFilterChip(this, 'cabang', 'Cabang Sudirman')">Cabang Sudirman</div>
-                        <div class="filter-chip" onclick="toggleFilterChip(this, 'cabang', 'Cabang Blok M')">Cabang Blok M</div>
-                        <div class="filter-chip" onclick="toggleFilterChip(this, 'cabang', 'Cabang Kuningan')">Cabang Kuningan</div>
+                        <div class="filter-chip" onclick="toggleFilterChip(this, 'cabang', 'Cabang Pondok Indah')">Cabang Pondok Indah</div>
+                        <div class="filter-chip" onclick="toggleFilterChip(this, 'cabang', 'Cabang Fatmawati')">Cabang Fatmawati</div>
+                        <div class="filter-chip" onclick="toggleFilterChip(this, 'cabang', 'Cabang Bintaro')">Cabang Bintaro</div>
                     </div>
                 </div>
                 
@@ -1806,6 +1831,8 @@
                         <div class="filter-chip" onclick="toggleFilterChip(this, 'kategori', 'Pupuk')">Pupuk</div>
                         <div class="filter-chip" onclick="toggleFilterChip(this, 'kategori', 'Benih')">Benih</div>
                         <div class="filter-chip" onclick="toggleFilterChip(this, 'kategori', 'Pestisida')">Pestisida</div>
+                        <div class="filter-chip" onclick="toggleFilterChip(this, 'kategori', 'Tempat Ibadah / Yayasan')">Tempat Ibadah / Yayasan</div>
+                        <div class="filter-chip" onclick="toggleFilterChip(this, 'kategori', 'Pendidikan')">Pendidikan</div>
                     </div>
                 </div>
                 
@@ -1865,6 +1892,8 @@
                             <option value="F&B (Restoran / Cafe / Kantin)">F&B (Restoran / Cafe / Kantin)</option>
                             <option value="Retail">Retail / Grosir</option>
                             <option value="Jasa / Layanan">Jasa / Layanan</option>
+                            <option value="Tempat Ibadah / Yayasan">Tempat Ibadah / Yayasan</option>
+                            <option value="Pendidikan">Pendidikan</option>
                             <option value="Lainnya">Lainnya</option>
                         </select>
                     </div>
@@ -1950,6 +1979,8 @@
                             <option value="Pupuk">Pupuk</option>
                             <option value="Benih">Benih</option>
                             <option value="Pestisida">Pestisida</option>
+                            <option value="Tempat Ibadah / Yayasan">Tempat Ibadah / Yayasan</option>
+                            <option value="Pendidikan">Pendidikan</option>
                             <option value="Lainnya">Lainnya</option>
                         </select>
                     </div>
@@ -2112,6 +2143,8 @@
         </div>
     </div>
 
+    <script src="sidebar.js"></script>
+
     <!-- Leaflet JS API functionality -->
     <script>
         
@@ -2138,20 +2171,20 @@
         };
         
         // Mock User Data & Branches for Validation
-        const currentUser = { id: 'current_user', branch: 'Cabang Sudirman' };
-        const userMappingArea = "Area A"; // Simulasi area petugas
+        const currentUser = { id: 'current_user', branch: 'Cabang Pondok Indah' };
+        const userMappingArea = "Area Pondok Indah"; // Simulasi area petugas
         const mockBranches = [
-            { name: "Cabang Sudirman", lat: -6.22493, lng: 106.81452, area: "Area A" },
-            { name: "Cabang Blok M", lat: -6.244, lng: 106.800, area: "Area B" },
-            { name: "Cabang Kuningan", lat: -6.229, lng: 106.832, area: "Area C" }
+            { name: "Cabang Pondok Indah", lat: -6.2649, lng: 106.7830, area: "Area Pondok Indah" },
+            { name: "Cabang Fatmawati", lat: -6.2913, lng: 106.7972, area: "Area Fatmawati" },
+            { name: "Cabang Bintaro", lat: -6.2660, lng: 106.7550, area: "Area Bintaro" }
         ];
 
         // Seed Dummy Data
         function seedDummyData() {
-            if (localStorage.getItem('mandiri_spots_seeded_v2')) return; // Run once for v2
-            
+            if (localStorage.getItem('mandiri_spots_seeded_v4')) return; // Run once for v3
+
             const categories = ["F&B", "Retail", "Jasa / Layanan", "Pupuk", "Benih", "Pestisida"];
-            const branches = ["Cabang Sudirman", "Cabang Blok M", "Cabang Kuningan"];
+            const branches = ["Cabang Pondok Indah", "Cabang Fatmawati", "Cabang Bintaro"];
             const statuses = ["potensial", "mandiri"];
             const orgTypes = ["profit", "nonprofit"];
             const users = ["current_user", "other_user_1", "other_user_2"];
@@ -2162,34 +2195,60 @@
                 "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=300&q=80",
                 "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=300&q=80"
             ];
-            
+            const merchantNames = [
+                "Warung Bu Siti", "RM Padang Sederhana", "Kedai Kopi Senja", "Bakso Pak No",
+                "Soto Betawi H. Maruf", "Ayam Geprek Bang Jack", "Martabak Mr. Kribo", "Mie Ayam Podin",
+                "Sate Pak Kumis", "Nasi Uduk Bu Yanti", "Toko Berkah Jaya", "Minimarket Sumber Rejeki",
+                "Toko Bangunan Indah", "Apotek Sehat Sentosa", "Toko Sembako Makmur", "Butik Anggun",
+                "Toko Elektronik Cahaya", "Optik Melihat Jelas", "Toko Kue Manis", "Toko Aksesoris Podin",
+                "Laundry Bersih Cepat", "Bengkel Motor Jaya", "Salon Cantik Selalu", "Klinik Gigi Sehat",
+                "Barbershop Rapi", "Fotokopi Cepat", "Service AC Dingin", "Jasa Cuci Mobil Kinclong",
+                "Percetakan Sinar", "Studio Foto Kenangan", "Toko Tani Subur", "Agro Makmur Sentosa",
+                "Tani Jaya Pupuk", "Gudang Pupuk Sentosa", "Benih Unggul Nusantara", "Toko Benih Tani Makmur",
+                "Benih Sejahtera", "Agro Kimia Sentosa", "Toko Pestisida Aman", "Pertanian Sehat Abadi"
+            ];
+            const nonprofitNames = [
+                "Yayasan Peduli Kasih", "Masjid Al-Ikhlas Pondok Indah", "Gereja Kasih Karunia",
+                "Panti Asuhan Harapan Bangsa", "Yayasan Pendidikan Cerdas", "Musala Nurul Iman",
+                "Yayasan Sosial Bakti Ibu", "TPA Al-Hidayah"
+            ];
+            const streets = [
+                "Jl. Metro Pondok Indah", "Jl. Sultan Iskandar Muda", "Jl. Ciputat Raya", "Jl. RS Fatmawati",
+                "Jl. Kebayoran Lama", "Jl. Tanah Kusir", "Jl. Bintaro Utama", "Jl. Iskandarsyah",
+                "Jl. Wijaya", "Jl. Cipete Raya", "Jl. Pondok Indah Boulevard", "Jl. TB Simatupang",
+                "Jl. Radio Dalam", "Jl. Gandaria"
+            ];
+
             let dummySpots = [];
-            const centerLat = -6.22493;
-            const centerLng = 106.81452;
-            
-            for(let i=1; i<=35; i++) {
-                // random offset roughly 1-3 km
-                const latOffset = (Math.random() - 0.5) * 0.04;
-                const lngOffset = (Math.random() - 0.5) * 0.04;
-                
+            const centerLat = -6.2649;
+            const centerLng = 106.7830;
+
+            for(let i=1; i<=60; i++) {
+                // random offset, tightly clustered around Pondok Indah
+                const latOffset = (Math.random() - 0.5) * 0.03;
+                const lngOffset = (Math.random() - 0.5) * 0.03;
+
                 const isMine = Math.random() > 0.6; // 40% chance it's mine
                 const status = statuses[Math.floor(Math.random() * statuses.length)];
                 const orgType = orgTypes[Math.floor(Math.random() * orgTypes.length)];
-                
+
                 // Assign photo if mandiri
                 let photo = "";
                 if (status === 'mandiri') {
                     photo = dummyPhotos[Math.floor(Math.random() * dummyPhotos.length)];
                 }
-                
+
                 // create random date between now and 30 days ago
                 const randomPastMs = Date.now() - Math.floor(Math.random() * 30 * 24 * 60 * 60 * 1000);
                 const updatedBy = isMine ? "current_user" : users[Math.floor(Math.random() * users.length)];
+                const pool = orgType === 'nonprofit' ? nonprofitNames : merchantNames;
+                const cycle = Math.ceil(i / pool.length);
+                const baseName = pool[(i - 1) % pool.length];
 
                 dummySpots.push({
                     id: Date.now() + i,
-                    name: `Merchant Dummy ${i}`,
-                    category: category = orgType === 'nonprofit' ? 'Tempat Ibadah / Yayasan' : categories[Math.floor(Math.random() * categories.length)],
+                    name: cycle > 1 ? `${baseName} ${cycle}` : baseName,
+                    category: orgType === 'nonprofit' ? 'Tempat Ibadah / Yayasan' : categories[Math.floor(Math.random() * categories.length)],
                     orgType: orgType,
                     branch: branches[Math.floor(Math.random() * branches.length)],
                     submittedBy: isMine ? "current_user" : users[Math.floor(Math.random() * users.length)],
@@ -2198,15 +2257,82 @@
                     updatedAt: new Date(randomPastMs).toISOString(),
                     updatedBy: updatedBy,
                     photo: photo,
-                    address: `Jalan Dummy ${i}, Jakarta`,
+                    address: `${streets[Math.floor(Math.random() * streets.length)]} No. ${Math.floor(Math.random() * 90) + 1}, Pondok Indah, Jakarta Selatan`,
                     type: "marker",
                     geojson_data: { lat: centerLat + latOffset, lng: centerLng + lngOffset }
                 });
             }
-            
-            // Override with v2 dummy data
+
+            // Override with v3 dummy data
+                        // ---- Fixed real-world spots (Pondok Indah area) ----
+            const fixedPlaces = [
+                { name: "Hikiniku to Come Japanese Hamburg", category: "F&B", orgType: "profit", address: "Pondok Indah Mall, Jl. Sultan Iskandar Muda No.5 Ground Floor", mapsUrl: "https://maps.google.com/?cid=7083546126802956564", lat: -6.2662, lng: 106.7838 },
+                { name: "Nyonya Pavillon", category: "F&B", orgType: "profit", address: "Jl. Metro Pondok Indah No.Kav.4 lvl.1", mapsUrl: "https://maps.google.com/?cid=2025824061855864575", lat: -6.2668, lng: 106.7810 },
+                { name: "Jalarasa", category: "F&B", orgType: "profit", address: "Pondok Indah Mall 5, RT.1/RW.16, Pd. Pinang", mapsUrl: "https://maps.google.com/?cid=4226931441351366386", lat: -6.2688, lng: 106.7822 },
+                { name: "Bebek Klungkung", category: "F&B", orgType: "profit", address: "Pondok Indah Mall 5, Jl. Sultan Iskandar Muda No.1", mapsUrl: "https://maps.google.com/?cid=7002935263504711530", lat: -6.2685, lng: 106.7825 },
+                { name: "Scarlett's House", category: "F&B", orgType: "profit", address: "Jl. Sultan Iskandar Muda No.5, Pd. Pinang", mapsUrl: "https://maps.google.com/?cid=14766580759119796823", lat: -6.2660, lng: 106.7836 },
+                { name: "2madison Avenue", category: "Retail", orgType: "profit", address: "Pondok Indah Mall 1, RT.1/RW.16, Pd. Pinang", mapsUrl: "https://maps.google.com/?cid=1865283010851046592", lat: -6.2658, lng: 106.7845 },
+                { name: "Erafone Megastore", category: "Retail", orgType: "profit", address: "Jl. Metro Pondok Indah, RT.1/RW.16, Pd. Pinang", mapsUrl: "https://maps.google.com/?cid=10212709377375011622", lat: -6.2665, lng: 106.7808 },
+                { name: "Pondok Indah Mall 5", category: "Retail", orgType: "profit", address: "Jl. Sultan Iskandar Muda No.1, Lt. Dasar. 10", mapsUrl: "https://maps.google.com/?cid=911976921542300545", lat: -6.2686, lng: 106.7826 },
+                { name: "ONNI", category: "Retail", orgType: "profit", address: "Pd. Indah Mall 2, Jl. Metro Pondok Indah Lt. LG", mapsUrl: "https://maps.google.com/?cid=16347301794718465298", lat: -6.2663, lng: 106.7815 },
+                { name: "Lilla Store", category: "Retail", orgType: "profit", address: "Pondok Indah Mall Phase 3, Office Tower 5, Lt. 2 unit 230", mapsUrl: "https://maps.google.com/?cid=2273158165223481216", lat: -6.2670, lng: 106.7840 },
+                { name: "Masjid Raya Pondok Indah", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Jl. Sultan Iskandar Muda No.1, RT.1/RW.16", mapsUrl: "https://maps.google.com/?cid=1985874405285746242", lat: -6.2679, lng: 106.7818 },
+                { name: "Masjid Pondok Indah 1", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Pd. Pinang, Kec. Kebayoran Lama", mapsUrl: "https://maps.google.com/?cid=1224189961939071938", lat: -6.2700, lng: 106.7790 },
+                { name: "Masjid Jami' Al-Musyawarah", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Jl. Pinang Emas I No.A1, RT.7/RW.3", mapsUrl: "https://maps.google.com/?cid=6948851469438736625", lat: -6.2730, lng: 106.7795 },
+                { name: "Masjid Pondok Indah 2", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Pd. Pinang, Kec. Kebayoran Lama", mapsUrl: "https://maps.google.com/?cid=6498344501605679959", lat: -6.2705, lng: 106.7800 },
+                { name: "Masjid Raya Pondok Indah", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Jl. Sultan Iskandar Muda No.1 (Pin Tambahan)", mapsUrl: "https://maps.google.com/?cid=12245947049276161727", lat: -6.2681, lng: 106.7820 },
+                { name: "Grow Community Church", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Pd. Indah Mall 3, Jl. Sultan Iskandar Muda No.29 6 Lantai 3", mapsUrl: "https://maps.google.com/?cid=12624990644161479581", lat: -6.2669, lng: 106.7842 },
+                { name: "GKI Pondok Indah", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Jalan Sekolah Kencana IV No. TN-7", mapsUrl: "https://maps.google.com/?cid=4433100388091680146", lat: -6.2640, lng: 106.7860 },
+                { name: "GRII Pondok Indah", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Ruko Pondok Indah Plaza 2 blok BA No. 39-40", mapsUrl: "https://maps.google.com/?cid=13779723598309953446", lat: -6.2635, lng: 106.7845 },
+                { name: "The Collective (TC) Jakarta", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Menara Pondok Indah, Jl. Metro Pondok Indah No.1 Lt. 8", mapsUrl: "https://maps.google.com/?cid=142142102897559690", lat: -6.2650, lng: 106.7808 },
+                { name: "GBI ROCK Pondok Indah", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Plaza simatupang, RT.2/RW.17", mapsUrl: "https://maps.google.com/?cid=2412101406616983537", lat: -6.2925, lng: 106.7935 },
+                { name: "Yayasan Istiqomah Tanah Kusir", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Jl. Delman Indah III No.2 11 2, Kby. Lama Utara", mapsUrl: "https://maps.google.com/?cid=8460296354203065461", lat: -6.2480, lng: 106.7660 },
+                { name: "Rumah Yatim Pondok Indah", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Jl. Terogong Raya No.7A, Pondok Indah", mapsUrl: "https://maps.google.com/?cid=9009729825702941832", lat: -6.2600, lng: 106.7870 },
+                { name: "Sekolah Citra Kasih Don Bosco", category: "Pendidikan", orgType: "nonprofit", address: "Jalan Duta Indah, Pondok Indah, RT.16/RW.6", mapsUrl: "https://maps.google.com/?cid=16466302871990038361", lat: -6.2715, lng: 106.7862 },
+                { name: "Sahabat Makola", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Jl. Alam Segar IV No.23 Pondok Indah", mapsUrl: "https://maps.google.com/?cid=1545445838604317676", lat: -6.2620, lng: 106.7795 },
+                { name: "Yayasan Yatim Al Ihsan", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Jl. H. Muhi Raya No.8, Pd. Pinang", mapsUrl: "https://maps.google.com/?cid=13221437358906572950", lat: -6.2710, lng: 106.7780 },
+                { name: "Tutor Time", category: "Pendidikan", orgType: "nonprofit", address: "Jl. Sultan Iskandar Muda No.1", mapsUrl: "https://maps.google.com/?cid=3935310689708716898", lat: -6.2683, lng: 106.7823 },
+                { name: "IDP Education", category: "Pendidikan", orgType: "nonprofit", address: "Jl. Sultan Iskandar Muda No.17B", mapsUrl: "https://maps.google.com/?cid=974258923089174163", lat: -6.2675, lng: 106.7833 },
+                { name: "TK Putra II", category: "Pendidikan", orgType: "nonprofit", address: "Jl. Pinang Emas III No.90 8, Pondok Indah", mapsUrl: "https://maps.google.com/?cid=8154565464236742708", lat: -6.2735, lng: 106.7798 },
+                { name: "SMK Pondok Indah", category: "Pendidikan", orgType: "nonprofit", address: "Jalan. Pupan no. 29 RT. 08 / 04", mapsUrl: "https://maps.google.com/?cid=932443891573079618", lat: -6.2695, lng: 106.7775 },
+                { name: "Raffles Christian School", category: "Pendidikan", orgType: "nonprofit", address: "Jl. Gedung Hijau Raya No.I No.1", mapsUrl: "https://maps.google.com/?cid=2495691313127029773", lat: -6.2685, lng: 106.7870 },
+                { name: "Blossom Academy", category: "Pendidikan", orgType: "nonprofit", address: "Jl. Metro Pondok Indah No.29", mapsUrl: "https://maps.google.com/?cid=18171024233075933672", lat: -6.2672, lng: 106.7805 },
+                { name: "Jakarta Future School", category: "Pendidikan", orgType: "nonprofit", address: "Jl. Gedung Hijau Raya No.I No.1, Pondok Indah", mapsUrl: "https://maps.google.com/?cid=4233731659235922622", lat: -6.2687, lng: 106.7872 },
+                { name: "The Independent School of Jakarta", category: "Pendidikan", orgType: "nonprofit", address: "Jl. R.A. Kartini No.Kav. 12", mapsUrl: "https://maps.google.com/?cid=5633517939038033344", lat: -6.2600, lng: 106.7900 },
+                { name: "Sekolah Dasar Jakarta Intercultural School", category: "Pendidikan", orgType: "nonprofit", address: "Jl. Duta Indah III, RT.1/RW.14", mapsUrl: "https://maps.google.com/?cid=14031575149246940668", lat: -6.2718, lng: 106.7865 }
+            ];
+
+            const fixedUsers = ["current_user", "other_user_1", "other_user_2"];
+            const fixedMerchantPhotos = [
+                "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=300&q=80",
+                "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=300&q=80",
+                "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=300&q=80",
+                "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=300&q=80"
+            ];
+            fixedPlaces.forEach((p, idx) => {
+                const submittedBy = fixedUsers[idx % fixedUsers.length];
+                const randomPastMs = Date.now() - Math.floor(Math.random() * 20 * 24 * 60 * 60 * 1000);
+                dummySpots.push({
+                    id: Date.now() + 1000 + idx,
+                    name: p.name,
+                    category: p.category,
+                    orgType: p.orgType,
+                    branch: "Cabang Pondok Indah",
+                    submittedBy: submittedBy,
+                    submissionStatus: "approved",
+                    status: "mandiri",
+                    updatedAt: new Date(randomPastMs).toISOString(),
+                    updatedBy: submittedBy,
+                    photo: p.orgType === 'profit' ? fixedMerchantPhotos[idx % fixedMerchantPhotos.length] : "",
+                    address: p.address,
+                    mapsUrl: p.mapsUrl,
+                    type: "marker",
+                    geojson_data: { lat: p.lat, lng: p.lng }
+                });
+            });
+
             localStorage.setItem('mandiri_spots', JSON.stringify(dummySpots));
-            localStorage.setItem('mandiri_spots_seeded_v2', 'true');
+            localStorage.setItem('mandiri_spots_seeded_v4', 'true');
         }
 
         // Call Seed Data
@@ -2341,6 +2467,16 @@
                 imgHtml = `<img src="${spot.photo}" style="width: 100%; height: 90px; object-fit: cover; border-radius: 6px; margin-bottom: 8px;">`;
             }
 
+            let mapsLinkHtml = '';
+            if (spot.mapsUrl) {
+                mapsLinkHtml = `<p><i class="fa-solid fa-map"></i> <a href="${spot.mapsUrl}" target="_blank" rel="noopener" style="color: var(--navy-light); font-weight: 600; text-decoration: none;">Lihat Peta &rarr;</a></p>`;
+            }
+
+            let overviewBtnHtml = '';
+            if (spot.status === 'mandiri') {
+                overviewBtnHtml = `<button onclick="showBusinessOverview(${spot.id})" style="margin-top: 10px; width: 100%; background: var(--navy-light); color: #fff; border: none; border-radius: 8px; padding: 9px 10px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;"><i class="fa-solid fa-chart-line"></i> Business Overview</button>`;
+            }
+
             const popupHtml = `
                 <div class="custom-popup-content">
                     ${imgHtml}
@@ -2348,9 +2484,8 @@
                     <span class="popup-status ${statusClass}">${statusText}</span>
                     <p><i class="fa-solid fa-tag"></i> <span>${category}</span></p>
                     <p><i class="fa-solid fa-location-dot"></i> <span>${address}</span></p>
-                    <button class="popup-otp-btn" onclick="showBusinessOverview(${spot.id})">
-                        <i class="fa-solid fa-shield-halved"></i> Masukkan Kode OTP
-                    </button>
+                    ${mapsLinkHtml}
+                    ${overviewBtnHtml}
                 </div>
             `;
 
@@ -2370,7 +2505,7 @@
         };
 
         async function initMap() {
-            const center = [-6.22493, 106.81452];
+            const center = [-6.2649, 106.7830]; // Pondok Indah
             
             const addBtn = document.getElementById('addMerchantBtnHeader');
             const filterDropdown = document.getElementById('filterDropdown');
@@ -2739,7 +2874,7 @@
                         historyTimeline.innerHTML += `
                             <div style="position: relative; padding-left: 16px;">
                                 <div style="position: absolute; left: -15px; top: 2px; width: 12px; height: 12px; border-radius: 50%; background-color: ${dotColor}; border: 2px solid white; box-shadow: 0 0 0 1px ${dotColor};"></div>
-                                <h4 style="font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">${h.user}</h4>
+                                <h4 style="font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">${window.getOfficerName ? window.getOfficerName(h.user) : h.user}</h4>
                                 <div style="display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--gray-text); margin-bottom: 2px;">
                                     <i class="fa-regular fa-clock" style="width: 12px; text-align: center;"></i> ${formattedTime}
                                 </div>
@@ -2882,9 +3017,15 @@
                         if (spot.updatedAt && spot.updatedBy) {
                             const dateObj = new Date(spot.updatedAt);
                             const formattedDate = dateObj.toLocaleDateString('id-ID', {day: '2-digit', month: 'short', year: 'numeric'}) + ' ' + dateObj.toLocaleTimeString('id-ID', {hour: '2-digit', minute: '2-digit'});
-                            updateHtml = `<p style="font-size: 11px; margin-top: 8px; color: #94A3B8; border-top: 1px dashed #E2E8F0; padding-top: 8px; width: 100%;"><i class="fa-regular fa-clock"></i> Diperbarui: ${formattedDate} oleh ${spot.updatedBy}</p>`;
+                            const officerDisplayName = window.getOfficerName ? window.getOfficerName(spot.updatedBy) : spot.updatedBy;
+                            updateHtml = `<p style="font-size: 11px; margin-top: 8px; color: #94A3B8; border-top: 1px dashed #E2E8F0; padding-top: 8px; width: 100%;"><i class="fa-regular fa-clock"></i> Diperbarui: ${formattedDate} oleh ${officerDisplayName}</p>`;
                         } else {
                             updateHtml = `<p style="font-size: 11px; margin-top: 8px; color: #94A3B8; border-top: 1px dashed #E2E8F0; padding-top: 8px; width: 100%;"><i class="fa-regular fa-clock"></i> Belum ada riwayat pembaruan</p>`;
+                        }
+
+                        let mapsLinkHtml = '';
+                        if (spot.mapsUrl) {
+                            mapsLinkHtml = `<p><i class="fa-solid fa-map"></i> <a href="${spot.mapsUrl}" target="_blank" rel="noopener" style="color: var(--navy-light); font-weight: 600; text-decoration: none;">Lihat di Google Maps</a></p>`;
                         }
                         
                         let imgElement = '';
@@ -2929,6 +3070,7 @@
                                     <h4>${name}</h4>
                                     <p><i class="fa-solid fa-location-dot"></i> <span>${address}</span></p>
                                     <p><i class="fa-solid fa-code-branch"></i> <span>${branch}</span></p>
+                                    ${mapsLinkHtml}
                                     ${updateHtml}
                                 </div>
                                 ${actionBtnsHtml}
@@ -3445,6 +3587,5 @@
         
         initMap();
     </script>
-    <script src="sidebar.js"></script>
 </body>
 </html>

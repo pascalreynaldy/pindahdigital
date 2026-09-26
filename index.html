@@ -23,6 +23,7 @@
             --radius-md: 12px;
             --radius-lg: 16px;
             --radius-full: 9999px;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
@@ -32,6 +33,12 @@
             font-family: 'Inter', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
+
+        html { scroll-behavior: smooth; }
+        a, button, input, select { transition: all 0.2s var(--ease); }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: rgba(15,32,68,0.15); border-radius: 999px; }
+        ::-webkit-scrollbar-track { background: transparent; }
 
         body {
             background-color: var(--bg-body);
@@ -210,12 +217,13 @@
             background: var(--white);
             border: 1px solid #F1F5F9;
             border-radius: 16px;
-            padding: 14px;
+            padding: 15px;
             text-decoration: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            transition: transform 0.15s ease;
+            box-shadow: 0 1px 3px rgba(15,32,68,0.05);
+            transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
         }
-        .feature-card:active { transform: scale(0.98); }
+        .feature-card:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(15,32,68,0.08); border-color: #E9ECF3; }
+        .feature-card:active { transform: translateY(0) scale(0.98); }
 
         .feature-icon {
             width: 44px; height: 44px; border-radius: 12px;
@@ -331,54 +339,118 @@
             .hero-top, .hero-content, .cta-card, .main-body { max-width: 1360px; }
         }
 
-        /* Splash / welcome animation */
-        #splashScreen {
-            position: fixed; inset: 0; z-index: 9999;
-            background: linear-gradient(160deg, var(--navy) 0%, var(--navy-light) 55%, #2E4784 100%);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; padding: 24px;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
+        /* ---- Welcome Splash ---- */
+        #welcomeSplash {
+            position: fixed;
+            inset: 0;
+            z-index: 100005;
+            background: radial-gradient(circle at 30% 20%, #16305f 0%, var(--navy) 55%, #081228 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            overflow: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
         }
-        #splashScreen.hide { opacity: 0; visibility: hidden; pointer-events: none; }
-        #splashScreen::before {
-            content: ''; position: absolute; width: 260px; height: 260px;
-            background: rgba(246, 194, 67, 0.12); border-radius: 50%; top: -90px; right: -80px;
+        #welcomeSplash.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+        #welcomeSplash::before {
+            content: '';
+            position: absolute;
+            width: 320px; height: 320px;
+            background: rgba(246, 194, 67, 0.12);
+            border-radius: 50%;
+            top: -100px; right: -80px;
         }
-        #splashScreen::after {
-            content: ''; position: absolute; width: 200px; height: 200px;
-            background: rgba(255,255,255,0.05); border-radius: 50%; bottom: -70px; left: -60px;
+        #welcomeSplash::after {
+            content: '';
+            position: absolute;
+            width: 260px; height: 260px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 50%;
+            bottom: -90px; left: -70px;
         }
-        .splash-welcome {
-            font-size: 26px; font-weight: 800; color: #FFF; opacity: 0; transform: translateY(14px);
-            animation: splashFadeUp 0.7s ease 0.15s forwards;
+        .ws-inner { text-align: center; position: relative; z-index: 1; padding: 0 24px; }
+        .ws-icon {
+            width: 56px; height: 56px; margin: 0 auto 18px;
+            border-radius: 16px;
+            background: rgba(246, 194, 67, 0.15);
+            color: var(--yellow);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px;
+            opacity: 0;
+            animation: ws-pop 0.6s var(--ease) 0.15s forwards;
         }
-        .splash-branch {
-            font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,0.75); margin-top: 8px;
-            opacity: 0; transform: translateY(14px);
-            animation: splashFadeUp 0.7s ease 0.5s forwards;
+        .ws-greeting {
+            font-size: 26px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.2px;
+            opacity: 0;
+            animation: ws-rise 0.6s var(--ease) 0.35s forwards;
         }
-        .splash-divider {
-            width: 40px; height: 3px; background: var(--yellow); border-radius: 4px; margin: 18px 0;
-            opacity: 0; animation: splashFadeUp 0.6s ease 0.8s forwards;
+        .ws-sub {
+            font-size: 13.5px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 8px;
+            font-weight: 500;
+            opacity: 0;
+            animation: ws-rise 0.6s var(--ease) 0.55s forwards;
         }
-        .splash-brand {
-            font-size: 22px; font-weight: 800; font-style: italic; letter-spacing: -0.5px; color: #FFF;
-            opacity: 0; transform: translateY(14px);
-            animation: splashFadeUp 0.7s ease 1.05s forwards;
+        .ws-divider {
+            width: 40px; height: 2px;
+            background: var(--yellow);
+            margin: 18px auto;
+            border-radius: 2px;
+            opacity: 0;
+            animation: ws-rise 0.6s var(--ease) 0.75s forwards;
         }
-        .splash-brand span { color: var(--yellow); }
-        @keyframes splashFadeUp {
+        .ws-brand {
+            font-size: 19px;
+            font-weight: 800;
+            font-style: italic;
+            color: var(--yellow);
+            opacity: 0;
+            animation: ws-rise 0.6s var(--ease) 0.9s forwards;
+        }
+        .ws-loader {
+            display: flex; gap: 6px; justify-content: center; margin-top: 26px;
+            opacity: 0;
+            animation: ws-rise 0.5s var(--ease) 1.15s forwards;
+        }
+        .ws-loader span {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            animation: ws-bounce 1s ease-in-out infinite;
+        }
+        .ws-loader span:nth-child(2) { animation-delay: 0.15s; }
+        .ws-loader span:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes ws-pop {
+            from { opacity: 0; transform: scale(0.6); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes ws-rise {
+            from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes ws-bounce {
+            0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
+            40% { transform: translateY(-6px); opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <div id="splashScreen">
-        <div class="splash-welcome">Selamat Datang</div>
-        <div class="splash-branch">Kantor Cabang Pondok Indah Jakarta</div>
-        <div class="splash-divider"></div>
-        <div class="splash-brand">PinDah <span>Digital</span></div>
+    <!-- Welcome Splash (first visit only) -->
+    <div id="welcomeSplash">
+        <div class="ws-inner">
+            <div class="ws-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="ws-greeting">Selamat Datang</div>
+            <div class="ws-sub">Kantor Cabang Pondok Indah Jakarta</div>
+            <div class="ws-divider"></div>
+            <div class="ws-brand">PinDah Digital</div>
+            <div class="ws-loader"><span></span><span></span><span></span></div>
+        </div>
     </div>
 
     <div class="app-container">
@@ -386,7 +458,7 @@
         <!-- Hero -->
         <div class="hero">
             <div class="hero-top">
-                <div class="logo"><span>PinDah Digital</span></div>
+                <div class="logo" style="font-size:16px; font-style:normal; letter-spacing:0;">PinDah Digital</div>
                 <div class="badge-live"><i class="fa-solid fa-circle"></i> KC Pondok Indah</div>
             </div>
 
@@ -498,25 +570,25 @@
                 <a href="mandiri_spot.html" class="btn-start"><i class="fa-solid fa-rocket"></i> Buka Aplikasi</a>
             </div>
 
-            <footer>&copy; 2026 PinDah Digital &middot; KC Pondok Indah Jakarta</footer>
+            <footer>&copy; 2026 Mandiri Spot Kawasan</footer>
         </div>
     </div>
 
+    <script src="sidebar.js"></script>
     <script>
-        // Show the welcome splash once per browser session
+        // Show the welcome splash only on the first visit of the session
         (function () {
-            const splash = document.getElementById('splashScreen');
+            var splash = document.getElementById('welcomeSplash');
             if (!splash) return;
-            if (sessionStorage.getItem('pd_splash_shown')) {
-                splash.style.display = 'none';
+            var alreadyShown = sessionStorage.getItem('pindah_welcome_shown');
+            if (alreadyShown) {
+                splash.remove();
                 return;
             }
-            document.body.style.overflow = 'hidden';
-            setTimeout(() => {
+            sessionStorage.setItem('pindah_welcome_shown', '1');
+            setTimeout(function () {
                 splash.classList.add('hide');
-                document.body.style.overflow = '';
-                sessionStorage.setItem('pd_splash_shown', 'true');
-                setTimeout(() => { splash.style.display = 'none'; }, 650);
+                setTimeout(function () { splash.remove(); }, 550);
             }, 2200);
         })();
     </script>
