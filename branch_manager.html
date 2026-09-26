@@ -188,9 +188,469 @@
         @media (min-width: 1440px) {
             .main-content { max-width: 1400px; }
         }
-    </style>
+    
+        /* ---- Sidebar visual refresh ---- */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--white, #fff);
+        }
+        .sidebar-header {
+            background: linear-gradient(135deg, var(--navy, #0F2044) 0%, var(--navy-light, #223769) 100%) !important;
+            padding: 24px 20px !important;
+            position: relative;
+            overflow: hidden;
+        }
+        .sidebar-header::after {
+            content: '';
+            position: absolute;
+            width: 140px; height: 140px;
+            background: rgba(246, 194, 67, 0.12);
+            border-radius: 50%;
+            top: -60px; right: -50px;
+            pointer-events: none;
+        }
+        .sidebar-header-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        .sidebar-header-brand .brand-icon {
+            width: 34px; height: 34px;
+            border-radius: 10px;
+            background: rgba(246, 194, 67, 0.18);
+            color: var(--yellow, #F6C243);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+        .sidebar-header-brand h2 {
+            font-size: 16px !important;
+            font-weight: 700 !important;
+            margin: 0 !important;
+            line-height: 1.25;
+        }
+        .sidebar-header-brand p {
+            font-size: 10.5px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 1px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .close-sidebar {
+            position: relative;
+            z-index: 1;
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.08);
+            transition: background 0.2s ease, transform 0.2s ease;
+            border: none; cursor: pointer;
+        }
+        .close-sidebar:hover { background: rgba(255,255,255,0.18); transform: rotate(90deg); }
+
+        .sidebar-content {
+            padding: 14px 12px !important;
+            flex: 1;
+            overflow-y: auto;
+        }
+        .sidebar-section-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #9CA3AF;
+            padding: 8px 12px 6px;
+        }
+        .sidebar-link {
+            padding: 11px 12px !important;
+            border-radius: 12px !important;
+            margin-bottom: 3px;
+            font-size: 13.5px !important;
+            font-weight: 600 !important;
+            border-left: none !important;
+            position: relative;
+        }
+        .sidebar-link .link-icon-wrap {
+            width: 32px; height: 32px;
+            border-radius: 9px;
+            display: flex; align-items: center; justify-content: center;
+            background: #F1F5F9;
+            color: #64748B;
+            font-size: 13px;
+            flex-shrink: 0;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        .sidebar-link i { width: auto !important; }
+        .sidebar-link:hover { background-color: #F8FAFC !important; }
+        .sidebar-link:hover .link-icon-wrap { background: #E9EEF9; color: var(--navy-light, #223769); }
+        .sidebar-link.active {
+            background: linear-gradient(135deg, #EEF2FF, #F0F4FF) !important;
+            color: var(--navy-light, #223769) !important;
+        }
+        .sidebar-link.active .link-icon-wrap {
+            background: var(--navy, #0F2044);
+            color: var(--yellow, #F6C243);
+        }
+        .sidebar-link.active::before {
+            content: '';
+            position: absolute;
+            left: -12px; top: 50%; transform: translateY(-50%);
+            width: 4px; height: 60%;
+            border-radius: 0 4px 4px 0;
+            background: var(--yellow, #F6C243);
+        }
+
+        .sidebar-footer {
+            padding: 14px;
+            border-top: 1px solid #F1F5F9;
+            flex-shrink: 0;
+        }
+        .sidebar-profile-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #F8FAFC;
+            border: 1px solid #EEF1F5;
+            border-radius: 14px;
+            padding: 10px 12px;
+        }
+        .sidebar-profile-avatar {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--navy, #0F2044), var(--navy-light, #223769));
+            color: var(--yellow, #F6C243);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: 700;
+            flex-shrink: 0;
+        }
+        .sidebar-profile-info { flex: 1; min-width: 0; }
+        .sidebar-profile-info .p-name {
+            font-size: 12.5px; font-weight: 700; color: var(--navy, #0F2044);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .sidebar-profile-info .p-role {
+            font-size: 10.5px; color: #6B7280;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .sidebar-profile-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: #27AE60;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 1px #DCFCE7;
+            flex-shrink: 0;
+        }
+
+        /* ---- Navbar back button ---- */
+        .navbar-back-btn {
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px;
+            text-decoration: none;
+            flex-shrink: 0;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        .navbar-back-btn:hover { background: rgba(255,255,255,0.18); transform: translateX(-2px); }
+
+        /* ---- Password Gate ---- */
+        #pwGate {
+            position: fixed; inset: 0; z-index: 100010;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            display: flex; align-items: center; justify-content: center; flex-direction: column;
+            padding: 24px; text-align: center;
+            transition: opacity 0.35s ease;
+        }
+        #pwGate .pw-icon {
+            width: 60px; height: 60px; border-radius: 18px; margin-bottom: 18px;
+            background: rgba(246,194,67,0.15); color: var(--yellow);
+            display: flex; align-items: center; justify-content: center; font-size: 26px;
+        }
+        #pwGate h2 { color: #fff; font-size: 19px; font-weight: 800; margin-bottom: 6px; }
+        #pwGate p { color: rgba(255,255,255,0.65); font-size: 12.5px; margin-bottom: 22px; max-width: 280px; }
+        .pw-dots { display: flex; gap: 12px; margin-bottom: 22px; }
+        .pw-dot {
+            width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.35);
+            transition: background 0.15s ease, border-color 0.15s ease;
+        }
+        .pw-dot.filled { background: var(--yellow); border-color: var(--yellow); }
+        .pw-dot.shake-error { border-color: var(--red); }
+        #pwGate.shake { animation: pw-shake 0.4s; }
+        @keyframes pw-shake { 0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-8px); } 40%,80% { transform: translateX(8px); } }
+        .pw-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 240px; }
+        .pw-key {
+            width: 68px; height: 68px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.06); color: #fff; font-size: 20px; font-weight: 700;
+            cursor: pointer; transition: background 0.15s ease, transform 0.1s ease;
+        }
+        .pw-key:hover { background: rgba(255,255,255,0.14); }
+        .pw-key:active { transform: scale(0.94); }
+        .pw-key.pw-key-empty { visibility: hidden; }
+        .pw-key.pw-key-back { font-size: 16px; }
+        #pwError { color: var(--red); font-size: 11.5px; font-weight: 700; margin-top: 14px; min-height: 16px; }
+        .pw-hint { color: rgba(255,255,255,0.4); font-size: 10.5px; margin-top: 18px; }
+
+        /* ---- Alerts / Sorotan Penting ---- */
+        .alert-card {
+            display: flex; align-items: flex-start; gap: 10px;
+            padding: 11px 12px; border-radius: 12px; margin-bottom: 8px;
+            border: 1px solid transparent;
+        }
+        .alert-card:last-child { margin-bottom: 0; }
+        .alert-card.danger { background: var(--red-light); border-color: #FCA5A5; }
+        .alert-card.warning { background: #FFF8E8; border-color: #FDE68A; }
+        .alert-card.good { background: var(--green-light); border-color: #86EFAC; }
+        .alert-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+        .alert-card.danger .alert-icon { color: var(--red); }
+        .alert-card.warning .alert-icon { color: #B8860B; }
+        .alert-card.good .alert-icon { color: var(--green); }
+        .alert-text { font-size: 11.5px; font-weight: 600; color: var(--navy); line-height: 1.4; }
+        .alert-text b { font-weight: 800; }
+
+        /* ---- Staff Performance Chart ---- */
+        .staff-chart-row { margin-bottom: 14px; }
+        .staff-chart-row:last-child { margin-bottom: 0; }
+        .staff-chart-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; }
+        .staff-chart-name { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: var(--navy); }
+        .staff-chart-avatar {
+            width: 24px; height: 24px; border-radius: 50%; background: var(--navy);
+            color: var(--yellow); font-size: 9.5px; font-weight: 800;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .staff-chart-stat { font-size: 11px; color: var(--gray-text); font-weight: 600; }
+        .staff-chart-track { width: 100%; height: 9px; background: #F1F5F9; border-radius: var(--radius-full); overflow: hidden; }
+        .staff-chart-fill { height: 100%; border-radius: var(--radius-full); background: linear-gradient(90deg, #93C5FD, var(--blue)); transition: width 0.5s ease; }
+
+        /* ---- Kondisi Keuangan Cabang (live) ---- */
+        .live-badge {
+            display: inline-flex; align-items: center; gap: 5px;
+            font-size: 9.5px; font-weight: 800; color: var(--red);
+            background: var(--red-light); padding: 3px 8px; border-radius: var(--radius-full);
+            text-transform: uppercase; letter-spacing: 0.4px;
+        }
+        .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: live-pulse 1.4s infinite; }
+        @keyframes live-pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(1.4); } }
+        .fin-updated { font-size: 10px; color: var(--gray-text); margin-top: 2px; }
+
+        .fincard-grid { display: flex; flex-direction: column; gap: 10px; }
+        .fincard {
+            border: 1px solid #F1F5F9; border-radius: 14px; padding: 12px 14px;
+            background: #FAFBFC; transition: background 0.4s ease;
+        }
+        .fincard.flash { background: #FFF9E8; }
+        .fincard-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+        .fincard-label { font-size: 12px; font-weight: 700; color: var(--navy); }
+        .fincard-badge { font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px; }
+        .fincard-badge.good { background: var(--green-light); color: var(--green); }
+        .fincard-badge.bad { background: var(--red-light); color: var(--red); }
+        .fincard-value { font-size: 20px; font-weight: 800; color: var(--navy); transition: color 0.3s ease; }
+        .fincard-value .unit { font-size: 11px; font-weight: 600; color: var(--gray-text); margin-left: 4px; }
+        .fincard-sub { font-size: 10.5px; color: var(--gray-text); margin-top: 2px; }
+        .fincard-track { width: 100%; height: 6px; background: #E5E7EB; border-radius: var(--radius-full); overflow: hidden; margin-top: 8px; }
+        .fincard-fill { height: 100%; border-radius: var(--radius-full); transition: width 0.4s ease; }
+        .fincard-fill.good { background: linear-gradient(90deg, #4ADE80, var(--green)); }
+        .fincard-fill.bad { background: linear-gradient(90deg, #FCA5A5, var(--red)); }
+        .fincard-growth { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+        .growth-pill { font-size: 9.5px; font-weight: 700; padding: 3px 7px; border-radius: 6px; display: flex; align-items: center; gap: 3px; }
+        .growth-pill.up { background: var(--green-light); color: var(--green); }
+        .growth-pill.down { background: var(--red-light); color: var(--red); }
+        .growth-pill .lbl { opacity: 0.65; font-weight: 600; }
+
+        /* ---- Merchant Financial Performance ---- */
+        .fin-toggle { display: flex; background: #F1F5F9; border-radius: 12px; padding: 3px; gap: 3px; margin-bottom: 14px; }
+        .fin-toggle-btn {
+            flex: 1; border: none; background: transparent; padding: 8px 10px; border-radius: 9px;
+            font-size: 12px; font-weight: 700; color: var(--gray-text); cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.2s var(--ease);
+        }
+        .fin-toggle-btn.active { background: var(--white); color: var(--navy); box-shadow: 0 1px 3px rgba(15,32,68,0.12); }
+        .fin-toggle-btn[data-fin="top"].active { color: var(--green); }
+        .fin-toggle-btn[data-fin="bottom"].active { color: var(--red); }
+        .fin-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #F1F5F9; }
+        .fin-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .fin-rank {
+            width: 22px; height: 22px; border-radius: 7px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 10.5px; font-weight: 800; background: #F1F5F9; color: var(--gray-text);
+        }
+        .fin-row.is-top .fin-rank { background: var(--green-light); color: var(--green); }
+        .fin-row.is-bottom .fin-rank { background: var(--red-light); color: var(--red); }
+        .fin-body { flex: 1; min-width: 0; }
+        .fin-name { font-size: 12.5px; font-weight: 700; color: var(--navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .fin-meta { font-size: 10.5px; color: var(--gray-text); margin-top: 1px; }
+        .fin-track { width: 100%; height: 5px; background: #F1F5F9; border-radius: var(--radius-full); overflow: hidden; margin-top: 6px; }
+        .fin-fill { height: 100%; border-radius: var(--radius-full); }
+        .fin-row.is-top .fin-fill { background: linear-gradient(90deg, #4ADE80, var(--green)); }
+        .fin-row.is-bottom .fin-fill { background: linear-gradient(90deg, #FCA5A5, var(--red)); }
+        .fin-right { text-align: right; flex-shrink: 0; }
+        .fin-value { font-size: 12.5px; font-weight: 700; color: var(--navy); white-space: nowrap; }
+        .fin-trend { font-size: 10px; font-weight: 700; margin-top: 2px; display: flex; align-items: center; justify-content: flex-end; gap: 3px; }
+        .fin-trend.up { color: var(--green); }
+        .fin-trend.down { color: var(--red); }
+
+        /* ---- Page transition loader ---- */
+        #pageTransitionLoader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: var(--bg-body, #F4F6F9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease;
+        }
+        #pageTransitionLoader.active { opacity: 1; visibility: visible; }
+        #pageTransitionLoader .pt-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+        #pageTransitionLoader .pt-spinner {
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            border: 3px solid #E5E7EB;
+            border-top-color: var(--navy, #0F2044);
+            animation: pt-spin 0.7s linear infinite;
+        }
+        #pageTransitionLoader .pt-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6B7280;
+            letter-spacing: 0.2px;
+        }
+        @keyframes pt-spin { to { transform: rotate(360deg); } }
+
+        #pageTransitionBar {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--yellow, #F6C243), var(--navy-light, #223769));
+            z-index: 100000;
+            transition: width 0.35s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+        #pageTransitionBar.active { opacity: 1; }
+
+        body.pt-fade-in { animation: pt-fadein 0.28s ease both; }
+        @keyframes pt-fadein {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+</style>
 </head>
 <body>
+
+    <!-- Password Gate -->
+    <div id="pwGate">
+        <div class="pw-icon"><i class="fa-solid fa-lock"></i></div>
+        <h2>Akses Kepala Cabang</h2>
+        <p>Masukkan PIN untuk membuka dashboard performa cabang.</p>
+        <div class="pw-dots" id="pwDots">
+            <div class="pw-dot"></div>
+            <div class="pw-dot"></div>
+            <div class="pw-dot"></div>
+            <div class="pw-dot"></div>
+        </div>
+        <div class="pw-keypad" id="pwKeypad">
+            <button class="pw-key" data-key="1">1</button>
+            <button class="pw-key" data-key="2">2</button>
+            <button class="pw-key" data-key="3">3</button>
+            <button class="pw-key" data-key="4">4</button>
+            <button class="pw-key" data-key="5">5</button>
+            <button class="pw-key" data-key="6">6</button>
+            <button class="pw-key" data-key="7">7</button>
+            <button class="pw-key" data-key="8">8</button>
+            <button class="pw-key" data-key="9">9</button>
+            <div class="pw-key pw-key-empty"></div>
+            <button class="pw-key" data-key="0">0</button>
+            <button class="pw-key pw-key-back" data-key="back"><i class="fa-solid fa-delete-left"></i></button>
+        </div>
+        <div id="pwError">&nbsp;</div>
+        <div class="pw-hint">PIN demo: 0000</div>
+    </div>
+    <script>
+        (function () {
+            var CORRECT_PIN = '0000';
+            var entered = '';
+            var gate = document.getElementById('pwGate');
+            var dotsEl = document.getElementById('pwDots');
+            var errorEl = document.getElementById('pwError');
+            var keypad = document.getElementById('pwKeypad');
+
+            var alreadyUnlocked = false;
+            try { alreadyUnlocked = sessionStorage.getItem('bm_unlocked') === '1'; } catch (e) {}
+            if (alreadyUnlocked && gate) {
+                gate.style.display = 'none';
+            }
+
+            function renderDots() {
+                var dots = dotsEl.querySelectorAll('.pw-dot');
+                dots.forEach(function (d, i) {
+                    d.classList.toggle('filled', i < entered.length);
+                });
+            }
+
+            function showError(msg) {
+                errorEl.textContent = msg;
+                gate.classList.add('shake');
+                setTimeout(function () { gate.classList.remove('shake'); }, 400);
+                setTimeout(function () {
+                    entered = '';
+                    renderDots();
+                    errorEl.innerHTML = '&nbsp;';
+                }, 650);
+            }
+
+            function unlock() {
+                errorEl.innerHTML = '&nbsp;';
+                try { sessionStorage.setItem('bm_unlocked', '1'); } catch (e) {}
+                gate.style.opacity = '0';
+                setTimeout(function () { gate.style.display = 'none'; }, 350);
+            }
+
+            function pressKey(key) {
+                if (key === 'back') {
+                    entered = entered.slice(0, -1);
+                    renderDots();
+                    return;
+                }
+                if (entered.length >= 4) return;
+                entered += key;
+                renderDots();
+                if (entered.length === 4) {
+                    setTimeout(function () {
+                        if (entered === CORRECT_PIN) {
+                            unlock();
+                        } else {
+                            showError('PIN salah, coba lagi.');
+                        }
+                    }, 150);
+                }
+            }
+
+            if (keypad) {
+                keypad.addEventListener('click', function (e) {
+                    var btn = e.target.closest('.pw-key');
+                    if (!btn || !btn.dataset.key) return;
+                    pressKey(btn.dataset.key);
+                });
+            }
+
+            document.addEventListener('keydown', function (e) {
+                if (!gate || gate.style.display === 'none') return;
+                if (e.key >= '0' && e.key <= '9') pressKey(e.key);
+                if (e.key === 'Backspace') pressKey('back');
+            });
+        })();
+    </script>
 
     <div class="app-container">
         <!-- Sidebar -->
@@ -273,7 +733,29 @@
 
         <div class="main-content">
 
-            <!-- Staff Performance -->
+            <!-- Sorotan Penting -->
+            <div class="panel">
+                <div class="panel-title"><span><i class="fa-solid fa-bell"></i>Sorotan Penting</span></div>
+                <div id="alertList"></div>
+            </div>
+
+            <!-- Kondisi Keuangan Cabang (Live) -->
+            <div class="panel">
+                <div class="panel-title">
+                    <span><i class="fa-solid fa-building-columns"></i>Kondisi Keuangan Cabang</span>
+                    <span class="live-badge"><span class="live-dot"></span> Live</span>
+                </div>
+                <div class="fin-updated" id="financeLastUpdate">Diperbarui baru saja</div>
+                <div class="fincard-grid" id="financeCondGrid" style="margin-top:12px;"></div>
+            </div>
+
+            <!-- Staff Performance Chart -->
+            <div class="panel">
+                <div class="panel-title"><span><i class="fa-solid fa-chart-simple"></i>Grafik Performa Petugas</span></div>
+                <div id="staffChart"></div>
+            </div>
+
+            <!-- Staff Performance Table -->
             <div class="panel">
                 <div class="panel-title"><span><i class="fa-solid fa-people-group"></i>Performa Petugas Cabang</span></div>
                 <div class="table-scroll">
@@ -288,6 +770,22 @@
                         <tbody id="staffTableBody"></tbody>
                     </table>
                 </div>
+            </div>
+
+            <!-- Merchant Financial Performance -->
+            <div class="panel">
+                <div class="panel-title">
+                    <span><i class="fa-solid fa-sack-dollar"></i>Analisa Performa Financial Merchant</span>
+                </div>
+                <div class="fin-toggle" id="bmFinToggle">
+                    <button class="fin-toggle-btn active" data-fin="top" onclick="setBmFinancialTab('top', this)">
+                        <i class="fa-solid fa-arrow-trend-up"></i> Terbaik
+                    </button>
+                    <button class="fin-toggle-btn" data-fin="bottom" onclick="setBmFinancialTab('bottom', this)">
+                        <i class="fa-solid fa-arrow-trend-down"></i> Terburuk
+                    </button>
+                </div>
+                <div id="bmFinList"></div>
             </div>
 
             <!-- Full Data Table -->
@@ -343,7 +841,161 @@
         </div>
     </div>
 
-    <script src="sidebar.js"></script>
+        <script>
+        // =========================================================
+        // Shared app shell logic (inlined — no external sidebar.js)
+        // =========================================================
+        (function () {
+            // ---- Safe localStorage shim ----
+            // Some browsers (or file:// contexts) throw when accessing
+            // localStorage. This guarantees the app still works (in-memory)
+            // instead of silently breaking every render function below it.
+            try {
+                var __t = '__storage_test__';
+                window.localStorage.setItem(__t, '1');
+                window.localStorage.removeItem(__t);
+            } catch (e) {
+                var __mem = {};
+                var __shim = {
+                    getItem: function (k) { return Object.prototype.hasOwnProperty.call(__mem, k) ? __mem[k] : null; },
+                    setItem: function (k, v) { __mem[k] = String(v); },
+                    removeItem: function (k) { delete __mem[k]; },
+                    clear: function () { __mem = {}; },
+                    key: function (i) { return Object.keys(__mem)[i] || null; }
+                };
+                try {
+                    Object.defineProperty(window, 'localStorage', { value: __shim, configurable: true });
+                } catch (e2) {
+                    window.localStorage = __shim;
+                }
+            }
+
+            // ---- Dummy Petugas (logged-in officer) — shared "session" for the demo ----
+            var CURRENT_OFFICER = { name: 'Ahmad Fauzi', role: 'Petugas Lapangan', branch: 'Cabang Pondok Indah', initials: 'AF' };
+            var OFFICER_NAME_MAP = { current_user: 'Ahmad Fauzi', other_user_1: 'Siti Nurhaliza', other_user_2: 'Budi Santoso' };
+            window.OFFICER_NAME_MAP = OFFICER_NAME_MAP;
+            window.CURRENT_OFFICER = CURRENT_OFFICER;
+            window.getOfficerName = function (id) {
+                if (!id) return 'Tidak diketahui';
+                return OFFICER_NAME_MAP[id] || id.replace(/_/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+            };
+            window.getOfficerInitials = function (id) {
+                var name = window.getOfficerName(id);
+                return name.split(' ').map(function (w) { return w[0]; }).filter(Boolean).join('').toUpperCase().slice(0, 2);
+            };
+
+            // ---- Page transition loader/overlay ----
+            var bar = document.createElement('div');
+            bar.id = 'pageTransitionBar';
+            document.body.appendChild(bar);
+
+            var loader = document.createElement('div');
+            loader.id = 'pageTransitionLoader';
+            loader.innerHTML = '<div class="pt-inner"><div class="pt-spinner"></div><div class="pt-label">Memuat halaman...</div></div>';
+            document.body.appendChild(loader);
+
+            function showPageTransition() {
+                bar.classList.add('active');
+                requestAnimationFrame(function () { bar.style.width = '70%'; });
+                setTimeout(function () { loader.classList.add('active'); }, 120);
+            }
+
+            function isInternalNavLink(link) {
+                if (!link || !link.getAttribute) return false;
+                var href = link.getAttribute('href');
+                if (!href) return false;
+                if (href.indexOf('#') === 0 || href.indexOf('javascript:') === 0 || href.indexOf('mailto:') === 0 || href.indexOf('tel:') === 0) return false;
+                if (link.target === '_blank') return false;
+                if (link.hasAttribute('download')) return false;
+                return /\.html($|\?|#)/i.test(href) || href.slice(-1) === '/';
+            }
+
+            document.addEventListener('click', function (e) {
+                var link = e.target.closest ? e.target.closest('a') : null;
+                if (!isInternalNavLink(link)) return;
+                showPageTransition();
+            }, true);
+
+            window.addEventListener('DOMContentLoaded', function () {
+                document.body.classList.add('pt-fade-in');
+            });
+
+            window.addEventListener('pageshow', function () {
+                bar.classList.remove('active');
+                bar.style.width = '0%';
+                loader.classList.remove('active');
+            });
+
+            // ---- Sidebar logic (markup is static HTML already in the page) ----
+            document.addEventListener('DOMContentLoaded', function () {
+                var currentPage = window.location.pathname.split('/').pop() || 'mandiri_spot.html';
+                document.querySelectorAll('.sidebar-link').forEach(function (link) {
+                    if (link.getAttribute('href') === currentPage) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+
+                var sidebarToggle = document.getElementById('sidebarToggle');
+                var closeSidebar = document.getElementById('closeSidebar');
+                var sidebar = document.getElementById('sidebar');
+                var sidebarOverlay = document.getElementById('sidebarOverlay');
+                var appContainer = document.querySelector('.app-container');
+
+                if (!sidebar || !sidebarOverlay) return; // page has no sidebar (e.g. index.html)
+
+                var DESKTOP_BREAKPOINT = 1024;
+                function isDesktop() { return window.innerWidth >= DESKTOP_BREAKPOINT; }
+
+                function openSidebar() {
+                    if (!isDesktop() && appContainer) {
+                        sidebar.style.top = appContainer.scrollTop + 'px';
+                        sidebarOverlay.style.top = appContainer.scrollTop + 'px';
+                        appContainer.style.overflow = 'hidden';
+                    }
+                    sidebar.classList.add('show');
+                    sidebarOverlay.classList.add('show');
+                }
+
+                function hideSidebar() {
+                    if (isDesktop()) return;
+                    if (appContainer) appContainer.style.overflow = '';
+                    sidebar.classList.remove('show');
+                    sidebarOverlay.classList.remove('show');
+                }
+
+                function syncLayoutForViewport() {
+                    if (isDesktop()) {
+                        sidebar.classList.add('show');
+                        sidebarOverlay.classList.remove('show');
+                        if (appContainer) appContainer.style.overflow = '';
+                        sidebar.style.top = '';
+                        sidebarOverlay.style.top = '';
+                    } else {
+                        sidebar.classList.remove('show');
+                        sidebarOverlay.classList.remove('show');
+                        if (appContainer) appContainer.style.overflow = '';
+                    }
+                }
+
+                var resizeTimer;
+                window.addEventListener('resize', function () {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(syncLayoutForViewport, 120);
+                });
+
+                if (sidebarToggle) sidebarToggle.addEventListener('click', function (e) { e.preventDefault(); openSidebar(); });
+                if (closeSidebar) closeSidebar.addEventListener('click', function (e) { e.preventDefault(); hideSidebar(); });
+                if (sidebarOverlay) sidebarOverlay.addEventListener('click', hideSidebar);
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') hideSidebar();
+                });
+
+                syncLayoutForViewport();
+            });
+        })();
+    </script>
     <script>
         // ---- Seed dummy data (mirrors mandiri_spot.html so this page works standalone) ----
         function seedDummyData() {
@@ -642,9 +1294,223 @@
             URL.revokeObjectURL(url);
         }
 
+        // ---- Sorotan Penting (Alerts) ----
+        function renderAlerts() {
+            const scoped = branchScopedSpots();
+            const total = scoped.length;
+            const approved = scoped.filter(s => s.submissionStatus === 'approved').length;
+            const pending = scoped.filter(s => s.submissionStatus === 'pending').length;
+            const rejected = scoped.filter(s => s.submissionStatus === 'rejected').length;
+            const rate = total > 0 ? Math.round((approved / total) * 100) : 0;
+
+            const alerts = [];
+
+            if (pending > 0) {
+                alerts.push({ type: 'warning', icon: 'fa-clock', text: `Ada <b>${pending} submission</b> menunggu review Anda.` });
+            }
+            if (rejected > 0) {
+                alerts.push({ type: 'danger', icon: 'fa-circle-exclamation', text: `<b>${rejected} submission</b> ditolak — cek kembali alasan penolakannya.` });
+            }
+            if (rate < 80 && total > 0) {
+                alerts.push({ type: 'danger', icon: 'fa-arrow-trend-down', text: `Approval rate cabang hanya <b>${rate}%</b>, di bawah target 80%.` });
+            } else if (total > 0) {
+                alerts.push({ type: 'good', icon: 'fa-circle-check', text: `Approval rate cabang <b>${rate}%</b> — sehat, di atas target 80%.` });
+            }
+
+            // Financial condition alerts (reuses financeConditionData below)
+            financeConditionData.forEach(d => {
+                const pct = (d.current / d.target) * 100;
+                if (pct < 85) {
+                    alerts.push({ type: 'danger', icon: 'fa-sack-dollar', text: `<b>${d.label}</b> baru mencapai <b>${pct.toFixed(1)}%</b> dari target — perlu perhatian.` });
+                }
+            });
+
+            if (alerts.length === 0) {
+                alerts.push({ type: 'good', icon: 'fa-circle-check', text: 'Semua indikator cabang dalam kondisi baik. Tidak ada yang perlu disorot.' });
+            }
+
+            document.getElementById('alertList').innerHTML = alerts.map(a => `
+                <div class="alert-card ${a.type}">
+                    <i class="fa-solid ${a.icon} alert-icon"></i>
+                    <div class="alert-text">${a.text}</div>
+                </div>
+            `).join('');
+        }
+
+        // ---- Kondisi Keuangan Cabang (live) — same base data as Dashboard ----
+        const financeConditionData = [
+            { key: 'casa', label: 'CASA', current: 3093.4, target: 3969.0, dtd: -29.0, mtd: 221.1, ytd: -425.2, yoy: 75.3 },
+            { key: 'dpk', label: 'DPK', current: 5998.2, target: 5795.0, dtd: -26.6, mtd: 206.2, ytd: 413.7, yoy: 1007.7 },
+            { key: 'tabungan', label: 'Tabungan All Segmen', current: 1749.3, target: 2518.8, dtd: -4.1, mtd: -179.0, ytd: -523.7, yoy: -395.8 },
+            { key: 'deposito', label: 'Deposito All Segmen', current: 2904.7, target: 1826.1, dtd: 2.4, mtd: -15.0, ytd: 838.9, yoy: 932.4 },
+            { key: 'giro', label: 'Giro All Segmen', current: 1344.2, target: 1450.1, dtd: -24.9, mtd: 400.2, ytd: 98.5, yoy: 471.1 }
+        ];
+
+        function fmtMiliar(num) {
+            const sign = num < 0 ? '-' : '';
+            return sign + Math.abs(num).toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+        }
+
+        function growthPill(label, val) {
+            const up = val >= 0;
+            return `<span class="growth-pill ${up ? 'up' : 'down'}"><i class="fa-solid ${up ? 'fa-arrow-up' : 'fa-arrow-down'}"></i> <span class="lbl">${label}</span> ${fmtMiliar(val)}</span>`;
+        }
+
+        function renderFinanceCondition() {
+            const container = document.getElementById('financeCondGrid');
+            if (!container) return;
+            container.innerHTML = financeConditionData.map(d => {
+                const pctTarget = (d.current / d.target) * 100;
+                const gap = d.current - d.target;
+                const good = pctTarget >= 100;
+                const trackPct = Math.min(100, Math.max(4, pctTarget));
+                return `
+                    <div class="fincard" id="fincard-${d.key}">
+                        <div class="fincard-top">
+                            <div class="fincard-label">${d.label} <span style="font-weight:500; color:var(--gray-text);">(Rp Miliar)</span></div>
+                            <div class="fincard-badge ${good ? 'good' : 'bad'}">${pctTarget.toFixed(1)}% Target</div>
+                        </div>
+                        <div class="fincard-value" id="fincard-value-${d.key}">${fmtMiliar(d.current)}<span class="unit">Miliar</span></div>
+                        <div class="fincard-sub">Target: ${fmtMiliar(d.target)} M &middot; Gap: <span style="color:${gap >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight:700;">${gap >= 0 ? '+' : ''}${fmtMiliar(gap)}</span></div>
+                        <div class="fincard-track"><div class="fincard-fill ${good ? 'good' : 'bad'}" style="width:${trackPct}%;"></div></div>
+                        <div class="fincard-growth">
+                            ${growthPill('DtD', d.dtd)}${growthPill('MtD', d.mtd)}${growthPill('YtD', d.ytd)}${growthPill('YoY', d.yoy)}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        let financeSecondsAgo = 0;
+        function tickFinanceLiveUpdate() {
+            financeConditionData.forEach(d => {
+                const jitter = d.current * (Math.random() * 0.006 - 0.003);
+                d.current = Math.max(0, d.current + jitter);
+                const pctTarget = (d.current / d.target) * 100;
+                const gap = d.current - d.target;
+                const good = pctTarget >= 100;
+                const valueEl = document.getElementById(`fincard-value-${d.key}`);
+                const cardEl = document.getElementById(`fincard-${d.key}`);
+                const badgeEl = cardEl ? cardEl.querySelector('.fincard-badge') : null;
+                const fillEl = cardEl ? cardEl.querySelector('.fincard-fill') : null;
+                const subEl = cardEl ? cardEl.querySelector('.fincard-sub') : null;
+                if (valueEl) valueEl.innerHTML = `${fmtMiliar(d.current)}<span class="unit">Miliar</span>`;
+                if (badgeEl) { badgeEl.textContent = `${pctTarget.toFixed(1)}% Target`; badgeEl.className = `fincard-badge ${good ? 'good' : 'bad'}`; }
+                if (fillEl) { fillEl.style.width = Math.min(100, Math.max(4, pctTarget)) + '%'; fillEl.className = `fincard-fill ${good ? 'good' : 'bad'}`; }
+                if (subEl) subEl.innerHTML = `Target: ${fmtMiliar(d.target)} M &middot; Gap: <span style="color:${gap >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight:700;">${gap >= 0 ? '+' : ''}${fmtMiliar(gap)}</span>`;
+                if (cardEl) { cardEl.classList.add('flash'); setTimeout(() => cardEl.classList.remove('flash'), 500); }
+            });
+            financeSecondsAgo = 0;
+        }
+
+        function updateFinanceTimestamp() {
+            financeSecondsAgo += 1;
+            const el = document.getElementById('financeLastUpdate');
+            if (!el) return;
+            el.textContent = financeSecondsAgo <= 1 ? 'Diperbarui baru saja' : `Diperbarui ${financeSecondsAgo} detik lalu`;
+        }
+
+        // ---- Staff Performance Chart (visual bars) ----
+        function renderStaffChart() {
+            const scoped = branchScopedSpots();
+            const staffMap = {};
+            scoped.forEach(s => {
+                const staff = s.submittedBy || 'unknown';
+                if (!staffMap[staff]) staffMap[staff] = { total: 0, approved: 0 };
+                staffMap[staff].total++;
+                if (s.submissionStatus === 'approved') staffMap[staff].approved++;
+            });
+            const entries = Object.entries(staffMap).sort((a, b) => b[1].total - a[1].total);
+            const container = document.getElementById('staffChart');
+            if (!container) return;
+            if (entries.length === 0) {
+                container.innerHTML = `<div class="empty-state"><i class="fa-solid fa-inbox"></i>Belum ada data petugas.</div>`;
+                return;
+            }
+            const maxTotal = Math.max(...entries.map(([, d]) => d.total), 1);
+            container.innerHTML = entries.map(([staff, d]) => {
+                const rate = d.total > 0 ? Math.round((d.approved / d.total) * 100) : 0;
+                const displayName = window.getOfficerName ? window.getOfficerName(staff) : staff.replace(/_/g, ' ');
+                const displayInitials = window.getOfficerInitials ? window.getOfficerInitials(staff) : initials(staff);
+                const widthPct = Math.max(6, (d.total / maxTotal) * 100);
+                return `
+                    <div class="staff-chart-row">
+                        <div class="staff-chart-top">
+                            <div class="staff-chart-name"><div class="staff-chart-avatar">${displayInitials}</div>${displayName}</div>
+                            <div class="staff-chart-stat">${d.total} submission &middot; ${rate}% approved</div>
+                        </div>
+                        <div class="staff-chart-track"><div class="staff-chart-fill" style="width:${widthPct}%;"></div></div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ---- Merchant Financial Performance (Top/Bottom) ----
+        function estimateMerchantRevenue(spot) {
+            const seed = spot.id % 10000;
+            const dailyTx = Math.floor((seed % 300) + 40);
+            const avgTxVal = Math.floor((seed % 15) * 10000 + 15000);
+            const monthlySales = dailyTx * avgTxVal * 30;
+            const trendPct = ((seed % 41) - 20);
+            return { monthlySales, trendPct };
+        }
+        function formatShortRp(num) {
+            if (num >= 1000000000) return 'Rp' + (num / 1000000000).toFixed(1).replace('.', ',') + ' M';
+            if (num >= 1000000) return 'Rp' + (num / 1000000).toFixed(1).replace('.', ',') + ' Jt';
+            return 'Rp' + Math.round(num / 1000) + ' Rb';
+        }
+        let bmFinRanking = { top: [], bottom: [] };
+        let bmActiveFinTab = 'top';
+        function renderBmFinancialPanel() {
+            const merchants = branchScopedSpots().filter(s => s.status === 'mandiri' && s.orgType === 'profit');
+            const ranked = merchants.map(s => ({ spot: s, ...estimateMerchantRevenue(s) })).sort((a, b) => b.monthlySales - a.monthlySales);
+            bmFinRanking.top = ranked.slice(0, 5);
+            bmFinRanking.bottom = ranked.slice(-5).reverse();
+            renderBmFinancialList();
+        }
+        function renderBmFinancialList() {
+            const container = document.getElementById('bmFinList');
+            if (!container) return;
+            const list = bmFinRanking[bmActiveFinTab] || [];
+            if (list.length === 0) {
+                container.innerHTML = `<div class="empty-state"><i class="fa-solid fa-inbox"></i>Belum ada data merchant untuk dianalisa.</div>`;
+                return;
+            }
+            const maxVal = Math.max(...bmFinRanking[bmActiveFinTab].map(r => r.monthlySales), 1);
+            const isTop = bmActiveFinTab === 'top';
+            container.innerHTML = list.map((r, idx) => {
+                const pct = Math.max(6, Math.round((r.monthlySales / maxVal) * 100));
+                const trendUp = r.trendPct >= 0;
+                return `
+                    <div class="fin-row ${isTop ? 'is-top' : 'is-bottom'}">
+                        <div class="fin-rank">${idx + 1}</div>
+                        <div class="fin-body">
+                            <div class="fin-name">${r.spot.name}</div>
+                            <div class="fin-meta">${r.spot.category}</div>
+                            <div class="fin-track"><div class="fin-fill" style="width:${pct}%;"></div></div>
+                        </div>
+                        <div class="fin-right">
+                            <div class="fin-value">${formatShortRp(r.monthlySales)}</div>
+                            <div class="fin-trend ${trendUp ? 'up' : 'down'}"><i class="fa-solid ${trendUp ? 'fa-arrow-up' : 'fa-arrow-down'}"></i> ${Math.abs(r.trendPct)}%</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        window.setBmFinancialTab = function (tab, btn) {
+            bmActiveFinTab = tab;
+            document.querySelectorAll('#bmFinToggle .fin-toggle-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderBmFinancialList();
+        };
+
         function renderAll() {
             renderTopMetrics();
             renderStaffTable();
+            renderStaffChart();
+            renderAlerts();
+            renderFinanceCondition();
+            renderBmFinancialPanel();
             renderDataTable();
         }
 
@@ -669,12 +1535,18 @@
                     else { sortKey = key; sortDir = 'asc'; }
                     currentPage = 1;
                     renderDataTable();
-                  });
+                });
             });
         }
 
-        seedDummyData();
-        document.addEventListener('DOMContentLoaded', init);
+        try { seedDummyData(); } catch (e) { console.error('seedDummyData failed:', e); }
+        document.addEventListener('DOMContentLoaded', () => {
+            try { init(); } catch (e) { console.error('init failed:', e); }
+            try {
+                setInterval(tickFinanceLiveUpdate, 5000);
+                setInterval(updateFinanceTimestamp, 1000);
+            } catch (e) { console.error('finance live-update timer failed:', e); }
+        });
     </script>
 </body>
 </html>
