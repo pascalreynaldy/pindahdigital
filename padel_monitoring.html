@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - PinDah Digital</title>
+    <title>Monitoring Padel - PinDah Digital</title>
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -642,7 +642,63 @@
             from { opacity: 0; transform: translateY(4px); }
             to { opacity: 1; transform: translateY(0); }
         }
-</style>
+
+        /* ---- Padel Monitoring ---- */
+        .tier-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+        .tier-card { border: 1px solid #F1F5F9; border-radius: 14px; padding: 14px 14px 14px 18px; background: #FAFBFC; position: relative; overflow: hidden; }
+        .tier-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--tier-color); }
+        .tier-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+        .tier-name { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; color: var(--navy); }
+        .tier-badge { width: 26px; height: 26px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #fff; background: var(--tier-color); }
+        .tier-min { font-size: 10px; color: var(--gray-text); font-weight: 600; }
+        .tier-count { font-size: 28px; font-weight: 800; color: var(--navy); line-height: 1; }
+        .tier-count small { font-size: 11px; font-weight: 600; color: var(--gray-text); margin-left: 4px; }
+        .tier-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+        .tier-progress-label { display: flex; justify-content: space-between; font-size: 10.5px; color: var(--gray-text); margin-top: 12px; font-weight: 600; }
+
+        .pd-chart { display: flex; align-items: flex-end; gap: 6px; height: 150px; }
+        .pd-col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; min-width: 0; }
+        .pd-stack { display: flex; flex-direction: column-reverse; width: 100%; max-width: 26px; border-radius: 6px 6px 0 0; overflow: hidden; }
+        .pd-seg { width: 100%; }
+        .pd-total { font-size: 9.5px; font-weight: 800; color: var(--navy); margin-bottom: 3px; }
+        .pd-lbl { font-size: 9.5px; color: var(--gray-text); margin-top: 6px; font-weight: 600; }
+        .pd-pair { display: flex; align-items: flex-end; gap: 2px; justify-content: center; }
+        .pd-bar { width: 9px; border-radius: 4px 4px 0 0; }
+        .pd-legend { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; font-size: 10.5px; color: var(--gray-text); font-weight: 600; }
+        .pd-legend i { display: inline-block; width: 9px; height: 9px; border-radius: 3px; margin-right: 5px; }
+
+        .pd-select-row { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
+        .pd-select { flex: 1; min-width: 0; padding: 9px 10px; border-radius: 8px; border: 1px solid var(--gray-light); font-size: 12px; font-weight: 600; color: var(--navy); background: #fff; outline: none; }
+        .pd-arrow { color: var(--gray-text); font-size: 12px; }
+        .sum-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+        .sum-box { background: #F8FAFC; border: 1px solid #EEF1F5; border-radius: 12px; padding: 10px 12px; }
+        .sum-box .lbl { font-size: 9.5px; color: var(--gray-text); font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; }
+        .sum-box .val { font-size: 15px; font-weight: 800; color: var(--navy); margin-top: 3px; }
+        .sum-box .sub { font-size: 10.5px; font-weight: 700; margin-top: 2px; color: var(--gray-text); }
+        .txt-up { color: var(--green) !important; }
+        .txt-down { color: var(--red) !important; }
+        .kv-row { display: flex; justify-content: space-between; gap: 10px; font-size: 11.5px; padding: 6px 0; border-bottom: 1px dashed #EEF1F5; }
+        .kv-row:last-child { border-bottom: none; }
+        .kv-row span:first-child { color: var(--gray-text); font-weight: 500; }
+        .kv-row span:last-child { color: var(--navy); font-weight: 700; text-align: right; }
+        .tier-chip { font-size: 9.5px; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
+        .tier-chip.silver { background: #F1F5F9; color: #64748B; }
+        .tier-chip.gold { background: #FFF8E8; color: #B8860B; }
+        .tier-chip.platinum { background: #EEF2FF; color: #4F46E5; }
+        details.pd-details summary { cursor: pointer; font-size: 11px; font-weight: 700; color: var(--navy-light); margin-top: 10px; }
+        .assump { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; background: #FFF8E8; border: 1px solid #FDE68A; border-radius: 12px; padding: 10px 12px; margin-bottom: 12px; font-size: 11.5px; font-weight: 600; color: var(--navy); }
+        .assump input { width: 64px; padding: 6px 8px; border: 1px solid var(--gray-light); border-radius: 8px; font-size: 12px; font-weight: 700; text-align: center; }
+        .pd-note { font-size: 10.5px; color: var(--gray-text); margin-top: 10px; line-height: 1.5; }
+        .simple-table td.num, .simple-table th.num { text-align: right; }
+        .simple-table tr.total-row td { font-weight: 800; color: var(--navy); background: #F8FAFC; }
+        @media (min-width: 1024px) {
+            .tier-grid { grid-template-columns: repeat(3, 1fr); }
+            .sum-grid { grid-template-columns: repeat(4, 1fr); }
+            .pd-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        }
+        .pd-cards { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+        @media (min-width: 1024px) { .pd-cards { display: grid; } }
+    </style>
 </head>
 <body>
 
@@ -669,10 +725,10 @@
                 <a href="daily_assignment.html" class="sidebar-link">
                     <span class="link-icon-wrap"><i class="fa-solid fa-clipboard-list"></i></span> Daily Assignment
                 </a>
-                <a href="not_found.html" class="sidebar-link active">
+                <a href="not_found.html" class="sidebar-link">
                     <span class="link-icon-wrap"><i class="fa-solid fa-chart-line"></i></span> Dashboard
                 </a>
-                <a href="padel_monitoring.html" class="sidebar-link">
+                <a href="padel_monitoring.html" class="sidebar-link active">
                     <span class="link-icon-wrap"><i class="fa-solid fa-table-tennis-paddle-ball"></i></span> Monitoring Padel
                 </a>
                 <a href="branch_manager.html" class="sidebar-link">
@@ -692,7 +748,7 @@
         </div>
 
         <!-- Navbar -->
-        <header class="navbar">
+                <header class="navbar">
             <div style="display: flex; align-items: center; gap: 12px;">
                 <a href="index.html" class="navbar-back-btn" title="Kembali ke Beranda" aria-label="Kembali ke Beranda"><i class="fa-solid fa-arrow-left"></i></a>
                 <button id="sidebarToggle" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer; padding: 4px;">
@@ -705,160 +761,115 @@
             </div>
         </header>
 
-        <!-- Dashboard Header -->
         <div class="dashboard-header">
-            <h1 class="dashboard-title">Dashboard</h1>
-            <p class="dashboard-subtitle"><i class="fa-solid fa-building-columns" style="margin-right:5px;opacity:.85;"></i>Cabang Pondok Indah &middot; Ringkasan spot &amp; kunjungan Anda</p>
-
+            <h1 class="dashboard-title">Monitoring Padel</h1>
+            <p class="dashboard-subtitle"><i class="fa-solid fa-table-tennis-paddle-ball" style="margin-right:5px;opacity:.85;"></i>Keanggotaan Silver, Gold &amp; Platinum &middot; KC Pondok Indah</p>
             <div class="metrics-grid">
                 <div class="metric-card">
-                    <div class="metric-value" id="valTotal">0</div>
-                    <div class="metric-label">Total Spot</div>
+                    <div class="metric-value" id="valMember">0</div>
+                    <div class="metric-label">Total Member</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-value" id="valMandiri" style="color:#4ADE80;">0</div>
-                    <div class="metric-label">Mandiri</div>
+                    <div class="metric-value" id="valDana" style="color:#4ADE80;">0</div>
+                    <div class="metric-label">Dana (Rp M)</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-value" id="valPotensial" style="color:#FACC15;">0</div>
-                    <div class="metric-label">Potensial</div>
+                    <div class="metric-value" id="valSubsidi" style="color:#FACC15;">0</div>
+                    <div class="metric-label">Subsidi/bln (Rp Jt)</div>
                 </div>
             </div>
         </div>
 
-        <!-- Main Content -->
         <div class="main-content">
 
-            <!-- Quick Actions -->
-            <div class="quick-actions">
-                <a href="mandiri_spot.html" class="quick-btn">
-                    <div class="qi"><i class="fa-solid fa-map-location-dot"></i></div>
-                    <span>Lihat Peta &amp; Spot</span>
-                </a>
-                <a href="daily_assignment.html" class="quick-btn">
-                    <div class="qi"><i class="fa-solid fa-clipboard-list"></i></div>
-                    <span>Daily Assignment</span>
-                </a>
-            </div>
-
-            <!-- Kondisi Keuangan Cabang (Live) -->
+            <!-- 1. Pendaftar per tingkatan -->
             <div class="panel">
                 <div class="panel-title">
-                    <span><i class="fa-solid fa-building-columns"></i>Kondisi Keuangan Cabang</span>
-                    <span class="live-badge"><span class="live-dot"></span> Live</span>
+                    <span><i class="fa-solid fa-users"></i>Pendaftar per Tingkatan</span>
+                    <span class="panel-sub" id="tierTotalLabel">0 member</span>
                 </div>
-                <div class="fin-updated" id="financeLastUpdate">Diperbarui baru saja</div>
-                <div class="fincard-grid" id="financeCondGrid" style="margin-top:12px;"></div>
+                <div class="tier-grid" id="tierGrid"></div>
             </div>
 
-            <div class="dash-row">
-                <!-- Status Breakdown -->
-                <div class="panel">
-                    <div class="panel-title"><span><i class="fa-solid fa-chart-pie"></i>Status Spot</span></div>
-                    <div class="donut-wrap">
-                        <div class="donut" id="statusDonut">
-                            <div class="donut-center">
-                                <div class="num" id="donutTotal">0</div>
-                                <div class="lbl">Spot</div>
-                            </div>
-                        </div>
-                        <div class="legend">
-                            <div class="legend-item">
-                                <div class="legend-left"><span class="dot" style="background:var(--green);"></span>Mandiri Merchant</div>
-                                <span class="legend-val" id="legendMandiri">0</span>
-                            </div>
-                            <div class="legend-item">
-                                <div class="legend-left"><span class="dot" style="background:var(--yellow);"></span>Potensial</div>
-                                <span class="legend-val" id="legendPotensial">0</span>
-                            </div>
-                            <div class="legend-item">
-                                <div class="legend-left"><span class="dot" style="background:var(--blue);"></span>Submission Pending</div>
-                                <span class="legend-val" id="legendPending">0</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Category Breakdown -->
-                <div class="panel">
-                    <div class="panel-title"><span><i class="fa-solid fa-layer-group"></i>Kategori Merchant</span></div>
-                    <div id="categoryBars"><div class="empty-state"><i class="fa-solid fa-inbox"></i>Belum ada data kategori.</div></div>
-                </div>
-            </div>
-
-            <!-- Recent Activity -->
             <div class="panel">
                 <div class="panel-title">
-                    <span><i class="fa-solid fa-clock-rotate-left"></i>Aktivitas Terbaru</span>
-                    <a href="mandiri_spot.html" class="panel-link">Lihat semua</a>
+                    <span><i class="fa-solid fa-chart-column"></i>Pendaftar Baru per Bulan</span>
+                    <span class="panel-sub">2026</span>
                 </div>
-                <div id="activityList"><div class="empty-state"><i class="fa-solid fa-inbox"></i>Belum ada aktivitas.</div></div>
+                <div class="pd-chart" id="regChart"></div>
+                <div class="pd-legend" id="regLegend"></div>
             </div>
 
-            <!-- Financial Performance Analysis -->
+            <!-- 2. Pergerakan dana MTD -->
             <div class="panel">
                 <div class="panel-title">
-                    <span><i class="fa-solid fa-sack-dollar"></i>Analisa Performa Financial Merchant</span>
-                    <span class="panel-sub" style="font-size:11px; color:var(--gray-text); font-weight:500;">30 hari terakhir</span>
+                    <span><i class="fa-solid fa-arrow-trend-up"></i>Pergerakan Dana Antar Bulan (MTD)</span>
                 </div>
-
-                <div class="fin-toggle" id="finToggle">
-                    <button class="fin-toggle-btn active" data-fin="top" onclick="setFinancialTab('top', this)">
-                        <i class="fa-solid fa-arrow-trend-up"></i> Terbaik
-                    </button>
-                    <button class="fin-toggle-btn" data-fin="bottom" onclick="setFinancialTab('bottom', this)">
-                        <i class="fa-solid fa-arrow-trend-down"></i> Terburuk
-                    </button>
+                <div class="pd-select-row">
+                    <select class="pd-select" id="mtdFrom"></select>
+                    <i class="fa-solid fa-arrow-right pd-arrow"></i>
+                    <select class="pd-select" id="mtdTo"></select>
                 </div>
+                <div id="mtdSummary"></div>
+                <div style="overflow-x:auto;"><table class="simple-table" id="mtdTable"></table></div>
 
-                <div id="finList"></div>
+                <div class="panel-title" style="margin:18px 0 8px;"><span style="font-size:12.5px;">Rekap MTD Bulanan 2026</span></div>
+                <div style="overflow-x:auto;"><table class="simple-table" id="mtdSeries"></table></div>
+                <div class="pd-note">MTD dihitung dari posisi dana akhir bulan dibanding akhir bulan sebelumnya. Januari dibanding Desember 2025.</div>
             </div>
 
-            <!-- Tracking NTB (QR Buka Rekening Livin') -->
+            <!-- Kenaikan YoY & titik nol -->
             <div class="panel">
                 <div class="panel-title">
-                    <span><i class="fa-solid fa-qrcode"></i>Tracking NTB &middot; QR Buka Rekening Livin'</span>
-                    <span class="panel-sub" style="font-size:11px; color:var(--gray-text); font-weight:500;" id="ntbCountLabel">0 nasabah</span>
+                    <span><i class="fa-solid fa-calendar-check"></i>Kenaikan Dana YoY &amp; dari Titik Nol</span>
                 </div>
-                <div style="overflow-x: auto;">
-                    <table class="simple-table" id="ntbTable">
-                        <thead>
-                            <tr>
-                                <th>Nama Nasabah</th>
-                                <th>Tanggal Pembukaan</th>
-                                <th>Saldo Awal</th>
-                                <th>Tipe Kartu</th>
-                            </tr>
-                        </thead>
-                        <tbody id="ntbTableBody"></tbody>
+                <div id="yoySummary"></div>
+                <div style="overflow-x:auto;"><table class="simple-table" id="yoyTable"></table></div>
+
+                <div class="panel-title" style="margin:18px 0 12px;"><span style="font-size:12.5px;">Total Dana Bulanan: 2025 vs 2026 (Rp Miliar)</span></div>
+                <div class="pd-chart" id="yoyChart"></div>
+                <div class="pd-legend"><span><i style="background:#CBD5E1;"></i>2025</span><span><i style="background:#223769;"></i>2026</span></div>
+                <div class="pd-note">Asumsi: program padel dimulai Januari 2025 dari saldo Rp 0 (titik nol), sehingga total dana saat ini = kenaikan sejak program berjalan.</div>
+            </div>
+
+            <!-- 3. Dana nasabah vs subsidi loyalty -->
+            <div class="panel">
+                <div class="panel-title">
+                    <span><i class="fa-solid fa-hand-holding-dollar"></i>Dana Nasabah vs Subsidi Loyalty</span>
+                </div>
+                <div class="assump">
+                    <i class="fa-solid fa-percent"></i> Asumsi margin dana
+                    <input type="number" id="marginInput" value="3" min="0" max="20" step="0.1"> % per tahun
+                </div>
+                <div id="subSummary"></div>
+                <div class="pd-cards" id="subCards"></div>
+                <div class="pd-note">Subsidi = biaya benefit loyalty yang ditanggung Mandiri (sewa lapangan, coaching, voucher, merchandise, cashback). Net = estimasi pendapatan dana dikurangi subsidi. Angka simulasi, bisa disesuaikan.</div>
+            </div>
+
+            <!-- Daftar member -->
+            <div class="panel" style="margin-bottom:0;">
+                <div class="panel-title">
+                    <span><i class="fa-solid fa-user-plus"></i>Pendaftar Terbaru</span>
+                    <span class="panel-sub" id="memberCountLabel"></span>
+                </div>
+                <div class="fin-toggle" id="memberFilter">
+                    <button class="fin-toggle-btn active" onclick="setMemberFilter('all', this)">Semua</button>
+                    <button class="fin-toggle-btn" onclick="setMemberFilter('silver', this)">Silver</button>
+                    <button class="fin-toggle-btn" onclick="setMemberFilter('gold', this)">Gold</button>
+                    <button class="fin-toggle-btn" onclick="setMemberFilter('platinum', this)">Platinum</button>
+                </div>
+                <div style="overflow-x:auto;">
+                    <table class="simple-table">
+                        <thead><tr><th>Nama</th><th>Tingkat</th><th>Tgl Daftar</th><th class="num">Saldo</th><th class="num">Subsidi/bln</th></tr></thead>
+                        <tbody id="memberBody"></tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- Program Loyalitas -->
-            <div class="panel">
-                <div class="panel-title">
-                    <span><i class="fa-solid fa-gift"></i>Tracking Program Loyalitas</span>
-                    <span class="panel-sub" style="font-size:11px; color:var(--gray-text); font-weight:500;">Voucher &amp; reward nasabah</span>
-                </div>
-                <div id="loyaltyList"></div>
-            </div>
-
-            <!-- Branch Manager CTA -->
-            <a href="branch_manager.html" class="bm-cta">
-                <div class="bm-cta-icon"><i class="fa-solid fa-user-tie"></i></div>
-                <div class="bm-cta-text">
-                    <h4>Tampilan Kepala Cabang</h4>
-                    <p>Lihat performa seluruh cabang &amp; petugas secara detail</p>
-                </div>
-                <i class="fa-solid fa-arrow-right"></i>
-            </a>
-
         </div>
     </div>
 
-    <!-- Sidebar Script -->
-        <script>
+    <script>
         // =========================================================
         // Shared app shell logic (inlined — no external sidebar.js)
         // =========================================================
@@ -1013,506 +1024,261 @@
             });
         })();
     </script>
-
     <script>
-        // ---- Seed dummy data (mirrors mandiri_spot.html so the dashboard works standalone) ----
-        function seedDummyData() {
-            if (localStorage.getItem('mandiri_spots_seeded_v4')) return;
+        // ================= Data (dummy, deterministik) =================
+        // Jumlah member kumulatif per tingkatan, Jan-2025 s/d Sep-2026 (21 bulan). Program dimulai dari 0 pada Jan-2025.
+        const MONTHS = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+        const MONTHS_FULL = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+        const LAST = 20;      // index Sep-2026
+        const START26 = 12;   // index Jan-2026
 
-            const categories = ["F&B", "Retail", "Jasa / Layanan", "Pupuk", "Benih", "Pestisida"];
-            const branches = ["Cabang Pondok Indah", "Cabang Fatmawati", "Cabang Bintaro"];
-            const statuses = ["potensial", "mandiri"];
-            const orgTypes = ["profit", "nonprofit"];
-            const users = ["current_user", "other_user_1", "other_user_2"];
-            const submissions = ["pending", "approved", "rejected"];
-            const merchantNames = [
-                "Warung Bu Siti", "RM Padang Sederhana", "Kedai Kopi Senja", "Bakso Pak No",
-                "Soto Betawi H. Maruf", "Ayam Geprek Bang Jack", "Martabak Mr. Kribo", "Mie Ayam Podin",
-                "Sate Pak Kumis", "Nasi Uduk Bu Yanti", "Toko Berkah Jaya", "Minimarket Sumber Rejeki",
-                "Toko Bangunan Indah", "Apotek Sehat Sentosa", "Toko Sembako Makmur", "Butik Anggun",
-                "Toko Elektronik Cahaya", "Optik Melihat Jelas", "Toko Kue Manis", "Toko Aksesoris Podin",
-                "Laundry Bersih Cepat", "Bengkel Motor Jaya", "Salon Cantik Selalu", "Klinik Gigi Sehat",
-                "Barbershop Rapi", "Fotokopi Cepat", "Service AC Dingin", "Jasa Cuci Mobil Kinclong",
-                "Percetakan Sinar", "Studio Foto Kenangan", "Toko Tani Subur", "Agro Makmur Sentosa",
-                "Tani Jaya Pupuk", "Gudang Pupuk Sentosa", "Benih Unggul Nusantara", "Toko Benih Tani Makmur",
-                "Benih Sejahtera", "Agro Kimia Sentosa", "Toko Pestisida Aman", "Pertanian Sehat Abadi"
-            ];
-            const nonprofitNames = [
-                "Yayasan Peduli Kasih", "Masjid Al-Ikhlas Pondok Indah", "Gereja Kasih Karunia",
-                "Panti Asuhan Harapan Bangsa", "Yayasan Pendidikan Cerdas", "Musala Nurul Iman",
-                "Yayasan Sosial Bakti Ibu", "TPA Al-Hidayah"
-            ];
-            const streets = [
-                "Jl. Metro Pondok Indah", "Jl. Sultan Iskandar Muda", "Jl. Ciputat Raya", "Jl. RS Fatmawati",
-                "Jl. Kebayoran Lama", "Jl. Tanah Kusir", "Jl. Bintaro Utama", "Jl. Iskandarsyah",
-                "Jl. Wijaya", "Jl. Cipete Raya", "Jl. Pondok Indah Boulevard", "Jl. TB Simatupang",
-                "Jl. Radio Dalam", "Jl. Gandaria"
-            ];
-
-            let dummySpots = [];
-            const centerLat = -6.2649;
-            const centerLng = 106.7830;
-
-            for (let i = 1; i <= 60; i++) {
-                const latOffset = (Math.random() - 0.5) * 0.03;
-                const lngOffset = (Math.random() - 0.5) * 0.03;
-                const isMine = Math.random() > 0.6;
-                const status = statuses[Math.floor(Math.random() * statuses.length)];
-                const orgType = orgTypes[Math.floor(Math.random() * orgTypes.length)];
-                const randomPastMs = Date.now() - Math.floor(Math.random() * 30 * 24 * 60 * 60 * 1000);
-                const updatedBy = isMine ? "current_user" : users[Math.floor(Math.random() * users.length)];
-                const pool = orgType === 'nonprofit' ? nonprofitNames : merchantNames;
-                const cycle = Math.ceil(i / pool.length);
-                const baseName = pool[(i - 1) % pool.length];
-
-                dummySpots.push({
-                    id: Date.now() + i,
-                    name: cycle > 1 ? `${baseName} ${cycle}` : baseName,
-                    category: orgType === 'nonprofit' ? 'Tempat Ibadah / Yayasan' : categories[Math.floor(Math.random() * categories.length)],
-                    orgType: orgType,
-                    branch: branches[Math.floor(Math.random() * branches.length)],
-                    submittedBy: isMine ? "current_user" : users[Math.floor(Math.random() * users.length)],
-                    submissionStatus: isMine ? submissions[Math.floor(Math.random() * submissions.length)] : "approved",
-                    status: status,
-                    updatedAt: new Date(randomPastMs).toISOString(),
-                    updatedBy: updatedBy,
-                    address: `${streets[Math.floor(Math.random() * streets.length)]} No. ${Math.floor(Math.random() * 90) + 1}, Pondok Indah, Jakarta Selatan`,
-                    type: "marker",
-                    geojson_data: { lat: centerLat + latOffset, lng: centerLng + lngOffset }
-                });
-            }
-
-                        // ---- Fixed real-world spots (Pondok Indah area) ----
-            const fixedPlaces = [
-                { name: "Hikiniku to Come Japanese Hamburg", category: "F&B", orgType: "profit", address: "Pondok Indah Mall, Jl. Sultan Iskandar Muda No.5 Ground Floor", mapsUrl: "https://maps.google.com/?cid=7083546126802956564", lat: -6.2662, lng: 106.7838 },
-                { name: "Nyonya Pavillon", category: "F&B", orgType: "profit", address: "Jl. Metro Pondok Indah No.Kav.4 lvl.1", mapsUrl: "https://maps.google.com/?cid=2025824061855864575", lat: -6.2668, lng: 106.7810 },
-                { name: "Jalarasa", category: "F&B", orgType: "profit", address: "Pondok Indah Mall 5, RT.1/RW.16, Pd. Pinang", mapsUrl: "https://maps.google.com/?cid=4226931441351366386", lat: -6.2688, lng: 106.7822 },
-                { name: "Bebek Klungkung", category: "F&B", orgType: "profit", address: "Pondok Indah Mall 5, Jl. Sultan Iskandar Muda No.1", mapsUrl: "https://maps.google.com/?cid=7002935263504711530", lat: -6.2685, lng: 106.7825 },
-                { name: "Scarlett's House", category: "F&B", orgType: "profit", address: "Jl. Sultan Iskandar Muda No.5, Pd. Pinang", mapsUrl: "https://maps.google.com/?cid=14766580759119796823", lat: -6.2660, lng: 106.7836 },
-                { name: "2madison Avenue", category: "Retail", orgType: "profit", address: "Pondok Indah Mall 1, RT.1/RW.16, Pd. Pinang", mapsUrl: "https://maps.google.com/?cid=1865283010851046592", lat: -6.2658, lng: 106.7845 },
-                { name: "Erafone Megastore", category: "Retail", orgType: "profit", address: "Jl. Metro Pondok Indah, RT.1/RW.16, Pd. Pinang", mapsUrl: "https://maps.google.com/?cid=10212709377375011622", lat: -6.2665, lng: 106.7808 },
-                { name: "Pondok Indah Mall 5", category: "Retail", orgType: "profit", address: "Jl. Sultan Iskandar Muda No.1, Lt. Dasar. 10", mapsUrl: "https://maps.google.com/?cid=911976921542300545", lat: -6.2686, lng: 106.7826 },
-                { name: "ONNI", category: "Retail", orgType: "profit", address: "Pd. Indah Mall 2, Jl. Metro Pondok Indah Lt. LG", mapsUrl: "https://maps.google.com/?cid=16347301794718465298", lat: -6.2663, lng: 106.7815 },
-                { name: "Lilla Store", category: "Retail", orgType: "profit", address: "Pondok Indah Mall Phase 3, Office Tower 5, Lt. 2 unit 230", mapsUrl: "https://maps.google.com/?cid=2273158165223481216", lat: -6.2670, lng: 106.7840 },
-                { name: "Masjid Raya Pondok Indah", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Jl. Sultan Iskandar Muda No.1, RT.1/RW.16", mapsUrl: "https://maps.google.com/?cid=1985874405285746242", lat: -6.2679, lng: 106.7818 },
-                { name: "Masjid Pondok Indah 1", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Pd. Pinang, Kec. Kebayoran Lama", mapsUrl: "https://maps.google.com/?cid=1224189961939071938", lat: -6.2700, lng: 106.7790 },
-                { name: "Masjid Jami' Al-Musyawarah", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Jl. Pinang Emas I No.A1, RT.7/RW.3", mapsUrl: "https://maps.google.com/?cid=6948851469438736625", lat: -6.2730, lng: 106.7795 },
-                { name: "Masjid Pondok Indah 2", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Pd. Pinang, Kec. Kebayoran Lama", mapsUrl: "https://maps.google.com/?cid=6498344501605679959", lat: -6.2705, lng: 106.7800 },
-                { name: "Masjid Raya Pondok Indah", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Jl. Sultan Iskandar Muda No.1 (Pin Tambahan)", mapsUrl: "https://maps.google.com/?cid=12245947049276161727", lat: -6.2681, lng: 106.7820 },
-                { name: "Grow Community Church", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Pd. Indah Mall 3, Jl. Sultan Iskandar Muda No.29 6 Lantai 3", mapsUrl: "https://maps.google.com/?cid=12624990644161479581", lat: -6.2669, lng: 106.7842 },
-                { name: "GKI Pondok Indah", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Jalan Sekolah Kencana IV No. TN-7", mapsUrl: "https://maps.google.com/?cid=4433100388091680146", lat: -6.2640, lng: 106.7860 },
-                { name: "GRII Pondok Indah", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Ruko Pondok Indah Plaza 2 blok BA No. 39-40", mapsUrl: "https://maps.google.com/?cid=13779723598309953446", lat: -6.2635, lng: 106.7845 },
-                { name: "The Collective (TC) Jakarta", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Menara Pondok Indah, Jl. Metro Pondok Indah No.1 Lt. 8", mapsUrl: "https://maps.google.com/?cid=142142102897559690", lat: -6.2650, lng: 106.7808 },
-                { name: "GBI ROCK Pondok Indah", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Plaza simatupang, RT.2/RW.17", mapsUrl: "https://maps.google.com/?cid=2412101406616983537", lat: -6.2925, lng: 106.7935 },
-                { name: "Yayasan Istiqomah Tanah Kusir", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Jl. Delman Indah III No.2 11 2, Kby. Lama Utara", mapsUrl: "https://maps.google.com/?cid=8460296354203065461", lat: -6.2480, lng: 106.7660 },
-                { name: "Rumah Yatim Pondok Indah", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Jl. Terogong Raya No.7A, Pondok Indah", mapsUrl: "https://maps.google.com/?cid=9009729825702941832", lat: -6.2600, lng: 106.7870 },
-                { name: "Sekolah Citra Kasih Don Bosco", category: "Pendidikan", orgType: "nonprofit", address: "Jalan Duta Indah, Pondok Indah, RT.16/RW.6", mapsUrl: "https://maps.google.com/?cid=16466302871990038361", lat: -6.2715, lng: 106.7862 },
-                { name: "Sahabat Makola", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Jl. Alam Segar IV No.23 Pondok Indah", mapsUrl: "https://maps.google.com/?cid=1545445838604317676", lat: -6.2620, lng: 106.7795 },
-                { name: "Yayasan Yatim Al Ihsan", category: "Tempat Ibadah / Yayasan", orgType: "nonprofit", address: "Jl. H. Muhi Raya No.8, Pd. Pinang", mapsUrl: "https://maps.google.com/?cid=13221437358906572950", lat: -6.2710, lng: 106.7780 },
-                { name: "Tutor Time", category: "Pendidikan", orgType: "nonprofit", address: "Jl. Sultan Iskandar Muda No.1", mapsUrl: "https://maps.google.com/?cid=3935310689708716898", lat: -6.2683, lng: 106.7823 },
-                { name: "IDP Education", category: "Pendidikan", orgType: "nonprofit", address: "Jl. Sultan Iskandar Muda No.17B", mapsUrl: "https://maps.google.com/?cid=974258923089174163", lat: -6.2675, lng: 106.7833 },
-                { name: "TK Putra II", category: "Pendidikan", orgType: "nonprofit", address: "Jl. Pinang Emas III No.90 8, Pondok Indah", mapsUrl: "https://maps.google.com/?cid=8154565464236742708", lat: -6.2735, lng: 106.7798 },
-                { name: "SMK Pondok Indah", category: "Pendidikan", orgType: "nonprofit", address: "Jalan. Pupan no. 29 RT. 08 / 04", mapsUrl: "https://maps.google.com/?cid=932443891573079618", lat: -6.2695, lng: 106.7775 },
-                { name: "Raffles Christian School", category: "Pendidikan", orgType: "nonprofit", address: "Jl. Gedung Hijau Raya No.I No.1", mapsUrl: "https://maps.google.com/?cid=2495691313127029773", lat: -6.2685, lng: 106.7870 },
-                { name: "Blossom Academy", category: "Pendidikan", orgType: "nonprofit", address: "Jl. Metro Pondok Indah No.29", mapsUrl: "https://maps.google.com/?cid=18171024233075933672", lat: -6.2672, lng: 106.7805 },
-                { name: "Jakarta Future School", category: "Pendidikan", orgType: "nonprofit", address: "Jl. Gedung Hijau Raya No.I No.1, Pondok Indah", mapsUrl: "https://maps.google.com/?cid=4233731659235922622", lat: -6.2687, lng: 106.7872 },
-                { name: "The Independent School of Jakarta", category: "Pendidikan", orgType: "nonprofit", address: "Jl. R.A. Kartini No.Kav. 12", mapsUrl: "https://maps.google.com/?cid=5633517939038033344", lat: -6.2600, lng: 106.7900 },
-                { name: "Sekolah Dasar Jakarta Intercultural School", category: "Pendidikan", orgType: "nonprofit", address: "Jl. Duta Indah III, RT.1/RW.14", mapsUrl: "https://maps.google.com/?cid=14031575149246940668", lat: -6.2718, lng: 106.7865 }
-            ];
-
-            const fixedUsers = ["current_user", "other_user_1", "other_user_2"];
-            const fixedMerchantPhotos = [
-                "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=300&q=80",
-                "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=300&q=80",
-                "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=300&q=80",
-                "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=300&q=80"
-            ];
-            fixedPlaces.forEach((p, idx) => {
-                const submittedBy = fixedUsers[idx % fixedUsers.length];
-                const randomPastMs = Date.now() - Math.floor(Math.random() * 20 * 24 * 60 * 60 * 1000);
-                dummySpots.push({
-                    id: Date.now() + 1000 + idx,
-                    name: p.name,
-                    category: p.category,
-                    orgType: p.orgType,
-                    branch: "Cabang Pondok Indah",
-                    submittedBy: submittedBy,
-                    submissionStatus: "approved",
-                    status: "mandiri",
-                    updatedAt: new Date(randomPastMs).toISOString(),
-                    updatedBy: submittedBy,
-                    photo: p.orgType === 'profit' ? fixedMerchantPhotos[idx % fixedMerchantPhotos.length] : "",
-                    address: p.address,
-                    mapsUrl: p.mapsUrl,
-                    type: "marker",
-                    geojson_data: { lat: p.lat, lng: p.lng }
-                });
-            });
-
-            localStorage.setItem('mandiri_spots', JSON.stringify(dummySpots));
-            localStorage.setItem('mandiri_spots_seeded_v4', 'true');
-        }
-
-        function timeAgo(iso) {
-            const diff = Date.now() - new Date(iso).getTime();
-            const mins = Math.floor(diff / 60000);
-            if (mins < 60) return `${mins} mnt lalu`;
-            const hrs = Math.floor(mins / 60);
-            if (hrs < 24) return `${hrs} jam lalu`;
-            const days = Math.floor(hrs / 24);
-            return `${days} hari lalu`;
-        }
-
-        const CURRENT_BRANCH = 'Cabang Pondok Indah';
-
-        function renderDashboard() {
-            const allSpots = JSON.parse(localStorage.getItem('mandiri_spots')) || [];
-            const spots = allSpots.filter(s => s.branch === CURRENT_BRANCH);
-
-            const total = spots.length;
-            const mandiriCount = spots.filter(s => s.status === 'mandiri').length;
-            const potensialCount = spots.filter(s => s.status === 'potensial').length;
-            const pendingCount = spots.filter(s => s.submissionStatus === 'pending').length;
-
-            document.getElementById('valTotal').innerText = total;
-            document.getElementById('valMandiri').innerText = mandiriCount;
-            document.getElementById('valPotensial').innerText = potensialCount;
-            document.getElementById('donutTotal').innerText = total;
-            document.getElementById('legendMandiri').innerText = mandiriCount;
-            document.getElementById('legendPotensial').innerText = potensialCount;
-            document.getElementById('legendPending').innerText = pendingCount;
-
-            // Donut chart via conic-gradient
-            const donut = document.getElementById('statusDonut');
-            if (total > 0) {
-                const mandiriPct = (mandiriCount / total) * 100;
-                const potensialPct = (potensialCount / total) * 100;
-                donut.style.background = `conic-gradient(
-                    var(--green) 0% ${mandiriPct}%,
-                    var(--yellow) ${mandiriPct}% ${mandiriPct + potensialPct}%,
-                    #E5E7EB ${mandiriPct + potensialPct}% 100%
-                )`;
-            } else {
-                donut.style.background = '#E5E7EB';
-            }
-
-            // Category breakdown
-            const catCounts = {};
-            spots.forEach(s => { catCounts[s.category] = (catCounts[s.category] || 0) + 1; });
-            const catEntries = Object.entries(catCounts).sort((a, b) => b[1] - a[1]);
-            const catContainer = document.getElementById('categoryBars');
-            if (catEntries.length > 0) {
-                const maxCount = catEntries[0][1];
-                catContainer.innerHTML = catEntries.map(([name, count]) => `
-                    <div class="bar-row">
-                        <div class="bar-top"><span class="name">${name}</span><span class="count">${count}</span></div>
-                        <div class="bar-track"><div class="bar-fill" style="width:${(count / maxCount) * 100}%;"></div></div>
-                    </div>
-                `).join('');
-            }
-
-            // Recent activity
-            const recent = [...spots]
-                .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
-                .slice(0, 6);
-            const activityContainer = document.getElementById('activityList');
-            if (recent.length > 0) {
-                activityContainer.innerHTML = recent.map(s => `
-                    <div class="activity-item">
-                        <div class="activity-icon ${s.status}">
-                            <i class="fa-solid ${s.status === 'mandiri' ? 'fa-store' : 'fa-magnifying-glass-location'}"></i>
-                        </div>
-                        <div class="activity-body">
-                            <div class="activity-title">${s.name}</div>
-                            <div class="activity-meta">${s.branch} &middot; ${s.category}</div>
-                        </div>
-                        <div class="activity-time">${timeAgo(s.updatedAt)}</div>
-                    </div>
-                `).join('');
-            }
-
-            renderFinancialPanel(spots);
-        }
-
-        // ---- Financial Performance Analysis ----
-        // Deterministic pseudo-revenue estimate per merchant, derived from its id
-        // (mirrors the Business Overview calculation used on the Peta & Spot page).
-        function estimateMerchantRevenue(spot) {
-            const seed = spot.id % 10000;
-            const dailyTx = Math.floor((seed % 300) + 40);
-            const avgTxVal = Math.floor((seed % 15) * 10000 + 15000);
-            const monthlySales = dailyTx * avgTxVal * 30;
-            const trendPct = ((seed % 41) - 20); // -20% .. +20%
-            return { monthlySales, trendPct };
-        }
-
-        function formatShortRp(num) {
-            if (num >= 1000000000) return 'Rp' + (num / 1000000000).toFixed(1).replace('.', ',') + ' M';
-            if (num >= 1000000) return 'Rp' + (num / 1000000).toFixed(1).replace('.', ',') + ' Jt';
-            return 'Rp' + Math.round(num / 1000) + ' Rb';
-        }
-
-        let financialRanking = { top: [], bottom: [] };
-        let activeFinTab = 'top';
-
-        function renderFinancialPanel(spots) {
-            const merchants = spots.filter(s => s.status === 'mandiri' && s.orgType === 'profit');
-
-            const ranked = merchants
-                .map(s => ({ spot: s, ...estimateMerchantRevenue(s) }))
-                .sort((a, b) => b.monthlySales - a.monthlySales);
-
-            financialRanking.top = ranked.slice(0, 5);
-            financialRanking.bottom = ranked.slice(-5).reverse();
-
-            renderFinancialList();
-        }
-
-        function renderFinancialList() {
-            const container = document.getElementById('finList');
-            const list = financialRanking[activeFinTab] || [];
-
-            if (list.length === 0) {
-                container.innerHTML = `<div class="empty-state"><i class="fa-solid fa-inbox"></i>Belum ada data merchant untuk dianalisa.</div>`;
-                return;
-            }
-
-            const maxVal = Math.max(...financialRanking[activeFinTab].map(r => r.monthlySales), 1);
-            const isTop = activeFinTab === 'top';
-
-            container.innerHTML = list.map((r, idx) => {
-                const pct = Math.max(6, Math.round((r.monthlySales / maxVal) * 100));
-                const trendUp = r.trendPct >= 0;
-                return `
-                    <div class="fin-row ${isTop ? 'is-top' : 'is-bottom'}">
-                        <div class="fin-rank">${idx + 1}</div>
-                        <div class="fin-body">
-                            <div class="fin-name">${r.spot.name}</div>
-                            <div class="fin-meta">${r.spot.category}</div>
-                            <div class="fin-track"><div class="fin-fill" style="width:${pct}%;"></div></div>
-                        </div>
-                        <div class="fin-right">
-                            <div class="fin-value">${formatShortRp(r.monthlySales)}</div>
-                            <div class="fin-trend ${trendUp ? 'up' : 'down'}">
-                                <i class="fa-solid ${trendUp ? 'fa-arrow-up' : 'fa-arrow-down'}"></i> ${Math.abs(r.trendPct)}%
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        window.setFinancialTab = function (tab, btn) {
-            activeFinTab = tab;
-            document.querySelectorAll('.fin-toggle-btn').forEach(b => b.classList.remove('active'));
-            if (btn) btn.classList.add('active');
-            renderFinancialList();
-        };
-
-        // ---- Kondisi Keuangan Cabang (live-updating) ----
-        // Base figures for Cabang Jakarta Pondok Indah (kode 10100), Rp Miliar
-        const financeConditionData = [
+        const TIERS = [
             {
-                key: 'casa', label: 'CASA', current: 3093.4, target: 3969.0,
-                dtd: -29.0, mtd: 221.1, ytd: -425.2, yoy: 75.3
+                key: 'silver', name: 'Silver', icon: 'fa-medal', color: '#94A3B8', min: 25e6, target: 200, base: 38e6, cost: 150000,
+                members: [12,25,41,58,72,88,101,113,126,138,149,158,161,166,170,174,177,180,182,183,184],
+                benefits: [['Diskon sewa lapangan 10%', 60000], ['Voucher F&amp;B', 50000], ['Cashback transaksi', 40000]]
             },
             {
-                key: 'dpk', label: 'DPK', current: 5998.2, target: 5795.0,
-                dtd: -26.6, mtd: 206.2, ytd: 413.7, yoy: 1007.7
+                key: 'gold', name: 'Gold', icon: 'fa-crown', color: '#F59E0B', min: 100e6, target: 110, base: 145e6, cost: 450000,
+                members: [4,9,15,21,27,33,39,45,51,56,61,66,69,72,76,79,82,86,90,93,96],
+                benefits: [['Free sewa lapangan 2 jam', 200000], ['Coaching clinic 1x', 100000], ['Voucher F&amp;B', 100000], ['Cashback transaksi', 50000]]
             },
             {
-                key: 'tabungan', label: 'Tabungan All Segmen', current: 1749.3, target: 2518.8,
-                dtd: -4.1, mtd: -179.0, ytd: -523.7, yoy: -395.8
-            },
-            {
-                key: 'deposito', label: 'Deposito All Segmen', current: 2904.7, target: 1826.1,
-                dtd: 2.4, mtd: -15.0, ytd: 838.9, yoy: 932.4
-            },
-            {
-                key: 'giro', label: 'Giro All Segmen', current: 1344.2, target: 1450.1,
-                dtd: -24.9, mtd: 400.2, ytd: 98.5, yoy: 471.1
+                key: 'platinum', name: 'Platinum', icon: 'fa-gem', color: '#6366F1', min: 500e6, target: 35, base: 560e6, cost: 1200000,
+                members: [1,2,4,6,8,10,12,14,16,18,20,22,23,24,25,26,27,28,29,30,31],
+                benefits: [['Free sewa lapangan 4 jam', 400000], ['Coaching privat', 300000], ['Merchandise &amp; apparel', 200000], ['Lounge &amp; priority booking', 150000], ['Cashback transaksi', 150000]]
             }
         ];
 
-        function fmtMiliar(num) {
-            const sign = num < 0 ? '-' : '';
-            return sign + Math.abs(num).toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+        // ================= Helpers =================
+        const nf = (n, d) => n.toLocaleString('id-ID', { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 });
+        const fmtRp = n => 'Rp' + nf(Math.round(n));
+        const fmtM = n => nf(n / 1e9, 2) + ' M';
+        const fmtJt = n => nf(n / 1e6, 1) + ' Jt';
+        const sgn = (n, fn) => (n >= 0 ? '+' : '-') + fn(Math.abs(n));
+        const lbl = i => MONTHS[i % 12] + '-' + (i < 12 ? '25' : '26');
+        const fullLbl = i => MONTHS_FULL[i % 12] + ' ' + (i < 12 ? '2025' : '2026');
+        const dana = (t, i) => t.members[i] * t.base * (1 + 0.004 * i);
+        const totalDana = i => TIERS.reduce((s, t) => s + dana(t, i), 0);
+        const totalMembers = i => TIERS.reduce((s, t) => s + t.members[i], 0);
+        const monthlySubsidy = i => TIERS.reduce((s, t) => s + t.members[i] * t.cost, 0);
+        const pctChange = (a, b) => a > 0 ? ((b - a) / a) * 100 : 0;
+        const $ = id => document.getElementById(id);
+        function pill(delta, text) {
+            const up = delta >= 0;
+            return `<span class="growth-pill ${up ? 'up' : 'down'}"><i class="fa-solid ${up ? 'fa-arrow-up' : 'fa-arrow-down'}"></i> ${text}</span>`;
+        }
+        function box(label, val, sub, subCls) {
+            return `<div class="sum-box"><div class="lbl">${label}</div><div class="val">${val}</div><div class="sub ${subCls || ''}">${sub || ''}</div></div>`;
         }
 
-        function growthPill(label, val) {
-            const up = val >= 0;
-            return `<span class="growth-pill ${up ? 'up' : 'down'}"><i class="fa-solid ${up ? 'fa-arrow-up' : 'fa-arrow-down'}"></i> <span class="lbl">${label}</span> ${fmtMiliar(val)}</span>`;
+        // ================= Header =================
+        function renderHeader() {
+            $('valMember').textContent = nf(totalMembers(LAST));
+            $('valDana').textContent = nf(totalDana(LAST) / 1e9, 1);
+            $('valSubsidi').textContent = nf(monthlySubsidy(LAST) / 1e6, 0);
         }
 
-        function renderFinanceCondition() {
-            const container = document.getElementById('financeCondGrid');
-            if (!container) return;
-
-            container.innerHTML = financeConditionData.map(d => {
-                const pctTarget = (d.current / d.target) * 100;
-                const gap = d.current - d.target;
-                const good = pctTarget >= 100;
-                const trackPct = Math.min(100, Math.max(4, pctTarget));
+        // ================= 1. Pendaftar per tingkatan =================
+        function renderTiers() {
+            const total = totalMembers(LAST);
+            $('tierTotalLabel').textContent = nf(total) + ' member';
+            $('tierGrid').innerHTML = TIERS.map(t => {
+                const c = t.members[LAST];
+                const nw = c - t.members[LAST - 1];
+                const share = total > 0 ? (c / total) * 100 : 0;
+                const prog = Math.min(100, (c / t.target) * 100);
                 return `
-                    <div class="fincard" id="fincard-${d.key}">
-                        <div class="fincard-top">
-                            <div class="fincard-label">${d.label} <span style="font-weight:500; color:var(--gray-text);">(Rp Miliar)</span></div>
-                            <div class="fincard-badge ${good ? 'good' : 'bad'}">${pctTarget.toFixed(1)}% Target</div>
+                    <div class="tier-card" style="--tier-color:${t.color}">
+                        <div class="tier-top">
+                            <div class="tier-name"><div class="tier-badge"><i class="fa-solid ${t.icon}"></i></div>${t.name}</div>
+                            <div class="tier-min">Min. saldo ${fmtJt(t.min)}</div>
                         </div>
-                        <div class="fincard-value" id="fincard-value-${d.key}">${fmtMiliar(d.current)}<span class="unit">Miliar</span></div>
-                        <div class="fincard-sub">Target: ${fmtMiliar(d.target)} M &middot; Gap: <span style="color:${gap >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight:700;">${gap >= 0 ? '+' : ''}${fmtMiliar(gap)}</span></div>
-                        <div class="fincard-track"><div class="fincard-fill ${good ? 'good' : 'bad'}" style="width:${trackPct}%;"></div></div>
-                        <div class="fincard-growth">
-                            ${growthPill('DtD', d.dtd)}
-                            ${growthPill('MtD', d.mtd)}
-                            ${growthPill('YtD', d.ytd)}
-                            ${growthPill('YoY', d.yoy)}
+                        <div class="tier-count">${nf(c)}<small>member</small></div>
+                        <div class="tier-meta">
+                            ${pill(nw, sgn(nw, x => nf(x)) + ' bulan ini')}
+                            <span class="tier-chip ${t.key}">${nf(share, 1)}% dari total</span>
                         </div>
-                    </div>
-                `;
+                        <div class="tier-progress-label"><span>Target pendaftar ${nf(t.target)}</span><span>${nf(prog, 0)}%</span></div>
+                        <div class="fincard-track"><div class="fincard-fill" style="width:${prog}%; background:${t.color};"></div></div>
+                    </div>`;
             }).join('');
         }
 
-        let financeSecondsAgo = 0;
-        function tickFinanceLiveUpdate() {
-            // Nudge each metric by a small random amount to simulate a live feed,
-            // then re-render just the affected numbers with a brief highlight flash.
-            financeConditionData.forEach(d => {
-                const jitter = d.current * (Math.random() * 0.006 - 0.003); // +/- 0.3%
-                d.current = Math.max(0, d.current + jitter);
-
-                const pctTarget = (d.current / d.target) * 100;
-                const gap = d.current - d.target;
-                const good = pctTarget >= 100;
-
-                const valueEl = document.getElementById(`fincard-value-${d.key}`);
-                const cardEl = document.getElementById(`fincard-${d.key}`);
-                const badgeEl = cardEl ? cardEl.querySelector('.fincard-badge') : null;
-                const fillEl = cardEl ? cardEl.querySelector('.fincard-fill') : null;
-                const subEl = cardEl ? cardEl.querySelector('.fincard-sub') : null;
-
-                if (valueEl) valueEl.innerHTML = `${fmtMiliar(d.current)}<span class="unit">Miliar</span>`;
-                if (badgeEl) {
-                    badgeEl.textContent = `${pctTarget.toFixed(1)}% Target`;
-                    badgeEl.className = `fincard-badge ${good ? 'good' : 'bad'}`;
-                }
-                if (fillEl) {
-                    fillEl.style.width = Math.min(100, Math.max(4, pctTarget)) + '%';
-                    fillEl.className = `fincard-fill ${good ? 'good' : 'bad'}`;
-                }
-                if (subEl) {
-                    subEl.innerHTML = `Target: ${fmtMiliar(d.target)} M &middot; Gap: <span style="color:${gap >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight:700;">${gap >= 0 ? '+' : ''}${fmtMiliar(gap)}</span>`;
-                }
-                if (cardEl) {
-                    cardEl.classList.add('flash');
-                    setTimeout(() => cardEl.classList.remove('flash'), 500);
-                }
+        function renderRegChart() {
+            const idx = []; for (let i = START26; i <= LAST; i++) idx.push(i);
+            const H = 100;
+            const cols = idx.map(i => {
+                const segs = TIERS.map(t => ({ n: t.members[i] - t.members[i - 1], c: t.color }));
+                const tot = segs.reduce((s, x) => s + x.n, 0);
+                return { i, segs, tot };
             });
-
-            financeSecondsAgo = 0;
+            const max = Math.max(...cols.map(c => c.tot), 1);
+            $('regChart').innerHTML = cols.map(col => {
+                const h = (col.tot / max) * H;
+                const segHtml = col.segs.map(s => `<div class="pd-seg" style="height:${col.tot > 0 ? (s.n / col.tot) * h : 0}px; background:${s.c};"></div>`).join('');
+                return `<div class="pd-col"><div class="pd-total">${col.tot}</div><div class="pd-stack" style="height:${h}px;">${segHtml}</div><div class="pd-lbl">${MONTHS[col.i % 12]}</div></div>`;
+            }).join('');
+            $('regLegend').innerHTML = TIERS.map(t => `<span><i style="background:${t.color};"></i>${t.name}</span>`).join('');
         }
 
-        function updateFinanceTimestamp() {
-            financeSecondsAgo += 1;
-            const el = document.getElementById('financeLastUpdate');
-            if (!el) return;
-            el.textContent = financeSecondsAgo <= 1 ? 'Diperbarui baru saja' : `Diperbarui ${financeSecondsAgo} detik lalu`;
+        // ================= 2. Pergerakan dana MTD =================
+        function initMtd() {
+            let opts = '';
+            for (let i = 11; i <= LAST; i++) opts += `<option value="${i}">${fullLbl(i)}</option>`;
+            $('mtdFrom').innerHTML = opts;
+            $('mtdTo').innerHTML = opts;
+            $('mtdFrom').value = String(LAST - 1);
+            $('mtdTo').value = String(LAST);
+            $('mtdFrom').addEventListener('change', renderMtdCompare);
+            $('mtdTo').addEventListener('change', renderMtdCompare);
         }
 
-        // ---- Tracking NTB (QR Buka Rekening Livin') ----
-        function renderNtbTracking() {
-            const ntbNames = ["Rangga Pratama", "Melati Susanti", "Yoga Firmansyah", "Citra Ananda", "Bayu Kurniawan", "Salsa Amelia", "Dimas Prakoso", "Ines Wardhani", "Reza Alamsyah", "Naila Zahra", "Fikri Ramadhan", "Tasya Oktaviani"];
-            const cardTypes = ["Livin' Debit GPN Silver", "Livin' Debit GPN Gold", "Livin' Debit Visa Platinum", "Livin' Debit Instan"];
-            const tbody = document.getElementById('ntbTableBody');
-            const countLabel = document.getElementById('ntbCountLabel');
-            if (!tbody) return;
-
-            const rows = [];
-            const count = 10;
-            for (let i = 0; i < count; i++) {
-                const daysAgo = Math.floor(Math.random() * 14) + 1;
-                const d = new Date();
-                d.setDate(d.getDate() - daysAgo);
-                const saldo = Math.floor(Math.random() * 4500000) + 500000;
-                rows.push({
-                    name: ntbNames[i % ntbNames.length],
-                    date: d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }),
-                    saldo: saldo,
-                    card: cardTypes[Math.floor(Math.random() * cardTypes.length)]
-                });
+        function renderMtdCompare() {
+            let a = parseInt($('mtdFrom').value, 10), b = parseInt($('mtdTo').value, 10);
+            const lo = Math.min(a, b), hi = Math.max(a, b);
+            if (lo === hi) {
+                $('mtdSummary').innerHTML = `<div class="empty-state" style="padding:10px;">Pilih dua bulan yang berbeda untuk dibandingkan.</div>`;
+                $('mtdTable').innerHTML = '';
+                return;
             }
-            rows.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            tbody.innerHTML = rows.map(r => `
-                <tr>
-                    <td class="strong">${r.name}</td>
-                    <td>${r.date}</td>
-                    <td>Rp ${r.saldo.toLocaleString('id-ID')}</td>
-                    <td><span class="card-type-chip">${r.card}</span></td>
-                </tr>
-            `).join('');
-
-            if (countLabel) countLabel.textContent = `${rows.length} nasabah`;
+            const dLo = totalDana(lo), dHi = totalDana(hi);
+            const mLo = totalMembers(lo), mHi = totalMembers(hi);
+            const up = dHi >= dLo;
+            $('mtdSummary').innerHTML = `<div class="sum-grid">
+                ${box('Dana ' + lbl(lo), fmtM(dLo), nf(mLo) + ' member')}
+                ${box('Dana ' + lbl(hi), fmtM(dHi), nf(mHi) + ' member')}
+                ${box('Kenaikan Dana', sgn(dHi - dLo, fmtM), sgn(pctChange(dLo, dHi), x => nf(x, 2)) + '%', up ? 'txt-up' : 'txt-down')}
+                ${box('Tambahan Member', sgn(mHi - mLo, x => nf(x)), sgn(pctChange(mLo, mHi), x => nf(x, 1)) + '%', mHi >= mLo ? 'txt-up' : 'txt-down')}
+            </div>`;
+            const rows = TIERS.map(t => {
+                const x = dana(t, lo), y = dana(t, hi);
+                return `<tr><td class="strong"><span class="tier-chip ${t.key}">${t.name}</span></td><td class="num">${fmtM(x)}</td><td class="num">${fmtM(y)}</td><td class="num">${pill(y - x, sgn(y - x, fmtM))}</td><td class="num ${y >= x ? 'txt-up' : 'txt-down'}">${sgn(pctChange(x, y), v => nf(v, 2))}%</td></tr>`;
+            }).join('');
+            $('mtdTable').innerHTML = `<thead><tr><th>Tingkat</th><th class="num">${lbl(lo)}</th><th class="num">${lbl(hi)}</th><th class="num">Kenaikan</th><th class="num">%</th></tr></thead>
+                <tbody>${rows}<tr class="total-row"><td>Total</td><td class="num">${fmtM(dLo)}</td><td class="num">${fmtM(dHi)}</td><td class="num">${sgn(dHi - dLo, fmtM)}</td><td class="num">${sgn(pctChange(dLo, dHi), v => nf(v, 2))}%</td></tr></tbody>`;
         }
 
-        // ---- Program Loyalitas Tracking ----
-        function renderLoyaltyTracking() {
-            const names = ["Budi Santoso", "Rina Marlina", "Eko Prasetyo", "Wulan Sari", "Fajar Nugraha", "Lestari Ningsih", "Hendra Gunawan", "Putri Ayu"];
-            const rewards = [
-                { title: "Voucher Belanja Rp100.000", icon: "fa-ticket", points: 100 },
-                { title: "Cashback Transaksi 5%", icon: "fa-percent", points: 250 },
-                { title: "Voucher F&amp;B Rp50.000", icon: "fa-utensils", points: 60 },
-                { title: "Poin Reward Livin'", icon: "fa-star", points: 500 },
-                { title: "Voucher Belanja Rp250.000", icon: "fa-gift", points: 300 }
-            ];
-            const statuses = ["redeemed", "pending", "expired"];
-            const statusLabel = { redeemed: "Sudah Diklaim", pending: "Menunggu Klaim", expired: "Kedaluwarsa" };
-
-            const list = document.getElementById('loyaltyList');
-            if (!list) return;
-
-            const items = [];
-            for (let i = 0; i < 8; i++) {
-                const reward = rewards[Math.floor(Math.random() * rewards.length)];
-                const status = statuses[Math.floor(Math.random() * statuses.length)];
-                const daysAgo = Math.floor(Math.random() * 30) + 1;
-                const d = new Date();
-                d.setDate(d.getDate() - daysAgo);
-                items.push({
-                    name: names[i % names.length],
-                    reward: reward,
-                    status: status,
-                    date: d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })
-                });
+        function renderMtdSeries() {
+            let rows = '';
+            for (let i = START26; i <= LAST; i++) {
+                const cur = totalDana(i), prev = totalDana(i - 1);
+                const up = cur >= prev;
+                rows += `<tr><td class="strong">${MONTHS_FULL[i % 12]}</td><td class="num">${fmtM(cur)}</td><td class="num">${pill(cur - prev, sgn(cur - prev, fmtM))}</td><td class="num ${up ? 'txt-up' : 'txt-down'}">${sgn(pctChange(prev, cur), v => nf(v, 2))}%</td><td class="num">${nf(totalMembers(i))}</td></tr>`;
             }
-
-            list.innerHTML = items.map(it => `
-                <div class="loyalty-item">
-                    <div class="loyalty-icon"><i class="fa-solid ${it.reward.icon}"></i></div>
-                    <div class="loyalty-body">
-                        <div class="loyalty-title">${it.name}</div>
-                        <div class="loyalty-meta">${it.reward.title} &middot; diberikan ${it.date}</div>
-                    </div>
-                    <div class="loyalty-right">
-                        <div class="loyalty-points">${it.reward.points} Poin</div>
-                        <div class="status-chip ${it.status}">${statusLabel[it.status]}</div>
-                    </div>
-                </div>
-            `).join('');
+            $('mtdSeries').innerHTML = `<thead><tr><th>Bulan</th><th class="num">Dana Akhir Bulan</th><th class="num">MTD</th><th class="num">%</th><th class="num">Member</th></tr></thead><tbody>${rows}</tbody>`;
         }
 
-        try { seedDummyData(); } catch (e) { console.error('seedDummyData failed:', e); }
+        // ================= Kenaikan YoY & titik nol =================
+        function renderYoy() {
+            const cur = totalDana(LAST), prev = totalDana(LAST - 12), dec = totalDana(11);
+            $('yoySummary').innerHTML = `<div class="sum-grid">
+                ${box('Dana ' + lbl(LAST), fmtM(cur), nf(totalMembers(LAST)) + ' member')}
+                ${box('YoY vs ' + lbl(LAST - 12), sgn(cur - prev, fmtM), sgn(pctChange(prev, cur), v => nf(v, 1)) + '%', cur >= prev ? 'txt-up' : 'txt-down')}
+                ${box('YtD vs ' + lbl(11), sgn(cur - dec, fmtM), sgn(pctChange(dec, cur), v => nf(v, 1)) + '%', cur >= dec ? 'txt-up' : 'txt-down')}
+                ${box('Sejak Titik Nol (Jan-25)', sgn(cur, fmtM), 'rata-rata ' + fmtM(cur / (LAST + 1)) + '/bulan', 'txt-up')}
+            </div>`;
+            const rows = TIERS.map(t => {
+                const p = dana(t, LAST - 12), c = dana(t, LAST);
+                return `<tr><td class="strong"><span class="tier-chip ${t.key}">${t.name}</span></td><td class="num">${fmtM(p)}</td><td class="num">${fmtM(c)}</td><td class="num">${pill(c - p, sgn(c - p, fmtM))}</td><td class="num ${c >= p ? 'txt-up' : 'txt-down'}">${sgn(pctChange(p, c), v => nf(v, 1))}%</td></tr>`;
+            }).join('');
+            $('yoyTable').innerHTML = `<thead><tr><th>Tingkat</th><th class="num">${lbl(LAST - 12)}</th><th class="num">${lbl(LAST)}</th><th class="num">Kenaikan YoY</th><th class="num">%</th></tr></thead>
+                <tbody>${rows}<tr class="total-row"><td>Total</td><td class="num">${fmtM(prev)}</td><td class="num">${fmtM(cur)}</td><td class="num">${sgn(cur - prev, fmtM)}</td><td class="num">${sgn(pctChange(prev, cur), v => nf(v, 1))}%</td></tr></tbody>`;
+        }
 
+        function renderYoyChart() {
+            const H = 100;
+            const vals = [];
+            for (let m = 0; m < 12; m++) vals.push({ m, a: totalDana(m), b: (m + 12 <= LAST) ? totalDana(m + 12) : null });
+            const max = Math.max(...vals.map(v => Math.max(v.a, v.b || 0)), 1);
+            $('yoyChart').innerHTML = vals.map(v => {
+                const ha = (v.a / max) * H;
+                const hb = v.b === null ? 0 : (v.b / max) * H;
+                return `<div class="pd-col"><div class="pd-pair"><div class="pd-bar" style="height:${ha}px; background:#CBD5E1;" title="${nf(v.a / 1e9, 2)} M"></div><div class="pd-bar" style="height:${hb}px; background:#223769;" title="${v.b === null ? '-' : nf(v.b / 1e9, 2) + ' M'}"></div></div><div class="pd-lbl">${MONTHS[v.m]}</div></div>`;
+            }).join('');
+        }
+
+        // ================= 3. Dana nasabah vs subsidi loyalty =================
+        function renderSubsidy() {
+            const raw = parseFloat($('marginInput').value);
+            const margin = isNaN(raw) ? 0 : raw;
+            let totDana = 0, totSub = 0, totNet = 0;
+            const cards = TIERS.map(t => {
+                const c = t.members[LAST];
+                const d = dana(t, LAST);
+                const sub = c * t.cost;
+                const subY = sub * 12;
+                const inc = d * (margin / 100) / 12;
+                const net = inc - sub;
+                const ratio = d > 0 ? (subY / d) * 100 : 0;
+                totDana += d; totSub += sub; totNet += net;
+                const benefits = t.benefits.map(b => `<div class="kv-row"><span>${b[0]}</span><span>${fmtRp(b[1])}</span></div>`).join('');
+                return `
+                    <div class="fincard" style="border-left:4px solid ${t.color};">
+                        <div class="fincard-top"><div class="fincard-label"><span class="tier-chip ${t.key}">${t.name}</span></div><div class="fincard-sub">${nf(c)} member</div></div>
+                        <div class="kv-row"><span>Dana nasabah</span><span>${fmtM(d)}</span></div>
+                        <div class="kv-row"><span>Rata-rata dana / member</span><span>${fmtJt(d / c)}</span></div>
+                        <div class="kv-row"><span>Subsidi / member / bulan</span><span>${fmtRp(t.cost)}</span></div>
+                        <div class="kv-row"><span>Total subsidi / bulan</span><span>${fmtJt(sub)}</span></div>
+                        <div class="kv-row"><span>Subsidi setahun</span><span>${fmtM(subY)}</span></div>
+                        <div class="kv-row"><span>Subsidi thd dana (p.a.)</span><span>${nf(ratio, 2)}%</span></div>
+                        <div class="kv-row"><span>Est. pendapatan dana / bulan</span><span>${fmtJt(inc)}</span></div>
+                        <div class="kv-row"><span>Net / bulan</span><span class="${net >= 0 ? 'txt-up' : 'txt-down'}">${sgn(net, fmtJt)}</span></div>
+                        <details class="pd-details"><summary>Rincian subsidi per member / bulan</summary>${benefits}</details>
+                    </div>`;
+            }).join('');
+
+            let ytd = 0;
+            for (let i = START26; i <= LAST; i++) ytd += monthlySubsidy(i);
+            const remaining = 12 - (LAST - START26 + 1);
+            const proj = ytd + monthlySubsidy(LAST) * remaining;
+
+            $('subSummary').innerHTML = `<div class="sum-grid">
+                ${box('Total Dana Nasabah', fmtM(totDana), nf(totalMembers(LAST)) + ' member')}
+                ${box('Subsidi / Bulan', fmtJt(totSub), fmtM(totSub * 12) + ' per tahun')}
+                ${box('Subsidi YTD 2026', fmtM(ytd), 'Jan - ' + MONTHS[LAST % 12] + ' 2026')}
+                ${box('Proyeksi Subsidi 2026', fmtM(proj), 'jika member tetap s/d Des')}
+            </div>
+            <div class="sum-box" style="margin-bottom:12px;"><div class="lbl">Net setelah subsidi / bulan (margin ${nf(margin, 1)}% p.a.)</div><div class="val ${totNet >= 0 ? 'txt-up' : 'txt-down'}">${sgn(totNet, fmtJt)}</div></div>`;
+            $('subCards').innerHTML = cards;
+        }
+
+        // ================= Daftar pendaftar terbaru =================
+        const NAMES = ['Andrea Wijaya','Bima Prakoso','Clarissa Tan','Darius Halim','Elsa Marlina','Farhan Akbar','Gita Puspita','Hendra Kusuma','Irene Susanto','Jonathan Lie','Kirana Dewi','Laras Setiawan','Marcell Oei','Nadia Rahman','Oscar Hadiwinata','Putri Anjani','Rafael Gunadi','Sabrina Kho','Tommy Laksono','Ursula Tanoto','Vania Salim','William Chandra','Xena Pranoto','Yusuf Ramadhan','Zahra Alatas','Aldo Mahendra','Bella Santoso','Cakra Buana','Diana Hartono','Evan Sutanto'];
+        const PATTERN = [0, 0, 1, 0, 1, 0, 2, 0, 1, 0];
+        const RANGES = { silver: [25e6, 90e6], gold: [100e6, 300e6], platinum: [500e6, 1200e6] };
+        const MEMBERS = NAMES.map((name, i) => {
+            const t = TIERS[PATTERN[i % PATTERN.length]];
+            const r = RANGES[t.key];
+            const saldo = r[0] + (((i * 37) % 100) / 100) * (r[1] - r[0]);
+            const date = new Date(2026, 8, 27 - Math.floor(i * 1.5));
+            return { name, tier: t, saldo, date };
+        });
+        let memberFilter = 'all';
+
+        function renderMembers() {
+            const list = MEMBERS.filter(m => memberFilter === 'all' || m.tier.key === memberFilter);
+            const shown = list.slice(0, 10);
+            $('memberCountLabel').textContent = 'Menampilkan ' + shown.length + ' dari ' + list.length;
+            $('memberBody').innerHTML = shown.length === 0
+                ? `<tr><td colspan="5"><div class="empty-state">Belum ada pendaftar.</div></td></tr>`
+                : shown.map(m => `<tr><td class="strong">${m.name}</td><td><span class="tier-chip ${m.tier.key}">${m.tier.name}</span></td><td>${m.date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })}</td><td class="num">${fmtJt(m.saldo)}</td><td class="num">${fmtRp(m.tier.cost)}</td></tr>`).join('');
+        }
+        window.setMemberFilter = function (key, btn) {
+            memberFilter = key;
+            document.querySelectorAll('#memberFilter .fin-toggle-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderMembers();
+        };
+
+        // ================= Bootstrap =================
         document.addEventListener('DOMContentLoaded', () => {
-            try { renderDashboard(); } catch (e) { console.error('renderDashboard failed:', e); }
-            try { renderFinanceCondition(); } catch (e) { console.error('renderFinanceCondition failed:', e); }
-            try { renderNtbTracking(); } catch (e) { console.error('renderNtbTracking failed:', e); }
-            try { renderLoyaltyTracking(); } catch (e) { console.error('renderLoyaltyTracking failed:', e); }
-            // Simulate a live feed: nudge the finance figures every 5s, tick the "updated X seconds ago" label every 1s.
-            try {
-                setInterval(tickFinanceLiveUpdate, 5000);
-                setInterval(updateFinanceTimestamp, 1000);
-            } catch (e) { console.error('finance live-update timer failed:', e); }
+            try { initMtd(); } catch (e) { console.error('initMtd failed:', e); }
+            [renderHeader, renderTiers, renderRegChart, renderMtdCompare, renderMtdSeries, renderYoy, renderYoyChart, renderSubsidy, renderMembers].forEach(fn => {
+                try { fn(); } catch (e) { console.error(fn.name + ' failed:', e); }
+            });
+            const mi = $('marginInput');
+            if (mi) mi.addEventListener('input', () => { try { renderSubsidy(); } catch (e) { console.error(e); } });
         });
     </script>
 </body>
