@@ -647,14 +647,19 @@
         .tier-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
         .tier-card { border: 1px solid #F1F5F9; border-radius: 14px; padding: 14px 14px 14px 18px; background: #FAFBFC; position: relative; overflow: hidden; }
         .tier-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--tier-color); }
-        .tier-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+        .tier-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
         .tier-name { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; color: var(--navy); }
         .tier-badge { width: 26px; height: 26px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #fff; background: var(--tier-color); }
-        .tier-min { font-size: 10px; color: var(--gray-text); font-weight: 600; }
+        .tier-min { font-size: 10px; color: var(--gray-text); font-weight: 600; text-align: right; }
         .tier-count { font-size: 28px; font-weight: 800; color: var(--navy); line-height: 1; }
         .tier-count small { font-size: 11px; font-weight: 600; color: var(--gray-text); margin-left: 4px; }
         .tier-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
         .tier-progress-label { display: flex; justify-content: space-between; font-size: 10.5px; color: var(--gray-text); margin-top: 12px; font-weight: 600; }
+        .benefit-list { margin-top: 12px; padding-top: 10px; border-top: 1px dashed #E5E7EB; }
+        .benefit-item { display: flex; gap: 7px; font-size: 11px; color: #475569; font-weight: 500; padding: 3px 0; line-height: 1.4; }
+        .benefit-item i { color: var(--tier-color); font-size: 10px; margin-top: 3px; }
+        .tier-cost { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; background: #fff; border: 1px solid #EEF1F5; border-radius: 10px; padding: 8px 10px; font-size: 10.5px; color: var(--gray-text); font-weight: 600; }
+        .tier-cost b { font-size: 13px; color: var(--navy); font-weight: 800; }
 
         .pd-chart { display: flex; align-items: flex-end; gap: 6px; height: 150px; }
         .pd-col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; min-width: 0; }
@@ -681,23 +686,27 @@
         .kv-row:last-child { border-bottom: none; }
         .kv-row span:first-child { color: var(--gray-text); font-weight: 500; }
         .kv-row span:last-child { color: var(--navy); font-weight: 700; text-align: right; }
-        .tier-chip { font-size: 9.5px; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
+        .tier-chip { font-size: 9.5px; font-weight: 700; padding: 3px 8px; border-radius: 6px; white-space: nowrap; }
         .tier-chip.silver { background: #F1F5F9; color: #64748B; }
         .tier-chip.gold { background: #FFF8E8; color: #B8860B; }
         .tier-chip.platinum { background: #EEF2FF; color: #4F46E5; }
-        details.pd-details summary { cursor: pointer; font-size: 11px; font-weight: 700; color: var(--navy-light); margin-top: 10px; }
-        .assump { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; background: #FFF8E8; border: 1px solid #FDE68A; border-radius: 12px; padding: 10px 12px; margin-bottom: 12px; font-size: 11.5px; font-weight: 600; color: var(--navy); }
-        .assump input { width: 64px; padding: 6px 8px; border: 1px solid var(--gray-light); border-radius: 8px; font-size: 12px; font-weight: 700; text-align: center; }
+        .tier-chip.ok { background: var(--green-light); color: var(--green); }
+        .tier-chip.bad { background: var(--red-light); color: var(--red); }
         .pd-note { font-size: 10.5px; color: var(--gray-text); margin-top: 10px; line-height: 1.5; }
+        .pd-sub-title { font-size: 12.5px; font-weight: 700; color: var(--navy); margin: 18px 0 8px; }
         .simple-table td.num, .simple-table th.num { text-align: right; }
         .simple-table tr.total-row td { font-weight: 800; color: var(--navy); background: #F8FAFC; }
+        .simple-table .sel-col { background: #FFF8E8; font-weight: 800; color: var(--navy); }
+        .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
+        .value-tile { border: 1px solid #EEF1F5; background: #FAFBFC; border-radius: 12px; padding: 12px 8px; text-align: center; font-size: 10.5px; font-weight: 600; color: var(--navy); line-height: 1.35; }
+        .value-tile i { display: block; font-size: 18px; color: var(--navy-light); margin-bottom: 6px; }
+        .outcome-list { background: #F8FAFC; border: 1px solid #EEF1F5; border-radius: 12px; padding: 10px 12px; }
+        .outcome-list .benefit-item { --tier-color: var(--green); font-size: 11.5px; }
         @media (min-width: 1024px) {
             .tier-grid { grid-template-columns: repeat(3, 1fr); }
             .sum-grid { grid-template-columns: repeat(4, 1fr); }
-            .pd-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+            .value-grid { grid-template-columns: repeat(5, 1fr); }
         }
-        .pd-cards { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
-        @media (min-width: 1024px) { .pd-cards { display: grid; } }
     </style>
 </head>
 <body>
@@ -763,19 +772,19 @@
 
         <div class="dashboard-header">
             <h1 class="dashboard-title">Monitoring Padel</h1>
-            <p class="dashboard-subtitle"><i class="fa-solid fa-table-tennis-paddle-ball" style="margin-right:5px;opacity:.85;"></i>Keanggotaan Silver, Gold &amp; Platinum &middot; KC Pondok Indah</p>
+            <p class="dashboard-subtitle"><i class="fa-solid fa-table-tennis-paddle-ball" style="margin-right:5px;opacity:.85;"></i>Mandiri Padel Circle &middot; More Than a Game</p>
             <div class="metrics-grid">
                 <div class="metric-card">
                     <div class="metric-value" id="valMember">0</div>
-                    <div class="metric-label">Total Member</div>
+                    <div class="metric-label">Customer</div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-value" id="valDana" style="color:#4ADE80;">0</div>
-                    <div class="metric-label">Dana (Rp M)</div>
+                    <div class="metric-label">Fund (Rp M)</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-value" id="valSubsidi" style="color:#FACC15;">0</div>
-                    <div class="metric-label">Subsidi/bln (Rp Jt)</div>
+                    <div class="metric-value" id="valNet" style="color:#FACC15;">0</div>
+                    <div class="metric-label">Net/thn (Rp jt)</div>
                 </div>
             </div>
         </div>
@@ -786,9 +795,15 @@
             <div class="panel">
                 <div class="panel-title">
                     <span><i class="fa-solid fa-users"></i>Pendaftar per Tingkatan</span>
-                    <span class="panel-sub" id="tierTotalLabel">0 member</span>
+                    <span class="panel-sub" id="tierTotalLabel">0 customer</span>
                 </div>
                 <div class="tier-grid" id="tierGrid"></div>
+                <div class="pd-legend" style="margin-top:14px;">
+                    <span class="tier-chip silver">Tier-based (individual)</span>
+                    <span class="tier-chip gold">Controlled cost (maks. Rp1 jt / customer)</span>
+                    <span class="tier-chip platinum">Lifestyle &amp; wealth experience</span>
+                    <span class="tier-chip ok">Measurable business impact</span>
+                </div>
             </div>
 
             <div class="panel">
@@ -800,10 +815,10 @@
                 <div class="pd-legend" id="regLegend"></div>
             </div>
 
-            <!-- 2. Pergerakan dana MTD -->
+            <!-- 2. Pergerakan Relationship Fund MTD -->
             <div class="panel">
                 <div class="panel-title">
-                    <span><i class="fa-solid fa-arrow-trend-up"></i>Pergerakan Dana Antar Bulan (MTD)</span>
+                    <span><i class="fa-solid fa-arrow-trend-up"></i>Pergerakan Relationship Fund (MTD)</span>
                 </div>
                 <div class="pd-select-row">
                     <select class="pd-select" id="mtdFrom"></select>
@@ -813,37 +828,73 @@
                 <div id="mtdSummary"></div>
                 <div style="overflow-x:auto;"><table class="simple-table" id="mtdTable"></table></div>
 
-                <div class="panel-title" style="margin:18px 0 8px;"><span style="font-size:12.5px;">Rekap MTD Bulanan 2026</span></div>
+                <div class="pd-sub-title">Rekap MTD Bulanan 2026</div>
                 <div style="overflow-x:auto;"><table class="simple-table" id="mtdSeries"></table></div>
-                <div class="pd-note">MTD dihitung dari posisi dana akhir bulan dibanding akhir bulan sebelumnya. Januari dibanding Desember 2025.</div>
+                <div class="pd-note">MTD = posisi dana akhir bulan dibanding akhir bulan sebelumnya (Januari dibanding Desember 2025). Nilai dalam Rupiah.</div>
             </div>
 
             <!-- Kenaikan YoY & titik nol -->
             <div class="panel">
                 <div class="panel-title">
-                    <span><i class="fa-solid fa-calendar-check"></i>Kenaikan Dana YoY &amp; dari Titik Nol</span>
+                    <span><i class="fa-solid fa-calendar-check"></i>Kenaikan Fund YoY &amp; dari Titik Nol</span>
                 </div>
                 <div id="yoySummary"></div>
                 <div style="overflow-x:auto;"><table class="simple-table" id="yoyTable"></table></div>
 
-                <div class="panel-title" style="margin:18px 0 12px;"><span style="font-size:12.5px;">Total Dana Bulanan: 2025 vs 2026 (Rp Miliar)</span></div>
+                <div class="pd-sub-title">Total Relationship Fund Bulanan: 2025 vs 2026</div>
                 <div class="pd-chart" id="yoyChart"></div>
                 <div class="pd-legend"><span><i style="background:#CBD5E1;"></i>2025</span><span><i style="background:#223769;"></i>2026</span></div>
-                <div class="pd-note">Asumsi: program padel dimulai Januari 2025 dari saldo Rp 0 (titik nol), sehingga total dana saat ini = kenaikan sejak program berjalan.</div>
+                <div class="pd-note">Asumsi: program dimulai Januari 2025 dari saldo Rp 0 (titik nol), sehingga total fund saat ini = kenaikan sejak program berjalan.</div>
             </div>
 
-            <!-- 3. Dana nasabah vs subsidi loyalty -->
+            <!-- 3. Relationship Fund vs Program Cost -->
             <div class="panel">
                 <div class="panel-title">
-                    <span><i class="fa-solid fa-hand-holding-dollar"></i>Dana Nasabah vs Subsidi Loyalty</span>
+                    <span><i class="fa-solid fa-hand-holding-dollar"></i>Relationship Fund vs Program Cost</span>
                 </div>
-                <div class="assump">
-                    <i class="fa-solid fa-percent"></i> Asumsi margin dana
-                    <input type="number" id="marginInput" value="3" min="0" max="20" step="0.1"> % per tahun
+                <div class="fin-toggle" id="scenToggle">
+                    <button class="fin-toggle-btn" onclick="setScenario('conservative', this)">Conservative</button>
+                    <button class="fin-toggle-btn active" onclick="setScenario('base', this)">Base Case</button>
+                    <button class="fin-toggle-btn" onclick="setScenario('upside', this)">Upside</button>
                 </div>
-                <div id="subSummary"></div>
-                <div class="pd-cards" id="subCards"></div>
-                <div class="pd-note">Subsidi = biaya benefit loyalty yang ditanggung Mandiri (sewa lapangan, coaching, voucher, merchandise, cashback). Net = estimasi pendapatan dana dikurangi subsidi. Angka simulasi, bisa disesuaikan.</div>
+                <div id="econSummary"></div>
+
+                <div class="pd-sub-title" style="margin-top:6px;">Customer Portfolio &amp; Relationship Fund</div>
+                <div style="overflow-x:auto;"><table class="simple-table" id="portfolioTable"></table></div>
+
+                <div class="pd-sub-title">Program Cost (Benefit Cost)</div>
+                <div style="overflow-x:auto;"><table class="simple-table" id="costTable"></table></div>
+
+                <div class="pd-sub-title">Customer Profitability (per customer per tahun)</div>
+                <div style="overflow-x:auto;"><table class="simple-table" id="profitTable"></table></div>
+
+                <div class="pd-sub-title">Proyeksi Skenario (per tahun)</div>
+                <div style="overflow-x:auto;"><table class="simple-table" id="scenTable"></table></div>
+                <div class="pd-note">Net contribution = Relationship Fund &times; assumed contribution rate &minus; program cost. Angka ilustratif; kontribusi aktual bergantung pada margin FTP dan biaya partner.</div>
+            </div>
+
+            <!-- Guardrail & nilai bisnis -->
+            <div class="panel">
+                <div class="panel-title">
+                    <span><i class="fa-solid fa-shield-halved"></i>Guardrail Biaya &amp; Nilai Bisnis</span>
+                </div>
+                <div id="guardSummary"></div>
+                <div id="guardTiers"></div>
+
+                <div class="pd-sub-title">Customer Value Creation</div>
+                <div class="value-grid">
+                    <div class="value-tile"><i class="fa-solid fa-wallet"></i>Higher CASA</div>
+                    <div class="value-tile"><i class="fa-solid fa-chart-line"></i>Investment &amp; Bancassurance</div>
+                    <div class="value-tile"><i class="fa-solid fa-credit-card"></i>Credit Card &amp; Transaction Growth</div>
+                    <div class="value-tile"><i class="fa-solid fa-heart"></i>Retention &amp; Loyalty</div>
+                    <div class="value-tile"><i class="fa-solid fa-user-plus"></i>Referral &amp; New Customer Acquisition</div>
+                </div>
+                <div class="outcome-list">
+                    <div class="benefit-item"><i class="fa-solid fa-check"></i>Deepen customer relationship &amp; loyalty</div>
+                    <div class="benefit-item"><i class="fa-solid fa-check"></i>Grow low-cost CASA and fee-based income</div>
+                    <div class="benefit-item"><i class="fa-solid fa-check"></i>Position Mandiri as a premium lifestyle &amp; wealth partner</div>
+                    <div class="benefit-item"><i class="fa-solid fa-check"></i>Build a sustainable, scalable model across branches</div>
+                </div>
             </div>
 
             <!-- Daftar member -->
@@ -860,7 +911,7 @@
                 </div>
                 <div style="overflow-x:auto;">
                     <table class="simple-table">
-                        <thead><tr><th>Nama</th><th>Tingkat</th><th>Tgl Daftar</th><th class="num">Saldo</th><th class="num">Subsidi/bln</th></tr></thead>
+                        <thead><tr><th>Nama</th><th>Tier</th><th>Tgl Daftar</th><th class="num">Relationship Fund</th><th class="num">Biaya/thn</th><th class="num">Net/thn</th></tr></thead>
                         <tbody id="memberBody"></tbody>
                     </table>
                 </div>
@@ -1025,43 +1076,63 @@
         })();
     </script>
     <script>
-        // ================= Data (dummy, deterministik) =================
-        // Jumlah member kumulatif per tingkatan, Jan-2025 s/d Sep-2026 (21 bulan). Program dimulai dari 0 pada Jan-2025.
+        // ================= Spesifikasi program: Mandiri Padel Circle (sesuai slide) =================
+        // Snapshot Sep-2026 = skenario slide: 100 Silver + 50 Gold + 10 Platinum = 160 customer, total Relationship Fund Rp50 M.
         const MONTHS = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
         const MONTHS_FULL = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
         const LAST = 20;      // index Sep-2026
         const START26 = 12;   // index Jan-2026
+        const CEILING = 1e6;  // plafon biaya maks. Rp1 jt / customer (juga maks. acquisition cost per NTB)
 
+        const SCEN = {
+            conservative: { label: 'Conservative', rate: 0.005 },
+            base:         { label: 'Base Case',    rate: 0.010 },
+            upside:       { label: 'Upside',       rate: 0.015 }
+        };
+        let scenario = 'base';
+
+        // members = jumlah customer kumulatif per bulan (Jan-2025 s/d Sep-2026)
         const TIERS = [
             {
-                key: 'silver', name: 'Silver', icon: 'fa-medal', color: '#94A3B8', min: 25e6, target: 200, base: 38e6, cost: 150000,
-                members: [12,25,41,58,72,88,101,113,126,138,149,158,161,166,170,174,177,180,182,183,184],
-                benefits: [['Diskon sewa lapangan 10%', 60000], ['Voucher F&amp;B', 50000], ['Cashback transaksi', 40000]]
+                key: 'silver', name: 'Silver', icon: 'fa-medal', color: '#94A3B8',
+                rangeLabel: 'Fund Rp50 jt &ndash; &lt;Rp100 jt', avgFund: 50e6, drift: 0, costYear: 100000,
+                members: [4,9,15,22,29,36,43,50,56,62,67,72,75,79,83,86,90,93,96,98,100],
+                benefits: ['E-money welcome benefit', "Livin' Points", 'Partner privileges (F&amp;B, lifestyle, retail)']
             },
             {
-                key: 'gold', name: 'Gold', icon: 'fa-crown', color: '#F59E0B', min: 100e6, target: 110, base: 145e6, cost: 450000,
-                members: [4,9,15,21,27,33,39,45,51,56,61,66,69,72,76,79,82,86,90,93,96],
-                benefits: [['Free sewa lapangan 2 jam', 200000], ['Coaching clinic 1x', 100000], ['Voucher F&amp;B', 100000], ['Cashback transaksi', 50000]]
+                key: 'gold', name: 'Gold', icon: 'fa-crown', color: '#F59E0B',
+                rangeLabel: 'Fund Rp100 jt &ndash; &lt;Rp1 M', avgFund: 500e6, drift: 0.004, costYear: 350000,
+                members: [2,4,7,10,13,16,19,22,25,28,31,34,36,38,40,42,44,46,47,49,50],
+                benefits: ['All Silver benefits', '1x padel session (1 jam)', 'Priority registration untuk event terpilih']
             },
             {
-                key: 'platinum', name: 'Platinum', icon: 'fa-gem', color: '#6366F1', min: 500e6, target: 35, base: 560e6, cost: 1200000,
-                members: [1,2,4,6,8,10,12,14,16,18,20,22,23,24,25,26,27,28,29,30,31],
-                benefits: [['Free sewa lapangan 4 jam', 400000], ['Coaching privat', 300000], ['Merchandise &amp; apparel', 200000], ['Lounge &amp; priority booking', 150000], ['Cashback transaksi', 150000]]
+                key: 'platinum', name: 'Platinum', icon: 'fa-gem', color: '#6366F1',
+                rangeLabel: 'Fund &ge; Rp1 M', avgFund: 2e9, drift: 0.004, costYear: 750000,
+                members: [0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10],
+                benefits: ['All Gold benefits', '1x padel court &amp; wealth event (1x / tahun)', 'Networking &amp; wealth consultation', 'Premium merchandise / e-money']
             }
         ];
 
         // ================= Helpers =================
-        const nf = (n, d) => n.toLocaleString('id-ID', { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 });
-        const fmtRp = n => 'Rp' + nf(Math.round(n));
-        const fmtM = n => nf(n / 1e9, 2) + ' M';
-        const fmtJt = n => nf(n / 1e6, 1) + ' Jt';
+        const nf = (n, d) => n.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: d || 0 });
+        function fmtMoney(n) {
+            const a = Math.abs(n);
+            if (a >= 1e9) return nf(a / 1e9, 2) + ' M';
+            if (a >= 1e6) return nf(a / 1e6, 1) + ' jt';
+            if (a >= 1e3) return nf(a / 1e3, 0) + 'K';
+            return nf(a);
+        }
+        const rp = n => 'Rp' + fmtMoney(n);
         const sgn = (n, fn) => (n >= 0 ? '+' : '-') + fn(Math.abs(n));
+        const sgnRp = n => sgn(n, rp);
+        const sgnPct = (n, d) => sgn(n, x => nf(x, d) + '%');
         const lbl = i => MONTHS[i % 12] + '-' + (i < 12 ? '25' : '26');
         const fullLbl = i => MONTHS_FULL[i % 12] + ' ' + (i < 12 ? '2025' : '2026');
-        const dana = (t, i) => t.members[i] * t.base * (1 + 0.004 * i);
+        const avgFundAt = (t, i) => t.avgFund * (1 - t.drift * (LAST - i));
+        const dana = (t, i) => t.members[i] * avgFundAt(t, i);
         const totalDana = i => TIERS.reduce((s, t) => s + dana(t, i), 0);
         const totalMembers = i => TIERS.reduce((s, t) => s + t.members[i], 0);
-        const monthlySubsidy = i => TIERS.reduce((s, t) => s + t.members[i] * t.cost, 0);
+        const programCost = i => TIERS.reduce((s, t) => s + t.members[i] * t.costYear, 0);
         const pctChange = (a, b) => a > 0 ? ((b - a) / a) * 100 : 0;
         const $ = id => document.getElementById(id);
         function pill(delta, text) {
@@ -1071,36 +1142,40 @@
         function box(label, val, sub, subCls) {
             return `<div class="sum-box"><div class="lbl">${label}</div><div class="val">${val}</div><div class="sub ${subCls || ''}">${sub || ''}</div></div>`;
         }
+        const netContribution = () => totalDana(LAST) * SCEN[scenario].rate - programCost(LAST);
 
         // ================= Header =================
         function renderHeader() {
             $('valMember').textContent = nf(totalMembers(LAST));
             $('valDana').textContent = nf(totalDana(LAST) / 1e9, 1);
-            $('valSubsidi').textContent = nf(monthlySubsidy(LAST) / 1e6, 0);
+            $('valNet').textContent = nf(netContribution() / 1e6, 0);
         }
 
         // ================= 1. Pendaftar per tingkatan =================
         function renderTiers() {
-            const total = totalMembers(LAST);
-            $('tierTotalLabel').textContent = nf(total) + ' member';
+            const total = totalMembers(LAST), fundAll = totalDana(LAST);
+            $('tierTotalLabel').textContent = nf(total) + ' customer';
             $('tierGrid').innerHTML = TIERS.map(t => {
                 const c = t.members[LAST];
                 const nw = c - t.members[LAST - 1];
                 const share = total > 0 ? (c / total) * 100 : 0;
-                const prog = Math.min(100, (c / t.target) * 100);
+                const f = dana(t, LAST);
+                const fShare = fundAll > 0 ? (f / fundAll) * 100 : 0;
                 return `
                     <div class="tier-card" style="--tier-color:${t.color}">
                         <div class="tier-top">
                             <div class="tier-name"><div class="tier-badge"><i class="fa-solid ${t.icon}"></i></div>${t.name}</div>
-                            <div class="tier-min">Min. saldo ${fmtJt(t.min)}</div>
+                            <div class="tier-min">${t.rangeLabel}</div>
                         </div>
-                        <div class="tier-count">${nf(c)}<small>member</small></div>
+                        <div class="tier-count">${nf(c)}<small>customer</small></div>
                         <div class="tier-meta">
                             ${pill(nw, sgn(nw, x => nf(x)) + ' bulan ini')}
-                            <span class="tier-chip ${t.key}">${nf(share, 1)}% dari total</span>
+                            <span class="tier-chip ${t.key}">${nf(share, 1)}% dari customer</span>
                         </div>
-                        <div class="tier-progress-label"><span>Target pendaftar ${nf(t.target)}</span><span>${nf(prog, 0)}%</span></div>
-                        <div class="fincard-track"><div class="fincard-fill" style="width:${prog}%; background:${t.color};"></div></div>
+                        <div class="tier-progress-label"><span>Relationship Fund ${rp(f)}</span><span>${nf(fShare, 0)}% dari total</span></div>
+                        <div class="fincard-track"><div class="fincard-fill" style="width:${fShare}%; background:${t.color};"></div></div>
+                        <div class="benefit-list">${t.benefits.map(b => `<div class="benefit-item"><i class="fa-solid fa-check"></i><span>${b}</span></div>`).join('')}</div>
+                        <div class="tier-cost"><span>Estimated cost / customer</span><span><b>${rp(t.costYear)}</b> / tahun</span></div>
                     </div>`;
             }).join('');
         }
@@ -1110,8 +1185,7 @@
             const H = 100;
             const cols = idx.map(i => {
                 const segs = TIERS.map(t => ({ n: t.members[i] - t.members[i - 1], c: t.color }));
-                const tot = segs.reduce((s, x) => s + x.n, 0);
-                return { i, segs, tot };
+                return { i, segs, tot: segs.reduce((s, x) => s + x.n, 0) };
             });
             const max = Math.max(...cols.map(c => c.tot), 1);
             $('regChart').innerHTML = cols.map(col => {
@@ -1122,7 +1196,7 @@
             $('regLegend').innerHTML = TIERS.map(t => `<span><i style="background:${t.color};"></i>${t.name}</span>`).join('');
         }
 
-        // ================= 2. Pergerakan dana MTD =================
+        // ================= 2. Pergerakan Relationship Fund (MTD) =================
         function initMtd() {
             let opts = '';
             for (let i = 11; i <= LAST; i++) opts += `<option value="${i}">${fullLbl(i)}</option>`;
@@ -1135,7 +1209,7 @@
         }
 
         function renderMtdCompare() {
-            let a = parseInt($('mtdFrom').value, 10), b = parseInt($('mtdTo').value, 10);
+            const a = parseInt($('mtdFrom').value, 10), b = parseInt($('mtdTo').value, 10);
             const lo = Math.min(a, b), hi = Math.max(a, b);
             if (lo === hi) {
                 $('mtdSummary').innerHTML = `<div class="empty-state" style="padding:10px;">Pilih dua bulan yang berbeda untuk dibandingkan.</div>`;
@@ -1144,46 +1218,44 @@
             }
             const dLo = totalDana(lo), dHi = totalDana(hi);
             const mLo = totalMembers(lo), mHi = totalMembers(hi);
-            const up = dHi >= dLo;
             $('mtdSummary').innerHTML = `<div class="sum-grid">
-                ${box('Dana ' + lbl(lo), fmtM(dLo), nf(mLo) + ' member')}
-                ${box('Dana ' + lbl(hi), fmtM(dHi), nf(mHi) + ' member')}
-                ${box('Kenaikan Dana', sgn(dHi - dLo, fmtM), sgn(pctChange(dLo, dHi), x => nf(x, 2)) + '%', up ? 'txt-up' : 'txt-down')}
-                ${box('Tambahan Member', sgn(mHi - mLo, x => nf(x)), sgn(pctChange(mLo, mHi), x => nf(x, 1)) + '%', mHi >= mLo ? 'txt-up' : 'txt-down')}
+                ${box('Fund ' + lbl(lo), rp(dLo), nf(mLo) + ' customer')}
+                ${box('Fund ' + lbl(hi), rp(dHi), nf(mHi) + ' customer')}
+                ${box('Kenaikan Fund', sgnRp(dHi - dLo), sgnPct(pctChange(dLo, dHi), 2), dHi >= dLo ? 'txt-up' : 'txt-down')}
+                ${box('Tambahan Customer', sgn(mHi - mLo, x => nf(x)), sgnPct(pctChange(mLo, mHi), 1), mHi >= mLo ? 'txt-up' : 'txt-down')}
             </div>`;
             const rows = TIERS.map(t => {
                 const x = dana(t, lo), y = dana(t, hi);
-                return `<tr><td class="strong"><span class="tier-chip ${t.key}">${t.name}</span></td><td class="num">${fmtM(x)}</td><td class="num">${fmtM(y)}</td><td class="num">${pill(y - x, sgn(y - x, fmtM))}</td><td class="num ${y >= x ? 'txt-up' : 'txt-down'}">${sgn(pctChange(x, y), v => nf(v, 2))}%</td></tr>`;
+                return `<tr><td class="strong"><span class="tier-chip ${t.key}">${t.name}</span></td><td class="num">${fmtMoney(x)}</td><td class="num">${fmtMoney(y)}</td><td class="num">${pill(y - x, sgn(y - x, fmtMoney))}</td><td class="num ${y >= x ? 'txt-up' : 'txt-down'}">${sgnPct(pctChange(x, y), 2)}</td></tr>`;
             }).join('');
-            $('mtdTable').innerHTML = `<thead><tr><th>Tingkat</th><th class="num">${lbl(lo)}</th><th class="num">${lbl(hi)}</th><th class="num">Kenaikan</th><th class="num">%</th></tr></thead>
-                <tbody>${rows}<tr class="total-row"><td>Total</td><td class="num">${fmtM(dLo)}</td><td class="num">${fmtM(dHi)}</td><td class="num">${sgn(dHi - dLo, fmtM)}</td><td class="num">${sgn(pctChange(dLo, dHi), v => nf(v, 2))}%</td></tr></tbody>`;
+            $('mtdTable').innerHTML = `<thead><tr><th>Tier</th><th class="num">${lbl(lo)}</th><th class="num">${lbl(hi)}</th><th class="num">Kenaikan</th><th class="num">%</th></tr></thead>
+                <tbody>${rows}<tr class="total-row"><td>Total</td><td class="num">${fmtMoney(dLo)}</td><td class="num">${fmtMoney(dHi)}</td><td class="num">${sgn(dHi - dLo, fmtMoney)}</td><td class="num">${sgnPct(pctChange(dLo, dHi), 2)}</td></tr></tbody>`;
         }
 
         function renderMtdSeries() {
             let rows = '';
             for (let i = START26; i <= LAST; i++) {
                 const cur = totalDana(i), prev = totalDana(i - 1);
-                const up = cur >= prev;
-                rows += `<tr><td class="strong">${MONTHS_FULL[i % 12]}</td><td class="num">${fmtM(cur)}</td><td class="num">${pill(cur - prev, sgn(cur - prev, fmtM))}</td><td class="num ${up ? 'txt-up' : 'txt-down'}">${sgn(pctChange(prev, cur), v => nf(v, 2))}%</td><td class="num">${nf(totalMembers(i))}</td></tr>`;
+                rows += `<tr><td class="strong">${MONTHS_FULL[i % 12]}</td><td class="num">${fmtMoney(cur)}</td><td class="num">${pill(cur - prev, sgn(cur - prev, fmtMoney))}</td><td class="num ${cur >= prev ? 'txt-up' : 'txt-down'}">${sgnPct(pctChange(prev, cur), 2)}</td><td class="num">${nf(totalMembers(i))}</td></tr>`;
             }
-            $('mtdSeries').innerHTML = `<thead><tr><th>Bulan</th><th class="num">Dana Akhir Bulan</th><th class="num">MTD</th><th class="num">%</th><th class="num">Member</th></tr></thead><tbody>${rows}</tbody>`;
+            $('mtdSeries').innerHTML = `<thead><tr><th>Bulan</th><th class="num">Fund Akhir Bulan</th><th class="num">MTD</th><th class="num">%</th><th class="num">Customer</th></tr></thead><tbody>${rows}</tbody>`;
         }
 
         // ================= Kenaikan YoY & titik nol =================
         function renderYoy() {
             const cur = totalDana(LAST), prev = totalDana(LAST - 12), dec = totalDana(11);
             $('yoySummary').innerHTML = `<div class="sum-grid">
-                ${box('Dana ' + lbl(LAST), fmtM(cur), nf(totalMembers(LAST)) + ' member')}
-                ${box('YoY vs ' + lbl(LAST - 12), sgn(cur - prev, fmtM), sgn(pctChange(prev, cur), v => nf(v, 1)) + '%', cur >= prev ? 'txt-up' : 'txt-down')}
-                ${box('YtD vs ' + lbl(11), sgn(cur - dec, fmtM), sgn(pctChange(dec, cur), v => nf(v, 1)) + '%', cur >= dec ? 'txt-up' : 'txt-down')}
-                ${box('Sejak Titik Nol (Jan-25)', sgn(cur, fmtM), 'rata-rata ' + fmtM(cur / (LAST + 1)) + '/bulan', 'txt-up')}
+                ${box('Fund ' + lbl(LAST), rp(cur), nf(totalMembers(LAST)) + ' customer')}
+                ${box('YoY vs ' + lbl(LAST - 12), sgnRp(cur - prev), sgnPct(pctChange(prev, cur), 1), cur >= prev ? 'txt-up' : 'txt-down')}
+                ${box('YtD vs ' + lbl(11), sgnRp(cur - dec), sgnPct(pctChange(dec, cur), 1), cur >= dec ? 'txt-up' : 'txt-down')}
+                ${box('Sejak Titik Nol (Jan-25)', sgnRp(cur), 'rata-rata ' + rp(cur / (LAST + 1)) + '/bulan', 'txt-up')}
             </div>`;
             const rows = TIERS.map(t => {
                 const p = dana(t, LAST - 12), c = dana(t, LAST);
-                return `<tr><td class="strong"><span class="tier-chip ${t.key}">${t.name}</span></td><td class="num">${fmtM(p)}</td><td class="num">${fmtM(c)}</td><td class="num">${pill(c - p, sgn(c - p, fmtM))}</td><td class="num ${c >= p ? 'txt-up' : 'txt-down'}">${sgn(pctChange(p, c), v => nf(v, 1))}%</td></tr>`;
+                return `<tr><td class="strong"><span class="tier-chip ${t.key}">${t.name}</span></td><td class="num">${fmtMoney(p)}</td><td class="num">${fmtMoney(c)}</td><td class="num">${pill(c - p, sgn(c - p, fmtMoney))}</td><td class="num ${c >= p ? 'txt-up' : 'txt-down'}">${sgnPct(pctChange(p, c), 1)}</td></tr>`;
             }).join('');
-            $('yoyTable').innerHTML = `<thead><tr><th>Tingkat</th><th class="num">${lbl(LAST - 12)}</th><th class="num">${lbl(LAST)}</th><th class="num">Kenaikan YoY</th><th class="num">%</th></tr></thead>
-                <tbody>${rows}<tr class="total-row"><td>Total</td><td class="num">${fmtM(prev)}</td><td class="num">${fmtM(cur)}</td><td class="num">${sgn(cur - prev, fmtM)}</td><td class="num">${sgn(pctChange(prev, cur), v => nf(v, 1))}%</td></tr></tbody>`;
+            $('yoyTable').innerHTML = `<thead><tr><th>Tier</th><th class="num">${lbl(LAST - 12)}</th><th class="num">${lbl(LAST)}</th><th class="num">Kenaikan YoY</th><th class="num">%</th></tr></thead>
+                <tbody>${rows}<tr class="total-row"><td>Total</td><td class="num">${fmtMoney(prev)}</td><td class="num">${fmtMoney(cur)}</td><td class="num">${sgn(cur - prev, fmtMoney)}</td><td class="num">${sgnPct(pctChange(prev, cur), 1)}</td></tr></tbody>`;
         }
 
         function renderYoyChart() {
@@ -1192,77 +1264,98 @@
             for (let m = 0; m < 12; m++) vals.push({ m, a: totalDana(m), b: (m + 12 <= LAST) ? totalDana(m + 12) : null });
             const max = Math.max(...vals.map(v => Math.max(v.a, v.b || 0)), 1);
             $('yoyChart').innerHTML = vals.map(v => {
-                const ha = (v.a / max) * H;
-                const hb = v.b === null ? 0 : (v.b / max) * H;
-                return `<div class="pd-col"><div class="pd-pair"><div class="pd-bar" style="height:${ha}px; background:#CBD5E1;" title="${nf(v.a / 1e9, 2)} M"></div><div class="pd-bar" style="height:${hb}px; background:#223769;" title="${v.b === null ? '-' : nf(v.b / 1e9, 2) + ' M'}"></div></div><div class="pd-lbl">${MONTHS[v.m]}</div></div>`;
+                const ha = (v.a / max) * H, hb = v.b === null ? 0 : (v.b / max) * H;
+                return `<div class="pd-col"><div class="pd-pair"><div class="pd-bar" style="height:${ha}px; background:#CBD5E1;" title="${rp(v.a)}"></div><div class="pd-bar" style="height:${hb}px; background:#223769;" title="${v.b === null ? '-' : rp(v.b)}"></div></div><div class="pd-lbl">${MONTHS[v.m]}</div></div>`;
             }).join('');
         }
 
-        // ================= 3. Dana nasabah vs subsidi loyalty =================
-        function renderSubsidy() {
-            const raw = parseFloat($('marginInput').value);
-            const margin = isNaN(raw) ? 0 : raw;
-            let totDana = 0, totSub = 0, totNet = 0;
-            const cards = TIERS.map(t => {
-                const c = t.members[LAST];
-                const d = dana(t, LAST);
-                const sub = c * t.cost;
-                const subY = sub * 12;
-                const inc = d * (margin / 100) / 12;
-                const net = inc - sub;
-                const ratio = d > 0 ? (subY / d) * 100 : 0;
-                totDana += d; totSub += sub; totNet += net;
-                const benefits = t.benefits.map(b => `<div class="kv-row"><span>${b[0]}</span><span>${fmtRp(b[1])}</span></div>`).join('');
-                return `
-                    <div class="fincard" style="border-left:4px solid ${t.color};">
-                        <div class="fincard-top"><div class="fincard-label"><span class="tier-chip ${t.key}">${t.name}</span></div><div class="fincard-sub">${nf(c)} member</div></div>
-                        <div class="kv-row"><span>Dana nasabah</span><span>${fmtM(d)}</span></div>
-                        <div class="kv-row"><span>Rata-rata dana / member</span><span>${fmtJt(d / c)}</span></div>
-                        <div class="kv-row"><span>Subsidi / member / bulan</span><span>${fmtRp(t.cost)}</span></div>
-                        <div class="kv-row"><span>Total subsidi / bulan</span><span>${fmtJt(sub)}</span></div>
-                        <div class="kv-row"><span>Subsidi setahun</span><span>${fmtM(subY)}</span></div>
-                        <div class="kv-row"><span>Subsidi thd dana (p.a.)</span><span>${nf(ratio, 2)}%</span></div>
-                        <div class="kv-row"><span>Est. pendapatan dana / bulan</span><span>${fmtJt(inc)}</span></div>
-                        <div class="kv-row"><span>Net / bulan</span><span class="${net >= 0 ? 'txt-up' : 'txt-down'}">${sgn(net, fmtJt)}</span></div>
-                        <details class="pd-details"><summary>Rincian subsidi per member / bulan</summary>${benefits}</details>
-                    </div>`;
-            }).join('');
+        // ================= 3. Relationship Fund vs Program Cost =================
+        function renderEconomics() {
+            const S = SCEN[scenario], rate = S.rate;
+            const rows = TIERS.map(t => {
+                const c = t.members[LAST], f = dana(t, LAST);
+                return { t, c, f, avg: c > 0 ? f / c : 0, cost: c * t.costYear };
+            });
+            const fund = rows.reduce((s, r) => s + r.f, 0);
+            const cost = rows.reduce((s, r) => s + r.cost, 0);
+            const cust = rows.reduce((s, r) => s + r.c, 0);
+            const gross = fund * rate, net = gross - cost;
 
-            let ytd = 0;
-            for (let i = START26; i <= LAST; i++) ytd += monthlySubsidy(i);
-            const remaining = 12 - (LAST - START26 + 1);
-            const proj = ytd + monthlySubsidy(LAST) * remaining;
+            $('econSummary').innerHTML = `<div class="sum-grid">
+                ${box('Relationship Fund', rp(fund), nf(cust) + ' customer')}
+                ${box('Program Cost', rp(cost), 'per tahun (benefit cost)')}
+                ${box('Gross Contribution', rp(gross), nf(rate * 100, 1) + '% assumed contribution')}
+                ${box('Net Contribution', rp(net), 'per tahun &middot; ' + S.label, net >= 0 ? 'txt-up' : 'txt-down')}
+            </div>`;
 
-            $('subSummary').innerHTML = `<div class="sum-grid">
-                ${box('Total Dana Nasabah', fmtM(totDana), nf(totalMembers(LAST)) + ' member')}
-                ${box('Subsidi / Bulan', fmtJt(totSub), fmtM(totSub * 12) + ' per tahun')}
-                ${box('Subsidi YTD 2026', fmtM(ytd), 'Jan - ' + MONTHS[LAST % 12] + ' 2026')}
-                ${box('Proyeksi Subsidi 2026', fmtM(proj), 'jika member tetap s/d Des')}
+            $('portfolioTable').innerHTML = `<thead><tr><th>Tier</th><th class="num"># Customers</th><th class="num">Avg. Fund</th><th class="num">Total Fund</th></tr></thead><tbody>` +
+                rows.map(r => `<tr><td class="strong"><span class="tier-chip ${r.t.key}">${r.t.name}</span></td><td class="num">${nf(r.c)}</td><td class="num">${fmtMoney(r.avg)}</td><td class="num">${fmtMoney(r.f)}</td></tr>`).join('') +
+                `<tr class="total-row"><td>Total</td><td class="num">${nf(cust)}</td><td class="num">-</td><td class="num">${fmtMoney(fund)}</td></tr></tbody>`;
+
+            $('costTable').innerHTML = `<thead><tr><th>Tier</th><th class="num">Cost / Customer</th><th class="num">Total Cost</th></tr></thead><tbody>` +
+                rows.map(r => `<tr><td class="strong"><span class="tier-chip ${r.t.key}">${r.t.name}</span></td><td class="num">${nf(r.t.costYear)}</td><td class="num">${fmtMoney(r.cost)}</td></tr>`).join('') +
+                `<tr class="total-row"><td>Total</td><td class="num">-</td><td class="num">${fmtMoney(cost)}</td></tr></tbody>`;
+
+            $('profitTable').innerHTML = `<thead><tr><th>Tier</th><th class="num">Kontribusi</th><th class="num">Biaya</th><th class="num">Net / Customer</th></tr></thead><tbody>` +
+                rows.map(r => { const contrib = r.avg * rate, n = contrib - r.t.costYear; return `<tr><td class="strong"><span class="tier-chip ${r.t.key}">${r.t.name}</span></td><td class="num">${fmtMoney(contrib)}</td><td class="num">${fmtMoney(r.t.costYear)}</td><td class="num ${n >= 0 ? 'txt-up' : 'txt-down'}">${rp(n)}</td></tr>`; }).join('') +
+                `</tbody>`;
+
+            const keys = Object.keys(SCEN);
+            const cell = (k, html) => `<td class="num ${k === scenario ? 'sel-col' : ''}">${html}</td>`;
+            $('scenTable').innerHTML = `<thead><tr><th>Scenario</th>${keys.map(k => `<th class="num ${k === scenario ? 'sel-col' : ''}">${SCEN[k].label}</th>`).join('')}</tr></thead><tbody>
+                <tr><td class="strong">Contribution Rate</td>${keys.map(k => cell(k, nf(SCEN[k].rate * 100, 1) + '%')).join('')}</tr>
+                <tr><td class="strong">Gross Contribution</td>${keys.map(k => cell(k, fmtMoney(fund * SCEN[k].rate))).join('')}</tr>
+                <tr><td class="strong">Program Cost</td>${keys.map(k => cell(k, fmtMoney(cost))).join('')}</tr>
+                <tr class="total-row"><td>Net Contribution</td>${keys.map(k => cell(k, fmtMoney(fund * SCEN[k].rate - cost))).join('')}</tr></tbody>`;
+            renderHeader();
+        }
+
+        window.setScenario = function (key, btn) {
+            scenario = key;
+            document.querySelectorAll('#scenToggle .fin-toggle-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderEconomics();
+            renderMembers();
+        };
+
+        // ================= Guardrail biaya =================
+        function renderGuardrail() {
+            const cust = totalMembers(LAST), cost = programCost(LAST);
+            const avg = cust > 0 ? cost / cust : 0;
+            const pct = (avg / CEILING) * 100;
+            const ok = avg <= CEILING;
+            $('guardSummary').innerHTML = `<div class="sum-grid" style="grid-template-columns:1fr 1fr;">
+                ${box('Max. Acquisition Cost (per NTB)', rp(CEILING), 'across all tiers')}
+                ${box('Avg. Relationship Cost (per customer)', rp(avg), nf(pct, 1) + '% dari plafon ' + rp(CEILING), ok ? 'txt-up' : 'txt-down')}
             </div>
-            <div class="sum-box" style="margin-bottom:12px;"><div class="lbl">Net setelah subsidi / bulan (margin ${nf(margin, 1)}% p.a.)</div><div class="val ${totNet >= 0 ? 'txt-up' : 'txt-down'}">${sgn(totNet, fmtJt)}</div></div>`;
-            $('subCards').innerHTML = cards;
+            <div class="fincard-track" style="margin:-2px 0 12px;"><div class="fincard-fill ${ok ? 'good' : 'bad'}" style="width:${Math.min(100, pct)}%;"></div></div>`;
+            $('guardTiers').innerHTML = TIERS.map(t => {
+                const good = t.costYear <= CEILING;
+                return `<div class="kv-row"><span><span class="tier-chip ${t.key}">${t.name}</span> &nbsp;${rp(t.costYear)} / customer / tahun</span><span>${nf((t.costYear / CEILING) * 100, 1)}% plafon &nbsp;<span class="tier-chip ${good ? 'ok' : 'bad'}">${good ? 'Aman' : 'Melebihi'}</span></span></div>`;
+            }).join('');
         }
 
         // ================= Daftar pendaftar terbaru =================
         const NAMES = ['Andrea Wijaya','Bima Prakoso','Clarissa Tan','Darius Halim','Elsa Marlina','Farhan Akbar','Gita Puspita','Hendra Kusuma','Irene Susanto','Jonathan Lie','Kirana Dewi','Laras Setiawan','Marcell Oei','Nadia Rahman','Oscar Hadiwinata','Putri Anjani','Rafael Gunadi','Sabrina Kho','Tommy Laksono','Ursula Tanoto','Vania Salim','William Chandra','Xena Pranoto','Yusuf Ramadhan','Zahra Alatas','Aldo Mahendra','Bella Santoso','Cakra Buana','Diana Hartono','Evan Sutanto'];
-        const PATTERN = [0, 0, 1, 0, 1, 0, 2, 0, 1, 0];
-        const RANGES = { silver: [25e6, 90e6], gold: [100e6, 300e6], platinum: [500e6, 1200e6] };
+        const PATTERN = [0, 0, 1, 0, 0, 1, 0, 2, 0, 1];
+        const RANGES = { silver: [50e6, 99e6], gold: [100e6, 900e6], platinum: [1e9, 3e9] };
         const MEMBERS = NAMES.map((name, i) => {
             const t = TIERS[PATTERN[i % PATTERN.length]];
             const r = RANGES[t.key];
-            const saldo = r[0] + (((i * 37) % 100) / 100) * (r[1] - r[0]);
+            const fund = r[0] + (((i * 37) % 100) / 100) * (r[1] - r[0]);
             const date = new Date(2026, 8, 27 - Math.floor(i * 1.5));
-            return { name, tier: t, saldo, date };
+            return { name, tier: t, fund, date };
         });
         let memberFilter = 'all';
 
         function renderMembers() {
+            const rate = SCEN[scenario].rate;
             const list = MEMBERS.filter(m => memberFilter === 'all' || m.tier.key === memberFilter);
             const shown = list.slice(0, 10);
             $('memberCountLabel').textContent = 'Menampilkan ' + shown.length + ' dari ' + list.length;
             $('memberBody').innerHTML = shown.length === 0
-                ? `<tr><td colspan="5"><div class="empty-state">Belum ada pendaftar.</div></td></tr>`
-                : shown.map(m => `<tr><td class="strong">${m.name}</td><td><span class="tier-chip ${m.tier.key}">${m.tier.name}</span></td><td>${m.date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })}</td><td class="num">${fmtJt(m.saldo)}</td><td class="num">${fmtRp(m.tier.cost)}</td></tr>`).join('');
+                ? `<tr><td colspan="6"><div class="empty-state">Belum ada pendaftar.</div></td></tr>`
+                : shown.map(m => { const n = m.fund * rate - m.tier.costYear; return `<tr><td class="strong">${m.name}</td><td><span class="tier-chip ${m.tier.key}">${m.tier.name}</span></td><td>${m.date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })}</td><td class="num">${fmtMoney(m.fund)}</td><td class="num">${fmtMoney(m.tier.costYear)}</td><td class="num ${n >= 0 ? 'txt-up' : 'txt-down'}">${fmtMoney(n)}</td></tr>`; }).join('');
         }
         window.setMemberFilter = function (key, btn) {
             memberFilter = key;
@@ -1274,11 +1367,9 @@
         // ================= Bootstrap =================
         document.addEventListener('DOMContentLoaded', () => {
             try { initMtd(); } catch (e) { console.error('initMtd failed:', e); }
-            [renderHeader, renderTiers, renderRegChart, renderMtdCompare, renderMtdSeries, renderYoy, renderYoyChart, renderSubsidy, renderMembers].forEach(fn => {
+            [renderHeader, renderTiers, renderRegChart, renderMtdCompare, renderMtdSeries, renderYoy, renderYoyChart, renderEconomics, renderGuardrail, renderMembers].forEach(fn => {
                 try { fn(); } catch (e) { console.error(fn.name + ' failed:', e); }
             });
-            const mi = $('marginInput');
-            if (mi) mi.addEventListener('input', () => { try { renderSubsidy(); } catch (e) { console.error(e); } });
         });
     </script>
 </body>
